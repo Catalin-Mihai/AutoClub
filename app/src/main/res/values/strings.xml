@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Auto Club</string>
+    <string name="profile_search">Find a car</string>
+    <string name="home">Home</string>
+    <string name="chat">Chat</string>
 </resources>

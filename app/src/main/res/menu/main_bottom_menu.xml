@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_headlines"
+        android:id="@+id/search_profile"
         android:title="@string/profile_search"
         android:icon="@drawable/profile_search_icon"
         />
 
     <item
-        android:id="@+id/navigation_all_news"
+        android:id="@+id/home"
         android:title="@string/home"
         android:icon="@drawable/home_icon"/>
 
     <item
-        android:id="@+id/navigation_bookmarks"
+        android:id="@+id/chat"
         android:title="@string/chat"
         android:icon="@drawable/chat_icon"/>
 </menu>

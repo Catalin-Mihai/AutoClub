@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "639700988209",
+    "firebase_url": "https://auto-club-8e7c5.firebaseio.com",
+    "project_id": "auto-club-8e7c5",
+    "storage_bucket": "auto-club-8e7c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639700988209:android:c1a1d68c9c6f741e244010",
+        "android_client_info": {
+          "package_name": "com.catasoft.autoclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639700988209-840c6mu9kjrhif78s84eo9h9nqe7pmr5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.catasoft.autoclub",
+            "certificate_hash": "5e50acb1ecd31267cb9bcbb3e13a321f21c3fa59"
+          }
+        },
+        {
+          "client_id": "639700988209-umk3j3a1o2ophg2do5c8gs5h5pvl3rkb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYc3MFJTStTqHTKXPrheP8E8PSiVbZcAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639700988209-umk3j3a1o2ophg2do5c8gs5h5pvl3rkb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,16 +2,20 @@ package com.catasoft.autoclub.ui.main.login
 
 import android.app.Activity
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.LoginFragmentBinding
+import com.catasoft.autoclub.model.User
+import com.catasoft.autoclub.repository.State
+import com.catasoft.autoclub.repository.remote.users.UsersRepository
 import com.catasoft.autoclub.ui.BaseFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -26,9 +30,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 
@@ -40,6 +45,44 @@ class LoginFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.e("MAIN2")
+
+        //Test
+        val usersRepository: UsersRepository = UsersRepository()
+
+        runBlocking {
+            CoroutineScope(Dispatchers.IO).launch {
+
+                usersRepository.getAllUsers().collect { state ->
+                    when(state){
+                        is State.Loading -> {
+                            Timber.e("LOADING GET1")
+                        }
+                        is State.Success -> {
+                            Timber.e("Date 1: ")
+                            Timber.e(state.data.toString())
+                        }
+                        is State.Failed -> Timber.e("Eroare GET1%s", state.message)
+                    }
+                }
+            }
+
+            CoroutineScope(Dispatchers.IO).launch {
+
+                usersRepository.getAllUsers2().collect { state ->
+                    when(state){
+                        is State.Loading -> {
+                            Timber.e("LOADING GET2")
+                        }
+                        is State.Success -> {
+                            Timber.e("Date 2: ")
+                            Timber.e(state.data.toString())
+                        }
+                        is State.Failed -> Timber.e("Eroare GET2%s", state.message)
+                    }
+                }
+            }
+        }
+
 
         firebaseAuth = Firebase.auth
 
@@ -58,13 +101,20 @@ class LoginFragment : BaseFragment() {
         binding = LoginFragmentBinding.inflate(layoutInflater)
         val rootView = binding.root
 
+        //lifecycle setters
+        binding.lifecycleOwner = this
+
+
         //Marire buton Sign In - WIDE
         binding.signInButton.setSize(SignInButton.SIZE_WIDE)
+
 
         // Varianta mai putin eleganta
         // Ar fi trebuit specificat in activity_login.xml sub forma de data binding
         // android:onClick="@{view -> viewModel.onSignInButtonClick(view)}"
         // insa nu merge (nu se genereaza clasa de binding)
+        // Poate fi vazuta si ca o practica buna pentru ca listenerul de click face
+        // parte tot din UI
         binding.signInButton.setOnClickListener {
             Timber.e("Click sign in button")
             launchSignInFlow()
@@ -72,10 +122,7 @@ class LoginFragment : BaseFragment() {
 
         return rootView
     }
-    private suspend fun firebaseAuthWithGoogle(idToken: String){
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        firebaseAuth.signInWithCredential(credential).await()
-    }
+
 
     private val startSignInForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->

@@ -9,7 +9,7 @@
         <b>Great!</b>\n\n
         Login with your Google account to connect with the other fellas
     </string>
-    <string name="login_success">You have been logged with your google account!</string>
+    <string name="login_success">Hello, %1$s! You have been logged in!</string>
     <string name="login_fail">Something went wrong with your google account!</string>
 
 </resources>

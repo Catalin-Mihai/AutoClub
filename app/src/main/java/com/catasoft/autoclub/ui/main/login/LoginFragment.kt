@@ -24,6 +24,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 
@@ -67,6 +72,10 @@ class LoginFragment : BaseFragment() {
 
         return rootView
     }
+    private suspend fun firebaseAuthWithGoogle(idToken: String){
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        firebaseAuth.signInWithCredential(credential).await()
+    }
 
     private val startSignInForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -77,7 +86,24 @@ class LoginFragment : BaseFragment() {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)
                     Timber.e("firebaseAuthWithGoogle:%s", account?.id)
-                    firebaseAuthWithGoogle(account?.idToken!!)
+                    val uiScope = CoroutineScope(Dispatchers.IO)
+                    val credential = GoogleAuthProvider.getCredential(account?.idToken!!, null)
+                    uiScope.launch {
+                        kotlin.runCatching {
+                            firebaseAuth.signInWithCredential(credential).await()
+                        }.onSuccess {
+                            // Sign in success, update UI with the signed-in user's information
+                            Timber.e("signInWithCredential:success")
+                            val user = firebaseAuth.currentUser
+                            updateUI(user)
+                        }.onFailure {
+                            // If sign in fails, display a message to the user.
+                            Timber.e("signInWithCredential:failure")
+                            Snackbar.make(binding.root, R.string.login_fail, Snackbar.LENGTH_SHORT)
+                                .show()
+                            updateUI(null)
+                        }
+                    }
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
                     Timber.e("Google sign in failed")
@@ -106,9 +132,14 @@ class LoginFragment : BaseFragment() {
     private fun updateUI(user: FirebaseUser?){
         val text: String =
             if(user != null)
-                "Hi, ${user.displayName}!\n" + resources.getString(R.string.login_success)
+                String.format(resources.getString(R.string.login_success), user.displayName)
             else
                 resources.getString(R.string.login_fail)
+
+        //Disable google login button to not be used again if user logged successfully
+        // and while Snackbar is displayed
+        if(user != null)
+            binding.signInButton.isClickable = false
 
         val snackbar = Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT)
             .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
@@ -119,7 +150,7 @@ class LoginFragment : BaseFragment() {
         snackbar.show()
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String) {
+    /*private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
@@ -136,9 +167,10 @@ class LoginFragment : BaseFragment() {
                     updateUI(null)
                 }
             }
-    }
+    }*/
 
-    fun launchSignInFlow() {
+
+    private fun launchSignInFlow() {
         Timber.e("Clientid: %s", resources.getString(R.string.default_web_client_id))
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(resources.getString(R.string.default_web_client_id))

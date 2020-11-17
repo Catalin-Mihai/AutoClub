@@ -4,10 +4,15 @@
 
 `To be added`
 
+## Guidlines
+
+- Use Material design implementation
+- Use string.xml resources as much as possible
+- Kotlin best practices
+
 ## Done
 
 - A main activity when opening the app that routes the user to the login activity or to the normal activity
-- Use Material design implementation
 - Material design color palette
 - Use AndroidX components when posible
 - Firebase dependencies + register app

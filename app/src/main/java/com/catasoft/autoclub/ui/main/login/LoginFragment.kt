@@ -8,49 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.LoginFragmentBinding
-import com.catasoft.autoclub.model.User
-import com.catasoft.autoclub.repository.State
-import com.catasoft.autoclub.repository.remote.users.UsersRepository
 import com.catasoft.autoclub.ui.BaseFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
-import com.google.android.gms.common.api.ApiException
-import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.tasks.await
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class LoginFragment : BaseFragment() {
 
     private lateinit var binding: LoginFragmentBinding
-    private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var viewModel: ViewModel
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.e("MAIN2")
-
-        firebaseAuth = Firebase.auth
-
-        //TODO: Adaugare ViewModel pentru call-urile la repository
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -77,123 +53,48 @@ class LoginFragment : BaseFragment() {
         // parte tot din UI
         binding.signInButton.setOnClickListener {
             Timber.e("Click sign in button")
+            //Disable google login button to not be used again if user logged successfully
+            // and while Snackbar is displayed
+            binding.signInButton.isClickable = false
             launchSignInFlow()
         }
 
+        viewModel.accountState.observe(viewLifecycleOwner, {
+            when(it){
+                is AccountState.Registered -> {
+                    val returnIntent = Intent()
+                    Timber.e("Sent firebaseid: %s", it.user?.uid)
+                    returnIntent.putExtra("firebase_account", it.user?.uid)
+                    activity?.setResult(Activity.RESULT_OK, returnIntent)
+                    activity?.finish()
+                    showSuccessfulLogin()
+                }
+                is AccountState.FetchError -> {
+                    showFailedLogin()
+                    Timber.e("Login failed")
+                }
+                is AccountState.NotRegistered -> {
+
+                }
+            }
+        })
+
         return rootView
     }
-
 
     private val startSignInForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             Timber.e("%s %s ", result.data.toString(), result.resultCode.toString())
             if (result.resultCode == Activity.RESULT_OK) {
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                try {
-                    // Google Sign In was successful, authenticate with Firebase
-                    val account = task.getResult(ApiException::class.java)
-                    Timber.e("firebaseAuthWithGoogle:%s", account?.id)
-                    val uiScope = CoroutineScope(Dispatchers.IO)
-                    val credential = GoogleAuthProvider.getCredential(account?.idToken!!, null)
-                    uiScope.launch {
-                        kotlin.runCatching {
-                            firebaseAuth.signInWithCredential(credential).await()
-                        }.onSuccess {
-                            // Sign in success, update UI with the signed-in user's information
-                            Timber.e("signInWithCredential:success")
-                            val user = firebaseAuth.currentUser
-                            updateUI(user)
-                        }.onFailure {
-                            // If sign in fails, display a message to the user.
-                            Timber.e("signInWithCredential:failure")
-                            Snackbar.make(binding.root, R.string.login_fail, Snackbar.LENGTH_SHORT)
-                                .show()
-                            updateUI(null)
-                        }
-                    }
-                } catch (e: ApiException) {
-                    // Google Sign In failed, update UI appropriately
-                    Timber.e("Google sign in failed")
-                    // ...
-                }
+                viewModel.signInWithGoogle(result.data)
             }
         }
 
-    private fun loginSnackbarDismissed(){
-        //TODO: Daca user-ul nu este inregistrat, porneste procesul de inregistrare
-        if(firebaseAuth.currentUser != null){
+    private fun showFailedLogin() =
+        Snackbar.make(binding.root, resources.getString(R.string.login_fail), Snackbar.LENGTH_SHORT).show()
 
-            val usersRepository = UsersRepository()
-
-            CoroutineScope(Dispatchers.IO).launch {
-                usersRepository.getAllUsers().collect { state ->
-                    when(state){
-                        is State.Loading -> {
-                            Timber.e("Loading...")
-                        }
-                        is State.Success -> {
-                            Timber.e("Date: ")
-                            Timber.e(state.data.toString())
-                        }
-                        is State.Failed -> {
-                            Timber.e("Eroare GET1%s", state.message)
-                        }
-                    }
-                }
-            }
-
-            //Verifica daca e cont nou
-
-            //Altfel...
-            //Revenire la activitatea de baza
-            val returnIntent = Intent()
-            Timber.e("Sent firebaseid: %s", firebaseAuth.uid)
-            returnIntent.putExtra("firebase_account", firebaseAuth.uid)
-            activity?.setResult(Activity.RESULT_OK, returnIntent)
-            activity?.finish()
-        }
-        val navController = findNavController()
-    }
-
-    private fun updateUI(user: FirebaseUser?){
-        val text: String =
-            if(user != null)
-                String.format(resources.getString(R.string.login_success), user.displayName)
-            else
-                resources.getString(R.string.login_fail)
-
-        //Disable google login button to not be used again if user logged successfully
-        // and while Snackbar is displayed
-        if(user != null)
-            binding.signInButton.isClickable = false
-
-        val snackbar = Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT)
-            .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                    loginSnackbarDismissed()
-                }
-            })
-        snackbar.show()
-    }
-
-    /*private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Timber.e("signInWithCredential:success")
-                    val user = firebaseAuth.currentUser
-                    updateUI(user)
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Timber.e("signInWithCredential:failure")
-                    Snackbar.make(binding.root, R.string.login_fail, Snackbar.LENGTH_SHORT)
-                        .show()
-                    updateUI(null)
-                }
-            }
-    }*/
+    private fun showSuccessfulLogin() =
+        Snackbar.make(binding.root, resources.getString(R.string.login_success), Snackbar.LENGTH_SHORT).show()
 
 
     private fun launchSignInFlow() {

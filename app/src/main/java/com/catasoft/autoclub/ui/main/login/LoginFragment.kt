@@ -41,56 +41,16 @@ class LoginFragment : BaseFragment() {
 
     private lateinit var binding: LoginFragmentBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var viewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.e("MAIN2")
 
-        //Test
-        val usersRepository: UsersRepository = UsersRepository()
-
-        runBlocking {
-            CoroutineScope(Dispatchers.IO).launch {
-
-                usersRepository.getAllUsers().collect { state ->
-                    when(state){
-                        is State.Loading -> {
-                            Timber.e("LOADING GET1")
-                        }
-                        is State.Success -> {
-                            Timber.e("Date 1: ")
-                            Timber.e(state.data.toString())
-                        }
-                        is State.Failed -> Timber.e("Eroare GET1%s", state.message)
-                    }
-                }
-            }
-
-            CoroutineScope(Dispatchers.IO).launch {
-
-                usersRepository.getAllUsers2().collect { state ->
-                    when(state){
-                        is State.Loading -> {
-                            Timber.e("LOADING GET2")
-                        }
-                        is State.Success -> {
-                            Timber.e("Date 2: ")
-                            Timber.e(state.data.toString())
-                        }
-                        is State.Failed -> Timber.e("Eroare GET2%s", state.message)
-                    }
-                }
-            }
-        }
-
-
         firebaseAuth = Firebase.auth
 
-        // Inflate the view, setup the binding and set it on the activity
-
-
-        //TODO: Nu este nevoie de viewmodel si alte chestii
-        // se face doar conectarea si atat
+        //TODO: Adaugare ViewModel pentru call-urile la repository
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -162,6 +122,25 @@ class LoginFragment : BaseFragment() {
     private fun loginSnackbarDismissed(){
         //TODO: Daca user-ul nu este inregistrat, porneste procesul de inregistrare
         if(firebaseAuth.currentUser != null){
+
+            val usersRepository = UsersRepository()
+
+            CoroutineScope(Dispatchers.IO).launch {
+                usersRepository.getAllUsers().collect { state ->
+                    when(state){
+                        is State.Loading -> {
+                            Timber.e("Loading...")
+                        }
+                        is State.Success -> {
+                            Timber.e("Date: ")
+                            Timber.e(state.data.toString())
+                        }
+                        is State.Failed -> {
+                            Timber.e("Eroare GET1%s", state.message)
+                        }
+                    }
+                }
+            }
 
             //Verifica daca e cont nou
 

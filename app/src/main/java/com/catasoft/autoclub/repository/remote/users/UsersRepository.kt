@@ -17,22 +17,7 @@ class UsersRepository {
     private val mUsersCollection =
         FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS);
 
-    fun getAllUsers() = flow<State<List<User>>> {
-
-        //Loading state
-        emit(State.loading())
-
-        val snapshot = mUsersCollection.get().await()
-        val users = snapshot.toObjects(User::class.java)
-
-        //Success state
-        emit(State.success(users))
-    }.catch {
-        //Fail
-        emit(State.failed(it.message.toString()))
-    }.flowOn(Dispatchers.IO) //another thread (not the main UI thread)
-
-    fun getAllUsers2() = BaseRepository.dbCall<List<User>> {
+    fun getAllUsers() = BaseRepository.dbCall<List<User>> {
         suspend {
             val snapshot = mUsersCollection.get().await()
             val users = snapshot.toObjects(User::class.java)
@@ -48,7 +33,13 @@ class UsersRepository {
         emit(State.success(userRef))
     }
 
-/*    fun getUserByUid(uid: String){
-        emit(State.loading<>())
-    }*/
+    fun getUserByUid(uid: String) = BaseRepository.dbCall<User?> {
+        suspend {
+            var user:User? = null
+            val snapshot = mUsersCollection.whereEqualTo("userUid", uid).limit(1).get().await()
+            if(snapshot.size() == 1)
+                user = snapshot.documents[0].toObject(User::class.java)
+            user
+        }
+    }
 }

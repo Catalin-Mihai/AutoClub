@@ -25,10 +25,6 @@ class LoginFragment : BaseFragment() {
     private lateinit var binding: LoginFragmentBinding
     private val viewModel: LoginViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,7 +63,7 @@ class LoginFragment : BaseFragment() {
                     returnIntent.putExtra("firebase_account", it.user?.uid)
                     activity?.setResult(Activity.RESULT_OK, returnIntent)
                     activity?.finish()
-                    showSuccessfulLogin()
+//                    showSuccessfulLogin()
                 }
                 is AccountState.FetchError -> {
                     showFailedLogin()

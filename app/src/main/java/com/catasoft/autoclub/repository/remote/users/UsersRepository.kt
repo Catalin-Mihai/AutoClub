@@ -6,23 +6,19 @@ import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 
-class UsersRepository {
+class UsersRepository : BaseRepository() {
 
     private val mUsersCollection =
         FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS);
 
-    fun getAllUsers() = BaseRepository.dbCall<List<User>> {
-        suspend {
-            val snapshot = mUsersCollection.get().await()
-            val users = snapshot.toObjects(User::class.java)
-            users
-        }
+    suspend fun getAllUsers(): List<User>? {
+        val snapshot = mUsersCollection.get().await()
+        return if (!snapshot.isEmpty) snapshot.toObjects() else null
     }
 
     fun addUser(user: User) = flow<State<DocumentReference>> {
@@ -33,13 +29,14 @@ class UsersRepository {
         emit(State.success(userRef))
     }
 
-    fun getUserByUid(uid: String) = BaseRepository.dbCall<User?> {
-        suspend {
-            var user:User? = null
-            val snapshot = mUsersCollection.whereEqualTo("userUid", uid).limit(1).get().await()
-            if(snapshot.size() == 1)
-                user = snapshot.documents[0].toObject(User::class.java)
-            user
-        }
+    suspend fun getUserByUid(uid: String): User? {
+        val user: User
+        val snapshot = mUsersCollection.whereEqualTo("userUid", uid).limit(1).get().await()
+
+        if (snapshot.isEmpty)
+            return null
+
+        user = snapshot.first().toObject()
+        return user
     }
 }

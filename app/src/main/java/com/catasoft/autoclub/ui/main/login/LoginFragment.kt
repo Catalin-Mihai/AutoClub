@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.LoginFragmentBinding
 import com.catasoft.autoclub.ui.BaseFragment
@@ -19,7 +20,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-@AndroidEntryPoint
 class LoginFragment : BaseFragment() {
 
     private lateinit var binding: LoginFragmentBinding
@@ -70,7 +70,9 @@ class LoginFragment : BaseFragment() {
                     Timber.e("Login failed")
                 }
                 is AccountState.NotRegistered -> {
-
+                    Timber.e("INCEPE PROCESUL DE AUTENTIFICARE")
+                    val navController = findNavController()
+                    navController.navigate(R.id.action_loginFragment_to_registerFragment2)
                 }
             }
         })

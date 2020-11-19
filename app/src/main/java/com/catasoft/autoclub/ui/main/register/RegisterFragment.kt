@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.ui.register
+package com.catasoft.autoclub.ui.main.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,5 +19,6 @@ class RegisterFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
 }

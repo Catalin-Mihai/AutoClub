@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.catasoft.autoclub.databinding.ProfileFragmentBinding
 import com.catasoft.autoclub.ui.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 class ProfileFragment: BaseFragment(){
 

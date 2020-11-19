@@ -10,8 +10,9 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class UsersRepository : BaseRepository() {
+class UsersRepository @Inject constructor() : BaseRepository() {
 
     private val mUsersCollection =
         FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS);

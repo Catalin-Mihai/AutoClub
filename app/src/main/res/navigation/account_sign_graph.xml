@@ -12,6 +12,6 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
-        android:name="com.catasoft.autoclub.ui.register.RegisterFragment"
+        android:name="com.catasoft.autoclub.ui.main.register.RegisterFragment"
         android:label="RegisterFragment" />
 </navigation>

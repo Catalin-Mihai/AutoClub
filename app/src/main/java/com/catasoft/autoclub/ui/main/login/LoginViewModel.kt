@@ -1,6 +1,7 @@
 package com.catasoft.autoclub.ui.main.login
 
 import android.content.Intent
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,9 +19,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
-
-
-class LoginViewModel : ViewModel(){
+class LoginViewModel @ViewModelInject constructor(
+    private val usersRepository: UsersRepository
+): ViewModel(){
 
     private var firebaseAuth: FirebaseAuth = Firebase.auth
     val accountState: MutableLiveData<AccountState> = MutableLiveData()
@@ -50,10 +51,9 @@ class LoginViewModel : ViewModel(){
 
     private fun handlePostLogin(user: FirebaseUser?) {
         if(user == null) {
-            accountState.postValue(AccountState.FetchError(null))
+            accountState.postValue(AccountState.FetchError)
             return
         }
-        val usersRepository = UsersRepository()
         viewModelScope.launch {
             BaseRepository.singleResultAsStateFlow {
                 usersRepository.getUserByUid(user.uid)
@@ -66,11 +66,14 @@ class LoginViewModel : ViewModel(){
                     is State.Success -> {
                         Timber.e("Date: ")
                         Timber.e(state.data.toString())
-                        accountState.postValue(AccountState.Registered(user))
+                        if(state.data == null)
+                            accountState.postValue(AccountState.NotRegistered)
+                        else
+                            accountState.postValue(AccountState.Registered(user))
                     }
                     is State.Failed -> {
                         Timber.e("Eroare GET1%s", state.message)
-                        accountState.postValue(AccountState.FetchError(null))
+                        accountState.postValue(AccountState.FetchError)
                     }
                 }
             }

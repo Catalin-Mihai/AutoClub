@@ -2,8 +2,8 @@ package com.catasoft.autoclub.ui.main.login
 
 import com.google.firebase.auth.FirebaseUser
 
-sealed class AccountState(val user: FirebaseUser?) {
-    data class Registered(val u: FirebaseUser?) : AccountState(u)
-    data class NotRegistered(val u: FirebaseUser?) : AccountState(u)
-    data class FetchError(val u: FirebaseUser?) : AccountState(u)
+sealed class AccountState {
+    data class Registered(val user: FirebaseUser?) : AccountState()
+    object NotRegistered : AccountState()
+    object FetchError : AccountState()
 }

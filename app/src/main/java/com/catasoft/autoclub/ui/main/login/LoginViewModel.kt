@@ -1,7 +1,6 @@
 package com.catasoft.autoclub.ui.main.login
 
 import android.content.Intent
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,12 +13,18 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
+import javax.inject.Inject
 
-class LoginViewModel @ViewModelInject constructor(
+@HiltViewModel
+class LoginViewModel
+
+@Inject
+constructor(
     private val usersRepository: UsersRepository
 ): ViewModel(){
 

@@ -17,9 +17,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_thin"
             android:text="@string/register_profile_headline"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline2"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,11 +31,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:letterSpacing="0.05"
             android:text="@string/register_profile_text_1"
-            android:textSize="24sp"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,12 +45,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/roboto"
+            android:layout_marginBottom="32dp"
             android:gravity="center"
-            android:letterSpacing="0.05"
             android:text="@string/register_profile_text_2"
-            android:textSize="24sp"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
             app:layout_constraintBottom_toTopOf="@+id/nextButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -65,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="@string/button_next"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -78,8 +74,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:layout_constraintVertical_bias="0.32">
+            app:layout_constraintTop_toBottomOf="@+id/textView8">
 
             <EditText
                 android:id="@+id/editTextTextPersonName"
@@ -89,7 +84,8 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="@string/register_profile_name_hint"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

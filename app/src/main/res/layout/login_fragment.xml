@@ -8,12 +8,10 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_thin"
             android:text="@string/login_welcome_title"
-            android:textSize="44sp"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline2"
             app:layout_constraintBottom_toTopOf="@+id/textView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -23,9 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:fontFamily="@font/roboto_thin"
             android:text="@string/app_name"
-            android:textSize="40sp"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline2"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -36,11 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:letterSpacing="0.05"
             android:text="@string/login_welcome_message"
-            android:textSize="24sp"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -52,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.32" />
+            app:layout_constraintGuide_percent="0.35" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"

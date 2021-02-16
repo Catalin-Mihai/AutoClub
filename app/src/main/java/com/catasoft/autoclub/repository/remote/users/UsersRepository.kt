@@ -1,36 +1,60 @@
-package com.catasoft.autoclub.repository.remote.users;
+package com.catasoft.autoclub.repository.remote.users
 
-import com.catasoft.autoclub.repository.State
 import com.catasoft.autoclub.model.User
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class UsersRepository @Inject constructor() : BaseRepository() {
+interface IUsersRepository {
+
+    suspend fun getUserByUid(uid: String): User?
+    suspend fun getAllUsers(): List<User>?
+    suspend fun addUser(user: User): DocumentReference
+}
+
+class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() {
 
     private val mUsersCollection =
-        FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS);
+        FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
 
-    suspend fun getAllUsers(): List<User>? {
+    override suspend fun getAllUsers(): List<User>? {
         val snapshot = mUsersCollection.get().await()
         return if (!snapshot.isEmpty) snapshot.toObjects() else null
     }
 
-    fun addUser(user: User) = flow<State<DocumentReference>> {
-        emit(State.loading())
+    override suspend fun addUser(user: User): DocumentReference {
+        val docRef = mUsersCollection.add(user).await()
 
-        val userRef = mUsersCollection.add(user).await()
+/**
+ * NOT DESIRED
+        Add the uid of the document reference to the uid user model field (Might be useful for querying)
 
-        emit(State.success(userRef))
+        docRef.update(
+            Constants.USERS_UID, docRef.id
+        )
+**/
+
+        //Add the auth id of the user to the uid user model field (Useful for querying)
+        val currentAuthUser = FirebaseAuth.getInstance().currentUser
+            ?: throw Exception("User is not logged. Cannot get the authId when registering account")
+
+        //User might be null (using this method when user is not logged with google)
+        //Throw an exception for this
+
+        docRef.update(
+            Constants.USERS_UID, currentAuthUser.uid
+        )
+
+        return docRef
     }
 
-    suspend fun getUserByUid(uid: String): User? {
+    override suspend fun getUserByUid(uid: String): User? {
         val user: User
         val snapshot = mUsersCollection.whereEqualTo("userUid", uid).limit(1).get().await()
 

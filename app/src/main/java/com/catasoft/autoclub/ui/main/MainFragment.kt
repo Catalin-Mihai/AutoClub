@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.ui.main;
+package com.catasoft.autoclub.ui.main
 
 import android.os.Bundle
 import android.view.*
@@ -10,8 +10,10 @@ import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.MainFragmentBinding
 import com.catasoft.autoclub.ui.BaseFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment() {
 
     private lateinit var binding: MainFragmentBinding
@@ -20,7 +22,7 @@ class MainFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = MainFragmentBinding.inflate(inflater)
         Timber.e("Main Fragment is inflating...")
         return binding.root

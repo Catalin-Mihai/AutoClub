@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Auto Club</string>
-    <string name="profile_search">Find a car</string>
-    <string name="home">Home</string>
+    <string name="profile_search">Gaseste o masina</string>
+    <string name="home">Acasa</string>
     <string name="chat">Chat</string>
-    <string name="login_welcome_title">Welcome to </string>
-    <string name="login_welcome_message">It seems that you are a car enthusiast\n\n
-        <b>Great!</b>\n\n
-        Login with your Google account to connect with the other fellas
+
+
+    <string name="button_next">Urmatorul</string>
+    <string name="button_finish">Finalizeaza</string>
+
+
+    <string name="login_welcome_title">Bine ai venit la</string>
+    <string name="login_welcome_message">Esti pe cale sa descoperi toti proprietarii de masini din Romania\n\n
+        <b>Dar...</b>\n\n
+        Avem nevoie de contul tau Google pentru a incepe
     </string>
-    <string name="login_success">Hello, %1$s! You have been logged in!</string>
-    <string name="login_fail">Something went wrong with your google account!</string>
+    <string name="login_success">Salut, %1$s! Tocmai te-ai conectat!</string>
+    <string name="login_fail">Hopa! Ceva nu a mers bine la conectarea in cont</string>
+
+
+    <string name="register_car_headline">Masina mea</string>
+    <string name="register_car_text_1">Sa incepem cu numarul tau de inmatriculare</string>
+    <string name="register_car_text_2">Eg: AG08BAW</string>
+    <string name="register_car_license_hint">AG08BAW</string>
+    <string name="register_car_invalid_license">Numar de inmatriculare invalid</string>
+
+
+    <string name="register_profile_headline">Profilul meu</string>
+    <string name="register_profile_text_1">Ajuta celelalte persoane sa te identifice specificand datele tale de contact</string>
+    <string name="register_profile_name">Numele tau</string>
+    <string name="register_profile_name_hint">Introdu numele…</string>
+    <string name="register_profile_text_2">Mai tarziu vei putea adauga si profilul tau de pe celelalte retele de socializare.</string>
+    <string name="register_profile_invalid_name">Numele trebuie sa contina intre %1$d si %2$d caractere</string>
+
+
+    <string name="register_finish_headline">Gata</string>
+    <string name="register_finish_text_1">Asa arata noua ta identitate</string>
+    <string name="register_finish_text_2">Drumuri bune, colegu\'!</string>
+    <string name="register_finish_icon_profile_content_description">profile icon</string>
+    <string name="register_finish_icon_car_content_description">car plate icon</string>
+    <string name="register_finish_button">Am inteles</string>
+
+    <string name="register_fail_registration">Inregistrarea contului nu a reusit! Va rugam sa incercati din nou!</string>
 
 </resources>

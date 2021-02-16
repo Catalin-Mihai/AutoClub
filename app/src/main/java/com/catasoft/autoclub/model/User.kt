@@ -1,6 +1,9 @@
 package com.catasoft.autoclub.model
 
+import java.io.Serializable
+
 data class User(
-    val userUid: String? = null,
-    val numberPlate: String? = null
-)
+    var uid: String? = null,
+    var numberPlate: String? = null,
+    var name : String? = null
+): Serializable

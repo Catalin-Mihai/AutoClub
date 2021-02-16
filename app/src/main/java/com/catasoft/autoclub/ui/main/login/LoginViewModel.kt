@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.State
-import com.catasoft.autoclub.repository.remote.users.UsersRepository
+import com.catasoft.autoclub.repository.remote.users.IUsersRepository
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -25,11 +25,11 @@ class LoginViewModel
 
 @Inject
 constructor(
-    private val usersRepository: UsersRepository
+    private val usersRepository: IUsersRepository
 ): ViewModel(){
 
     private var firebaseAuth: FirebaseAuth = Firebase.auth
-    val accountState: MutableLiveData<AccountState> = MutableLiveData()
+    val loginState: MutableLiveData<LoginState> = MutableLiveData()
 
     fun signInWithGoogle(resultData: Intent?) {
         viewModelScope.launch { //Lansat in Main Thread
@@ -56,7 +56,7 @@ constructor(
 
     private fun handlePostLogin(user: FirebaseUser?) {
         if(user == null) {
-            accountState.postValue(AccountState.FetchError)
+            loginState.postValue(LoginState.FetchError)
             return
         }
         viewModelScope.launch {
@@ -72,13 +72,13 @@ constructor(
                         Timber.e("Date: ")
                         Timber.e(state.data.toString())
                         if(state.data == null)
-                            accountState.postValue(AccountState.NotRegistered)
+                            loginState.postValue(LoginState.NotRegistered)
                         else
-                            accountState.postValue(AccountState.Registered(user))
+                            loginState.postValue(LoginState.Registered(user))
                     }
                     is State.Failed -> {
                         Timber.e("Eroare GET1%s", state.message)
-                        accountState.postValue(AccountState.FetchError)
+                        loginState.postValue(LoginState.FetchError)
                     }
                 }
             }

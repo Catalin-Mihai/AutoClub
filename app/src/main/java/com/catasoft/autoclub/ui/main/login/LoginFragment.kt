@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.catasoft.autoclub.MainActivity
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.LoginFragmentBinding
 import com.catasoft.autoclub.ui.BaseFragment
@@ -20,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment() {
 
     private lateinit var binding: LoginFragmentBinding
@@ -28,7 +30,7 @@ class LoginFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = LoginFragmentBinding.inflate(layoutInflater)
         val rootView = binding.root
@@ -55,21 +57,21 @@ class LoginFragment : BaseFragment() {
             launchSignInFlow()
         }
 
-        viewModel.accountState.observe(viewLifecycleOwner, {
+        viewModel.loginState.observe(viewLifecycleOwner, {
             when(it){
-                is AccountState.Registered -> {
+                is LoginState.Registered -> {
                     val returnIntent = Intent()
                     Timber.e("Sent firebaseid: %s", it.user?.uid)
                     returnIntent.putExtra("firebase_account", it.user?.uid)
-                    activity?.setResult(Activity.RESULT_OK, returnIntent)
+                    activity?.setResult(MainActivity.RESULT_LOGIN_OK, returnIntent)
                     activity?.finish()
 //                    showSuccessfulLogin()
                 }
-                is AccountState.FetchError -> {
+                is LoginState.FetchError -> {
                     showFailedLogin()
                     Timber.e("Login failed")
                 }
-                is AccountState.NotRegistered -> {
+                is LoginState.NotRegistered -> {
                     Timber.e("INCEPE PROCESUL DE AUTENTIFICARE")
                     val navController = findNavController()
                     navController.navigate(R.id.action_loginFragment_to_registerFragment2)
@@ -108,5 +110,4 @@ class LoginFragment : BaseFragment() {
         Timber.e(signInIntent.toString())
         startSignInForResult.launch(signInIntent)
     }
-
 }

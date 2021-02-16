@@ -16,12 +16,16 @@ class MainActivity : AppCompatActivity() {
 
     private val startForLoginResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
+            if (it.resultCode == RESULT_LOGIN_OK) {
                 setContentView(R.layout.activity_main)
                 Timber.e("Intent data: %s", it.data)
                 val intent = it.data
                 val firebaseId = intent?.getStringExtra("firebase_id")
                 Timber.e("Firebase_id: $firebaseId")
+            }
+            else if(it.resultCode == RESULT_REGISTER_OK)
+            {
+
             }
         }
 
@@ -38,5 +42,10 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         Timber.e("Se continua executia din MainActivity")
+    }
+
+    companion object {
+        const val RESULT_LOGIN_OK = 1
+        const val RESULT_REGISTER_OK = 2
     }
 }

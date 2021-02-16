@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.catasoft.autoclub.databinding.ProfileFragmentBinding
 import com.catasoft.autoclub.ui.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
 
 class ProfileFragment: BaseFragment(){
 
@@ -16,7 +15,7 @@ class ProfileFragment: BaseFragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ProfileFragmentBinding.inflate(inflater)
         return binding.root
     }

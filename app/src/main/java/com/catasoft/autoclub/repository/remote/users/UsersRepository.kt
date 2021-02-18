@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import javax.inject.Inject
 
 interface IUsersRepository {
@@ -16,12 +17,11 @@ interface IUsersRepository {
     suspend fun getUserByUid(uid: String): User?
     suspend fun getAllUsers(): List<User>?
     suspend fun addUser(user: User): DocumentReference
+    suspend fun getUserByNumberPlate(numberPlate: String): User?
+
 }
 
 class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() {
-
-    private val mUsersCollection =
-        FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
 
     override suspend fun getAllUsers(): List<User>? {
         val snapshot = mUsersCollection.get().await()
@@ -55,13 +55,21 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
     }
 
     override suspend fun getUserByUid(uid: String): User? {
-        val user: User
-        val snapshot = mUsersCollection.whereEqualTo("userUid", uid).limit(1).get().await()
+        val snapshot = mUsersCollection.whereEqualTo(Constants.USERS_UID, uid).limit(1).get().await()
 
         if (snapshot.isEmpty)
             return null
 
-        user = snapshot.first().toObject()
-        return user
+        return snapshot.first().toObject()
+    }
+
+    override suspend fun getUserByNumberPlate(numberPlate: String): User? {
+        val users = mUsersCollection.whereEqualTo(Constants.USERS_NUMBER_PLATE, numberPlate).limit(1)
+        val snapshot = users.get().await()
+
+        if(snapshot.isEmpty)
+            return null
+
+        return snapshot.first().toObject()
     }
 }

@@ -49,8 +49,8 @@ class RegisterFinishFragment : Fragment() {
         binding.btnFinish.setOnClickListener{
 //            val returnIntent = Intent()
 //            returnIntent.
-//            activity?.setResult(MainActivity.RESULT_REGISTER_OK, returnIntent)
-//            activity?.finish()
+            activity?.setResult(MainActivity.RESULT_REGISTER_OK)
+            activity?.finish()
 
             Timber.e("OKKKK!!!")
         }

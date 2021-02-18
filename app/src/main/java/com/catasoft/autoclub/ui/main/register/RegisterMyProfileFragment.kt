@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentRegisterMyProfileBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -85,7 +86,7 @@ class RegisterMyProfileFragment : Fragment() {
                     navController.navigate(action)
                 }
                 is RegisterState.Failed -> {
-                    Toast.makeText(context, resources.getText(R.string.register_fail_registration), Toast.LENGTH_LONG).show()
+                    Snackbar.make(binding.root, resources.getText(R.string.register_fail_registration), Snackbar.LENGTH_LONG).show()
                 }
             }
         })

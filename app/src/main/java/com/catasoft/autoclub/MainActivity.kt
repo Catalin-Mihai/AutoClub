@@ -1,47 +1,63 @@
 package com.catasoft.autoclub
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.activity.result.contract.ActivityResultContracts
+import com.catasoft.autoclub.databinding.ActivityMainBinding
+import com.catasoft.autoclub.databinding.LoginFragmentBinding
 import com.catasoft.autoclub.ui.main.accountsign.AccountSignActivity
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
+
     private val login = true
 
     private val startForLoginResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_LOGIN_OK) {
-                setContentView(R.layout.activity_main)
-                Timber.e("Intent data: %s", it.data)
-                val intent = it.data
-                val firebaseId = intent?.getStringExtra("firebase_id")
-                Timber.e("Firebase_id: $firebaseId")
-            }
-            else if(it.resultCode == RESULT_REGISTER_OK)
-            {
+            when(it.resultCode){
+                RESULT_REGISTER_OK -> {
+                    Snackbar.make(binding.root, resources.getText(R.string.register_success_registration), Snackbar.LENGTH_LONG).show()
 
+                }
+
+                RESULT_LOGIN_OK -> {
+                    Snackbar.make(binding.root, resources.getString(R.string.login_success), Snackbar.LENGTH_LONG).show()
+                }
             }
         }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.e("TIMBER TEST!")
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val rootView = binding.root
+
+        setContentView(rootView)
+
+        //lifecycle setters
+        binding.lifecycleOwner = this
+
+
         if(login){
             val intent = Intent(this, AccountSignActivity::class.java)
             Timber.e(intent.toString())
             startForLoginResult.launch(intent)
         }
-//        else {
-//            setContentView(R.layout.activity_main)
-//        }
 
-        Timber.e("Se continua executia din MainActivity")
     }
 
     companion object {

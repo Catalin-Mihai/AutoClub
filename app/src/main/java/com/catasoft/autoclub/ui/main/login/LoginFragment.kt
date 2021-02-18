@@ -60,10 +60,10 @@ class LoginFragment : BaseFragment() {
         viewModel.loginState.observe(viewLifecycleOwner, {
             when(it){
                 is LoginState.Registered -> {
-                    val returnIntent = Intent()
-                    Timber.e("Sent firebaseid: %s", it.user?.uid)
-                    returnIntent.putExtra("firebase_account", it.user?.uid)
-                    activity?.setResult(MainActivity.RESULT_LOGIN_OK, returnIntent)
+//                    val returnIntent = Intent()
+                    Timber.e("firebaseid: %s", it.user?.uid)
+//                    returnIntent.putExtra("firebase_account", it.user?.uid)
+                    activity?.setResult(MainActivity.RESULT_LOGIN_OK)
                     activity?.finish()
 //                    showSuccessfulLogin()
                 }
@@ -92,9 +92,6 @@ class LoginFragment : BaseFragment() {
 
     private fun showFailedLogin() =
         Snackbar.make(binding.root, resources.getString(R.string.login_fail), Snackbar.LENGTH_SHORT).show()
-
-    private fun showSuccessfulLogin() =
-        Snackbar.make(binding.root, resources.getString(R.string.login_success), Snackbar.LENGTH_SHORT).show()
 
 
     private fun launchSignInFlow() {

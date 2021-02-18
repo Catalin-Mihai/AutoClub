@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,19 +64,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editTextCarLicense"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="10"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:hint="@string/register_car_license_hint"
-            android:inputType="textPersonName"
-            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
             app:layout_constraintBottom_toTopOf="@+id/nextButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/textView10"
+            app:startIconDrawable="@drawable/ic_car_24px"
+            app:startIconContentDescription="@string/register_finish_icon_car_content_description"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:endIconTint="@color/green_600"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_check_circle_24px"
+            app:endIconContentDescription="@string/register_car_end_icon_content_description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

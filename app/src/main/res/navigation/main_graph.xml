@@ -6,11 +6,15 @@
     app:startDestination="@id/home">
     <fragment
         android:id="@+id/home"
-        android:name="com.catasoft.autoclub.ui.main.home.ProfileFragment"
+        android:name="com.catasoft.autoclub.ui.main.home.HomeFragment"
         android:label="ProfileFragment" />
     <fragment
         android:id="@+id/search_profile"
         android:name="com.catasoft.autoclub.ui.main.profilesearch.ProfileSearchFragment"
         android:label="SearchProfileFragment" />
+    <fragment
+        android:id="@+id/chat"
+        android:name="com.catasoft.autoclub.ChatFragment"
+        android:label="ChatFragment" />
 
 </navigation>

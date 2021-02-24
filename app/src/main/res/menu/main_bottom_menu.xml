@@ -15,4 +15,5 @@
         android:id="@+id/chat"
         android:title="@string/chat"
         android:icon="@drawable/chat_icon"/>
+
 </menu>

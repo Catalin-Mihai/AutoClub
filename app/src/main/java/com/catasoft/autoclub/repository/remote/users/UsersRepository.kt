@@ -6,6 +6,7 @@ import com.catasoft.autoclub.repository.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.tasks.await
@@ -18,7 +19,7 @@ interface IUsersRepository {
     suspend fun getAllUsers(): List<User>?
     suspend fun addUser(user: User): DocumentReference
     suspend fun getUserByNumberPlate(numberPlate: String): User?
-
+    suspend fun updateByMerging(user: User)
 }
 
 class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() {
@@ -71,5 +72,13 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
             return null
 
         return snapshot.first().toObject()
+    }
+
+    override suspend fun updateByMerging(user: User) {
+
+        val docRef = mUsersCollection.whereEqualTo(Constants.USERS_UID, user.uid).get().await().documents.first().reference
+
+        //create field if they not exists
+        docRef.set(user, SetOptions.merge())
     }
 }

@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.databinding.MainFragmentBinding
+import com.catasoft.autoclub.databinding.FragmentMainBinding
 import com.catasoft.autoclub.ui.BaseFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,14 +16,14 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
 
-    private lateinit var binding: MainFragmentBinding
+    private lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = MainFragmentBinding.inflate(inflater)
+        binding = FragmentMainBinding.inflate(inflater)
         Timber.e("Main Fragment is inflating...")
         return binding.root
     }

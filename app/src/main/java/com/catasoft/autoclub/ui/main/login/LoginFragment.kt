@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.MainActivity
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.databinding.LoginFragmentBinding
+import com.catasoft.autoclub.databinding.FragmentLoginBinding
 import com.catasoft.autoclub.ui.BaseFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -24,7 +24,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class LoginFragment : BaseFragment() {
 
-    private lateinit var binding: LoginFragmentBinding
+    private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
@@ -32,7 +32,7 @@ class LoginFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = LoginFragmentBinding.inflate(layoutInflater)
+        binding = FragmentLoginBinding.inflate(layoutInflater)
         val rootView = binding.root
 
         //lifecycle setters

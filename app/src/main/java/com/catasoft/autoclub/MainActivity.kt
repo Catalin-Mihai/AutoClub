@@ -1,17 +1,10 @@
 package com.catasoft.autoclub
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
-import android.widget.Toast
-import android.widget.Toast.makeText
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.catasoft.autoclub.databinding.ActivityMainBinding
-import com.catasoft.autoclub.databinding.LoginFragmentBinding
 import com.catasoft.autoclub.ui.main.accountsign.AccountSignActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +14,6 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
 
     private val login = true
 
@@ -34,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 RESULT_LOGIN_OK -> {
-                    Snackbar.make(binding.root, resources.getString(R.string.login_success), Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.root, resources.getString(R.string.login_success, "casca"), Snackbar.LENGTH_LONG).show()
                 }
             }
         }

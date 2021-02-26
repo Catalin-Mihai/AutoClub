@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.MainActivity
 import com.catasoft.autoclub.R
+import com.catasoft.autoclub.StartActivity
 import com.catasoft.autoclub.databinding.FragmentLoginBinding
 import com.catasoft.autoclub.ui.BaseFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -63,7 +64,7 @@ class LoginFragment : BaseFragment() {
 //                    val returnIntent = Intent()
                     Timber.e("firebaseid: %s", it.user?.uid)
 //                    returnIntent.putExtra("firebase_account", it.user?.uid)
-                    activity?.setResult(MainActivity.RESULT_LOGIN_OK)
+                    activity?.setResult(StartActivity.RESULT_LOGIN_OK)
                     activity?.finish()
 //                    showSuccessfulLogin()
                 }

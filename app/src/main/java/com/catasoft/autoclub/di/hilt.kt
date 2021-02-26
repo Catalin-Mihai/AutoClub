@@ -18,7 +18,7 @@ abstract class RepositoryModule {
     @Binds
     abstract fun bindUsersRepository(repo: UsersRepository): IUsersRepository
 
-    @Singleton
-    @Binds
-    abstract fun bindCurrentUser(user: CurrentUser): ICurrentUser
+//    @Singleton
+//    @Binds
+//    abstract fun bindCurrentUser(user: CurrentUser): ICurrentUser
 }

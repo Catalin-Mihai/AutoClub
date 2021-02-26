@@ -5,12 +5,12 @@ import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.tasks.await
-import timber.log.Timber
+import java.time.Instant
+import java.util.*
 import javax.inject.Inject
 
 interface IUsersRepository {
@@ -48,8 +48,14 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
         //User might be null (using this method when user is not logged with google)
         //Throw an exception for this
 
+        val cc = Calendar.getInstance()
+        val year = cc[Calendar.YEAR]
+        val month = cc[Calendar.MONTH]
+        val mDay = cc[Calendar.DAY_OF_MONTH]
+
         docRef.update(
-            Constants.USERS_UID, currentAuthUser.uid
+            Constants.USERS_UID, currentAuthUser.uid,
+            Constants.USERS_JOIN_DATE, "$mDay-$month-$year"
         )
 
         return docRef

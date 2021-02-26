@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.catasoft.autoclub.MainActivity
 import com.catasoft.autoclub.R
+import com.catasoft.autoclub.StartActivity
 import com.catasoft.autoclub.databinding.FragmentRegisterFinishBinding
 import com.catasoft.autoclub.databinding.FragmentRegisterMyProfileBinding
 import timber.log.Timber
@@ -49,7 +50,7 @@ class RegisterFinishFragment : Fragment() {
         binding.btnFinish.setOnClickListener{
 //            val returnIntent = Intent()
 //            returnIntent.
-            activity?.setResult(MainActivity.RESULT_REGISTER_OK)
+            activity?.setResult(StartActivity.RESULT_REGISTER_OK)
             activity?.finish()
 
             Timber.e("OKKKK!!!")

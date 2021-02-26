@@ -38,7 +38,7 @@
                     app:layout_collapseMode="pin">
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/appCompatImageView"
+                        android:id="@+id/ivPhoto"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:fitsSystemWindows="true"
@@ -57,7 +57,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView">
+                        app:layout_constraintTop_toBottomOf="@+id/ivPhoto">
 
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
@@ -89,14 +89,16 @@
                 android:layout_height="wrap_content" />
         </androidx.core.widget.NestedScrollView>
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fabEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_anchor="@id/app_bar"
-            app:layout_anchorGravity="bottom|end"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:contentDescription="Edit profile"
+            android:src="@drawable/ic_mode_edit_24px" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 </layout>

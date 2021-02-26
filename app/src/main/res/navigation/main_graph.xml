@@ -7,14 +7,23 @@
     <fragment
         android:id="@+id/home"
         android:name="com.catasoft.autoclub.ui.main.home.HomeFragment"
-        android:label="ProfileFragment" />
+        android:label="fragment_home">
+        <action
+            android:id="@+id/action_home_to_profileEditFragment"
+            app:destination="@id/profileEditFragment"
+            app:popUpTo="@id/home" />
+    </fragment>
     <fragment
         android:id="@+id/search_profile"
         android:name="com.catasoft.autoclub.ui.main.profilesearch.ProfileSearchFragment"
-        android:label="SearchProfileFragment" />
+        android:label="fragment_profile_search" />
     <fragment
         android:id="@+id/chat"
         android:name="com.catasoft.autoclub.ChatFragment"
-        android:label="ChatFragment" />
+        android:label="fragment_chat" />
+    <fragment
+        android:id="@+id/profileEditFragment"
+        android:name="com.catasoft.autoclub.ui.main.profileedit.ProfileEditFragment"
+        android:label="fragment_profile_edit" />
 
 </navigation>

@@ -73,6 +73,6 @@
     <string name="edit_profile_change_display_name_hint">Nume</string>
     <string name="edit_profile_change_facebook_profile_hint">Profil facebook</string>
     <string name="edit_profile_save_button_text">Salveaza</string>
-
+    <string name="edit_profile_photo_error">Ceva este in neregula cu fotografia aleasa de tine!</string>
 
 </resources>

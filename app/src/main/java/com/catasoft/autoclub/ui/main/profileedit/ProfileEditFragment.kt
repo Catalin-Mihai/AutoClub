@@ -1,26 +1,32 @@
 package com.catasoft.autoclub.ui.main.profileedit
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentProfileEditBinding
+import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.lang.Exception
+
 
 @AndroidEntryPoint
 class ProfileEditFragment : Fragment() {
 
     private val viewModel: ProfileEditViewModel by viewModels()
     private lateinit var binding: FragmentProfileEditBinding
-    private var validInput = false
-    private var lastDisplayNameInput: String? = null
-    private var lastFacebookProfileInput: String? = null
+    private var lastPhoto: Bitmap? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +62,28 @@ class ProfileEditFragment : Fragment() {
         binding.tfDisplayName.error = error
     }
 
+    private val pickImage =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                Picasso.get().load(uri).resize(400, 400).into(object: Target{
+                    override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                        binding.btnSave.isClickable = true
+                        lastPhoto = bitmap
+                        binding.ivPhoto.setImageBitmap(bitmap)
+                    }
+
+                    override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                    }
+
+                    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                        //disable save button until the photo is loaded...
+                        binding.btnSave.isClickable = false
+                    }
+
+                })
+            }
+        }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,7 +94,12 @@ class ProfileEditFragment : Fragment() {
 
         binding.btnSave.setOnClickListener{
 
-            viewModel.validateFields(getDisplayNameInputText(), getFacebookProfileInputText())
+            viewModel.validateFields(getDisplayNameInputText(), getFacebookProfileInputText(), lastPhoto)
+        }
+
+
+        binding.tvChangePhoto.setOnClickListener{
+            pickImage.launch("image/*")
         }
 
         viewModel.displayNameState.observe(viewLifecycleOwner, {
@@ -98,7 +131,7 @@ class ProfileEditFragment : Fragment() {
 
             Timber.e(it.toString())
 
-            when(it){
+            when (it) {
 
                 is ProfileEditViewModel.Companion.FacebookProfileState.Valid -> {
                     viewModel.updateFacebookProfile(it.facebookProfile)
@@ -117,6 +150,17 @@ class ProfileEditFragment : Fragment() {
 
                 }
 
+            }
+        })
+
+        viewModel.photoState.observe(viewLifecycleOwner, {
+            when(it) {
+                ProfileEditViewModel.Companion.PhotoState.Error -> {
+                    Snackbar.make(binding.root, resources.getText(R.string.edit_profile_photo_error), Snackbar.LENGTH_LONG)
+                }
+                is ProfileEditViewModel.Companion.PhotoState.Valid -> {
+                    viewModel.updatePhoto(it.photo)
+                }
             }
         })
 

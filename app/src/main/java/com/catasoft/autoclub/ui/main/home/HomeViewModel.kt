@@ -1,22 +1,25 @@
 package com.catasoft.autoclub.ui.main.home
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.catasoft.autoclub.model.getAvatarDownloadUrl
 import com.catasoft.autoclub.repository.CurrentUser
-import com.catasoft.autoclub.repository.remote.users.IUsersRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel(){
 
-    val profileName: MutableLiveData<String> = MutableLiveData()
+    val avatarUri: MutableLiveData<Uri?> = MutableLiveData()
 
-    fun getProfileName()
+    fun getAvatarDownloadUri()
     {
         viewModelScope.launch {
-            val name = CurrentUser.getEntity().name
-            profileName.postValue(name)
+            kotlin.runCatching {
+                CurrentUser.getEntity().getAvatarDownloadUrl()
+            }.onSuccess {
+                avatarUri.postValue(it)
+            }
         }
     }
 

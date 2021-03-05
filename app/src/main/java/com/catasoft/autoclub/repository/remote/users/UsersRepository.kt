@@ -1,15 +1,19 @@
 package com.catasoft.autoclub.repository.remote.users
 
+import android.graphics.Bitmap
 import com.catasoft.autoclub.model.User
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
-import java.time.Instant
+import java.io.ByteArrayOutputStream
 import java.util.*
 import javax.inject.Inject
 
@@ -20,6 +24,8 @@ interface IUsersRepository {
     suspend fun addUser(user: User): DocumentReference
     suspend fun getUserByNumberPlate(numberPlate: String): User?
     suspend fun updateByMerging(user: User)
+    suspend fun getUserDocumentByUid(uid: String): DocumentReference?
+    suspend fun setAvatar(uid: String, photo: Bitmap)
 }
 
 class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() {
@@ -70,6 +76,10 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
         return snapshot.first().toObject()
     }
 
+    override suspend fun getUserDocumentByUid(uid: String): DocumentReference? {
+        return mUsersCollection.whereEqualTo(Constants.USERS_UID, uid).get().await().documents.firstOrNull()?.reference;
+    }
+
     override suspend fun getUserByNumberPlate(numberPlate: String): User? {
         val users = mUsersCollection.whereEqualTo(Constants.USERS_NUMBER_PLATE, numberPlate).limit(1)
         val snapshot = users.get().await()
@@ -82,9 +92,20 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
 
     override suspend fun updateByMerging(user: User) {
 
-        val docRef = mUsersCollection.whereEqualTo(Constants.USERS_UID, user.uid).get().await().documents.first().reference
+        val docRef = getUserDocumentByUid(user.uid!!)!!
 
         //create field if they not exists
         docRef.set(user, SetOptions.merge())
+    }
+
+    override suspend fun setAvatar(uid: String, photo: Bitmap){
+
+        val storageUserPhotoRef = Firebase.storage.reference.child("avatar/${uid}.jpg")
+
+        val baos = ByteArrayOutputStream()
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = storageUserPhotoRef.putBytes(data).await()
     }
 }

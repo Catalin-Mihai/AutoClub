@@ -12,10 +12,12 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentHomeBinding
+import com.catasoft.autoclub.model.getAvatarDownloadUrl
 import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.ui.BaseFragment
 import com.catasoft.autoclub.ui.main.register.RegisterMyCarFragmentDirections
 import com.google.android.material.tabs.TabLayoutMediator
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -71,8 +73,12 @@ class HomeFragment : BaseFragment(){
         }
 
         Timber.e("AM AJUNS IN MY PROFILE!")
-        viewModel.getProfileName()
+        viewModel.getAvatarDownloadUri()
 
+        viewModel.avatarUri.observe(viewLifecycleOwner, {
+            //Load User photo
+            Picasso.get().load(it).into(binding.ivPhoto)
+        })
     }
 }
 

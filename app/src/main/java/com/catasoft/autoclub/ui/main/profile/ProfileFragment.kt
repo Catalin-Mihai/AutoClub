@@ -10,9 +10,12 @@ import androidx.fragment.app.viewModels
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentHomeBinding
 import com.catasoft.autoclub.databinding.FragmentProfileBinding
+import com.catasoft.autoclub.model.getAvatarDownloadUrl
+import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.ui.BaseFragment
 import com.catasoft.autoclub.ui.main.home.ARG_USER_UID
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 
 class ProfileFragment : BaseFragment() {
 
@@ -49,6 +52,7 @@ class ProfileFragment : BaseFragment() {
                 binding.tvDisplayName.text = it.name
                 binding.tvJoinDate.text = it.joinDate
             })
+
         }
     }
 }

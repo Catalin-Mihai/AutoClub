@@ -1,5 +1,7 @@
 package com.catasoft.autoclub.ui.main.profileedit
 
+import android.graphics.Bitmap
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,8 +9,12 @@ import com.catasoft.autoclub.model.User
 import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.repository.remote.users.IUsersRepository
 import com.catasoft.autoclub.repository.remote.users.UsersRepository
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -22,8 +28,9 @@ constructor(
 
     val displayNameState: MutableLiveData<DisplayNameState> = MutableLiveData()
     val facebookProfileState: MutableLiveData<FacebookProfileState> = MutableLiveData()
+    val photoState: MutableLiveData<PhotoState> = MutableLiveData()
 
-    fun validateFields(newDisplayName: String?, newFacebookProfile: String?) {
+    fun validateFields(newDisplayName: String?, newFacebookProfile: String?, newPhoto: Bitmap?) {
         //TODO: Check if the values are already in use (or not)
         //For now return true as it's ok to have anything
 
@@ -47,9 +54,24 @@ constructor(
         }
 
 
+        if(newPhoto == null)
+            photoState.postValue(PhotoState.Error)
+        else
+            photoState.postValue(PhotoState.Valid(newPhoto))
+
     }
 
-     fun updateDisplayName(displayName: String?) {
+    fun updatePhoto(photo: Bitmap){
+        viewModelScope.launch {
+            kotlin.runCatching {
+                mUsersRepository.setAvatar(CurrentUser.getUid()!!, photo)
+            }.onFailure {
+                Timber.e("Nu putem actualiza avatarul!")
+            }
+        }
+    }
+
+    fun updateDisplayName(displayName: String?) {
 
         val userCopy = CurrentUser.getEntity()
         userCopy.name = displayName
@@ -82,6 +104,11 @@ constructor(
             object Null: FacebookProfileState()
             object Unchanged: FacebookProfileState()
             data class Valid(val facebookProfile: String): FacebookProfileState()
+        }
+
+        sealed class PhotoState {
+            object Error: PhotoState()
+            data class Valid(val photo: Bitmap): PhotoState()
         }
     }
 

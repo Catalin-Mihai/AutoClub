@@ -4,13 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnAttach
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.databinding.FragmentProfileSearchBinding
+import com.catasoft.autoclub.model.user.UserSearchModel
 import com.catasoft.autoclub.ui.BaseFragment
+import com.catasoft.autoclub.ui.main.profileedit.ProfileEditViewModel
+import kotlinx.coroutines.FlowPreview
 import timber.log.Timber
 
+@FlowPreview
 class ProfileSearchFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileSearchBinding
+    private val viewModel: ProfileSearchViewModel by viewModels()
+
+    private val searchList: ArrayList<UserSearchModel> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,4 +34,28 @@ class ProfileSearchFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.textField.editText?.addTextChangedListener {
+            viewModel.pushInput(it.toString())
+        }
+
+        val searchListAdapter = SearchListAdapter(searchList)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.adapter = searchListAdapter
+
+        viewModel.usersLiveData.observe(viewLifecycleOwner, {
+//            debug
+//            for(user in it) {
+//                Timber.e("%s", user)
+//            }
+            //Add received elements to our list
+            searchList.clear()
+            searchList.addAll(it)
+            searchListAdapter.notifyDataSetChanged()
+        })
+
+//        binding.recyclerView.=
+    }
 }

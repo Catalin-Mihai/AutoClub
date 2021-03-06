@@ -7,13 +7,13 @@
         />
 
     <item
+        android:id="@+id/feed"
+        android:title="@string/feed"
+        android:icon="@drawable/ic_done_24px"/>
+
+    <item
         android:id="@+id/home"
         android:title="@string/home"
         android:icon="@drawable/home_icon"/>
-
-    <item
-        android:id="@+id/chat"
-        android:title="@string/chat"
-        android:icon="@drawable/chat_icon"/>
 
 </menu>

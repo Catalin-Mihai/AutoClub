@@ -3,25 +3,18 @@ package com.catasoft.autoclub.ui.main.register
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.catasoft.autoclub.R
-import com.catasoft.autoclub.model.User
-import com.catasoft.autoclub.model.UserRegisterModel
-import com.catasoft.autoclub.model.toUser
+import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.State
 import com.catasoft.autoclub.repository.remote.users.IUsersRepository
-import com.catasoft.autoclub.ui.main.login.LoginState
-import com.google.firebase.firestore.ktx.toObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.consume
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import javax.inject.Inject
 

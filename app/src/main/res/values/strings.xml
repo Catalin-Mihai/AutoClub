@@ -4,6 +4,7 @@
     <string name="profile_search">Gaseste o masina</string>
     <string name="home">Acasa</string>
     <string name="chat">Chat</string>
+    <string name="feed">Feed</string>
 
 
     <string name="button_next">Urmatorul</string>
@@ -74,5 +75,9 @@
     <string name="edit_profile_change_facebook_profile_hint">Profil facebook</string>
     <string name="edit_profile_save_button_text">Salveaza</string>
     <string name="edit_profile_photo_error">Ceva este in neregula cu fotografia aleasa de tine!</string>
+
+    <string name="profile_search_text_input_layout_hint">Caută</string>
+    <string name="profile_search_item_photo_content_description">Imagine de profil</string>
+    <string name="profile_search_itme_car_text_placeholder">%1$s %2$s (%3$s)</string>
 
 </resources>

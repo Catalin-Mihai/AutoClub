@@ -24,7 +24,7 @@
         android:label="RegisterMyProfileFragment" >
         <argument
             android:name="userRegisterModel"
-            app:argType="com.catasoft.autoclub.model.UserRegisterModel" />
+            app:argType="com.catasoft.autoclub.model.user.UserRegisterModel" />
         <action
             android:id="@+id/action_registerMyProfileFragment_to_registerFinishFragment"
             app:destination="@id/registerFinishFragment" />
@@ -35,6 +35,6 @@
         android:label="RegisterFinishFragment" >
         <argument
             android:name="userModel"
-            app:argType="com.catasoft.autoclub.model.UserRegisterModel" />
+            app:argType="com.catasoft.autoclub.model.user.UserRegisterModel" />
     </fragment>
 </navigation>

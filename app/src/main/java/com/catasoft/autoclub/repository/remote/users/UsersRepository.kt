@@ -1,13 +1,12 @@
 package com.catasoft.autoclub.repository.remote.users
 
 import android.graphics.Bitmap
-import com.catasoft.autoclub.model.User
+import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
@@ -26,6 +25,7 @@ interface IUsersRepository {
     suspend fun updateByMerging(user: User)
     suspend fun getUserDocumentByUid(uid: String): DocumentReference?
     suspend fun setAvatar(uid: String, photo: Bitmap)
+    suspend fun getUsersByPartialName(partialName: String): List<User>
 }
 
 class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() {
@@ -106,6 +106,14 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
         photo.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
 
-        var uploadTask = storageUserPhotoRef.putBytes(data).await()
+        storageUserPhotoRef.putBytes(data).await()
+    }
+
+    override suspend fun getUsersByPartialName(partialName: String): List<User> {
+
+        val snapshot = mUsersCollection.whereGreaterThanOrEqualTo(Constants.USERS_NAME, partialName)
+            .whereLessThanOrEqualTo(Constants.USERS_NAME, partialName + "\uf8ff").limit(10).get().await()
+
+        return snapshot.toObjects()
     }
 }

@@ -1,12 +1,13 @@
-package com.catasoft.autoclub
+package com.catasoft.autoclub.ui.main.feed
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.catasoft.autoclub.R
 
-class ChatFragment : Fragment() {
+class FeedFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +18,7 @@ class ChatFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        return inflater.inflate(R.layout.fragment_feed, container, false)
     }
 
 }

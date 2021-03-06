@@ -4,23 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.viewpager2.widget.ViewPager2
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentHomeBinding
-import com.catasoft.autoclub.model.getAvatarDownloadUrl
 import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.ui.BaseFragment
-import com.catasoft.autoclub.ui.main.register.RegisterMyCarFragmentDirections
 import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment(){

@@ -4,18 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.databinding.FragmentHomeBinding
 import com.catasoft.autoclub.databinding.FragmentProfileBinding
-import com.catasoft.autoclub.model.getAvatarDownloadUrl
-import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.ui.BaseFragment
 import com.catasoft.autoclub.ui.main.home.ARG_USER_UID
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
 
 class ProfileFragment : BaseFragment() {
 

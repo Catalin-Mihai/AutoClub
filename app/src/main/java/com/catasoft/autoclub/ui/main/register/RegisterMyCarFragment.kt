@@ -1,28 +1,21 @@
 package com.catasoft.autoclub.ui.main.register
 
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.toColor
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentRegisterMycarBinding
-import com.catasoft.autoclub.model.UserRegisterModel
+import com.catasoft.autoclub.model.user.UserRegisterModel
 import com.catasoft.autoclub.ui.BaseFragment
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.callbackFlow
 import java.util.*
 
 @FlowPreview

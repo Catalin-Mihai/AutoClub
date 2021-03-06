@@ -1,8 +1,6 @@
-package com.catasoft.autoclub.model
+package com.catasoft.autoclub.model.user
 
 import android.net.Uri
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await

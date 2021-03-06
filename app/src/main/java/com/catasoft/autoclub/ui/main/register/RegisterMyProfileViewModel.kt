@@ -3,11 +3,10 @@ package com.catasoft.autoclub.ui.main.register
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.catasoft.autoclub.model.User
-import com.catasoft.autoclub.model.UserRegisterModel
-import com.catasoft.autoclub.model.toUser
+import com.catasoft.autoclub.model.user.User
+import com.catasoft.autoclub.model.user.UserRegisterModel
+import com.catasoft.autoclub.model.user.toUser
 import com.catasoft.autoclub.repository.remote.users.IUsersRepository
-import com.catasoft.autoclub.ui.main.login.LoginState
 import com.google.firebase.firestore.ktx.toObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

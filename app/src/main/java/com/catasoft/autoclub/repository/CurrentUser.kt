@@ -1,10 +1,9 @@
 package com.catasoft.autoclub.repository
 
-import com.catasoft.autoclub.model.User
+import com.catasoft.autoclub.model.user.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
-import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 interface ICurrentUser {

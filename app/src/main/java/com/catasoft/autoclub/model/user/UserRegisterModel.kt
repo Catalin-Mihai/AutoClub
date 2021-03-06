@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.model
+package com.catasoft.autoclub.model.user
 
 import java.io.Serializable
 

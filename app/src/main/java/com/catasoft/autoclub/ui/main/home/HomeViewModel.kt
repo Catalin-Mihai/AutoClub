@@ -1,14 +1,21 @@
 package com.catasoft.autoclub.ui.main.home
 
 import android.net.Uri
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.catasoft.autoclub.model.user.getAvatarDownloadUrl
+import androidx.lifecycle.*
+import com.catasoft.autoclub.model.car.CarProfileModel
+import com.catasoft.autoclub.util.getAvatarDownloadUri
 import com.catasoft.autoclub.repository.CurrentUser
+import com.catasoft.autoclub.repository.remote.ICarsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel(){
+@HiltViewModel
+class HomeViewModel
+
+@Inject
+constructor(
+) : ViewModel() {
 
     val avatarUri: MutableLiveData<Uri?> = MutableLiveData()
 
@@ -16,7 +23,7 @@ class HomeViewModel : ViewModel(){
     {
         viewModelScope.launch {
             kotlin.runCatching {
-                CurrentUser.getEntity().getAvatarDownloadUrl()
+                CurrentUser.getEntity().getAvatarDownloadUri()
             }.onSuccess {
                 avatarUri.postValue(it)
             }

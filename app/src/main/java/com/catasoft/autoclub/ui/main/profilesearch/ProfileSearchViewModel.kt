@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.model.car.Car
 import com.catasoft.autoclub.model.user.UserSearchModel
-import com.catasoft.autoclub.model.user.getAvatarDownloadUrl
-import com.catasoft.autoclub.repository.remote.users.IUsersRepository
+import com.catasoft.autoclub.util.getAvatarDownloadUri
+import com.catasoft.autoclub.repository.remote.IUsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
@@ -62,7 +62,7 @@ constructor(
             usersLiveData.postValue(users.map {
                 val userSearchModel = UserSearchModel()
                 userSearchModel.name = it.name
-                userSearchModel.photoDownloadUrl = it.getAvatarDownloadUrl()
+                userSearchModel.photoDownloadUrl = it.getAvatarDownloadUri()
 
                 val cars:ArrayList<Car> = ArrayList()
                 cars.add(Car("Mazda", "Mazda3"))

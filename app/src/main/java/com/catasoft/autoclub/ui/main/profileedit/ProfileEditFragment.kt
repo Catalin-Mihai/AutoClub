@@ -1,6 +1,5 @@
 package com.catasoft.autoclub.ui.main.profileedit
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -13,7 +12,6 @@ import androidx.fragment.app.viewModels
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentProfileEditBinding
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import dagger.hilt.android.AndroidEntryPoint

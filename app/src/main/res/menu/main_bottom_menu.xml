@@ -9,7 +9,7 @@
     <item
         android:id="@+id/feed"
         android:title="@string/feed"
-        android:icon="@drawable/ic_done_24px"/>
+        android:icon="@drawable/ic_emoji_transportation_24px"/>
 
     <item
         android:id="@+id/home"

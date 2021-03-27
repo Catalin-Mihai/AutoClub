@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.State
-import com.catasoft.autoclub.repository.remote.users.IUsersRepository
+import com.catasoft.autoclub.repository.remote.IUsersRepository
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

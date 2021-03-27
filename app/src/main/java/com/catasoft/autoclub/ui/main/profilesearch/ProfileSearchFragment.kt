@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnAttach
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.databinding.FragmentProfileSearchBinding
 import com.catasoft.autoclub.model.user.UserSearchModel
 import com.catasoft.autoclub.ui.BaseFragment
-import com.catasoft.autoclub.ui.main.profileedit.ProfileEditViewModel
 import kotlinx.coroutines.FlowPreview
 import timber.log.Timber
 

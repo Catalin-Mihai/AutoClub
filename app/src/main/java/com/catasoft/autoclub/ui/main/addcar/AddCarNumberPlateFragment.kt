@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.ui.main.register
+package com.catasoft.autoclub.ui.main.addcar
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.R
+import com.catasoft.autoclub.databinding.FragmentAddCarNumberPlateBinding
 import com.catasoft.autoclub.databinding.FragmentRegisterMycarBinding
 import com.catasoft.autoclub.model.user.UserRegisterModel
 import com.catasoft.autoclub.ui.BaseFragment
@@ -22,10 +24,10 @@ import java.util.*
 
 @FlowPreview
 @AndroidEntryPoint
-class RegisterMyCarFragment : BaseFragment() {
+class AddCarNumberPlateFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentRegisterMycarBinding
-    private val viewModel: RegisterMyCarViewModel by viewModels()
+    private lateinit var binding: FragmentAddCarNumberPlateBinding
+    private val viewModel: AddCarViewModel by activityViewModels()
     private var canGoToNextFragment = false
     private lateinit var lastNumberPlateInput: String
 
@@ -34,7 +36,7 @@ class RegisterMyCarFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegisterMycarBinding.inflate(layoutInflater)
+        binding = FragmentAddCarNumberPlateBinding.inflate(layoutInflater)
         val rootView = binding.root
 
         //lifecycle setters
@@ -52,37 +54,11 @@ class RegisterMyCarFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
-            val nextButton = binding.nextButton
-
-            //Check if this number plate is already used
-
-            nextButton.setOnClickListener{
-
-                if(!canGoToNextFragment){
-
-                    nextButton.error = resources.getString(R.string.register_car_unchecked_number_plate)
-                    return@setOnClickListener
-                }
-
-                //Create the UserRegisterModel object here.
-                //It will be passed from fragment to fragment until it reaches the final fragment.
-
-                val userRegisterModel = UserRegisterModel()
-                userRegisterModel.numberPlate = lastNumberPlateInput
-
-                val navController = findNavController()
-                val action =
-                    RegisterMyCarFragmentDirections.actionRegisterCarToRegisterMyProfileFragment(
-                        userRegisterModel
-                    )
-                navController.navigate(action)
-            }
-
             //when input layout is ready
             getNumberPlateInputLayout().addOnEditTextAttachedListener {
 
                 //hide the end icon
-                getNumberPlateInputLayout().hideEndIcon()
+                it.hideEndIcon()
 
                 //listen for the user input
                 it.editText?.addTextChangedListener { editText ->
@@ -98,7 +74,6 @@ class RegisterMyCarFragment : BaseFragment() {
                     //reset the input layout + button errors
                     getNumberPlateInputLayout().error = null
                     getNumberPlateInputLayout().hideEndIcon()
-                    nextButton.error = null
                 }
             }
 
@@ -106,7 +81,7 @@ class RegisterMyCarFragment : BaseFragment() {
 
                 when(it) {
 
-                    is RegisterMyCarViewModel.Companion.NumberPlateState.NotUsed -> {
+                    is AddCarViewModel.Companion.NumberPlateState.NotUsed -> {
 
                         //We got a valid number plate, can go further
                         canGoToNextFragment = true
@@ -115,19 +90,19 @@ class RegisterMyCarFragment : BaseFragment() {
                         getNumberPlateInputLayout().showSuccessEndIcon()
                     }
 
-                    is RegisterMyCarViewModel.Companion.NumberPlateState.Fetching -> {
+                    is AddCarViewModel.Companion.NumberPlateState.Fetching -> {
 
                     }
 
-                    is RegisterMyCarViewModel.Companion.NumberPlateState.FetchError -> {
+                    is AddCarViewModel.Companion.NumberPlateState.FetchError -> {
                         getNumberPlateInputLayout().error = resources.getString(R.string.fetch_error)
                     }
 
-                    is RegisterMyCarViewModel.Companion.NumberPlateState.Used -> {
+                    is AddCarViewModel.Companion.NumberPlateState.Used -> {
                         getNumberPlateInputLayout().error = resources.getString(R.string.register_car_already_used_number_plate)
                     }
 
-                    is RegisterMyCarViewModel.Companion.NumberPlateState.InvalidFormat ->
+                    is AddCarViewModel.Companion.NumberPlateState.InvalidFormat ->
                     {
                         getNumberPlateInputLayout().error = resources.getString(R.string.register_car_invalid_license)
                     }

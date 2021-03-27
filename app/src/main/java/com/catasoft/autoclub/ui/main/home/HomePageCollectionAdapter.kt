@@ -3,11 +3,14 @@ package com.catasoft.autoclub.ui.main.home
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.catasoft.autoclub.ui.main.profile.CarFragment
+import com.catasoft.autoclub.databinding.CarProfileCardBinding
+import com.catasoft.autoclub.model.car.CarProfileModel
+import com.catasoft.autoclub.ui.main.profilecars.CarsFragment
 import com.catasoft.autoclub.ui.main.profile.ProfileFragment
 import timber.log.Timber
 
 const val ARG_USER_UID = "uid"
+const val ARG_USER_CARS = "cars"
 const val TABS_NUMBER = 2
 
 class HomePageCollectionAdapter(
@@ -22,21 +25,25 @@ class HomePageCollectionAdapter(
         var fragment: Fragment? = null
 
         when(position){
-            0 -> {
+            PROFILE_TAB -> {
                 fragment = ProfileFragment()
+                fragment.arguments = Bundle().apply {
+                    putString(ARG_USER_UID, displayedUserUid)
+                }
             }
 
-            1 -> {
-                fragment = CarFragment()
+            CARS_TAB -> {
+                fragment = CarsFragment()
+
+                fragment.arguments = Bundle().apply {
+                    putString(ARG_USER_UID, displayedUserUid)
+                }
             }
         }
 
         // Return a NEW fragment instance in createFragment(int)
 
-        fragment?.arguments = Bundle().apply {
-            // Our object is just an integer :-P
-            putString(ARG_USER_UID, displayedUserUid)
-        }
+
         return fragment!!
     }
 }

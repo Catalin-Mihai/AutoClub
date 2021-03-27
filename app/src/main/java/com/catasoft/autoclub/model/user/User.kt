@@ -14,9 +14,3 @@ data class User(
     var joinDate: String? = null,
     var facebookProfile: String? = null
 ): Serializable
-
-suspend fun User.getAvatarDownloadUrl(): Uri? {
-    val ref = "avatar/${this.uid}.jpg"
-    Timber.e("Location: $ref")
-    return Firebase.storage.reference.child(ref).downloadUrl.await()
-}

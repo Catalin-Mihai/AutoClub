@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.model.user.UserRegisterModel
 import com.catasoft.autoclub.model.user.toUser
-import com.catasoft.autoclub.repository.remote.users.IUsersRepository
+import com.catasoft.autoclub.repository.remote.IUsersRepository
 import com.google.firebase.firestore.ktx.toObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

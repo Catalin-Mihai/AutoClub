@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.State
-import com.catasoft.autoclub.repository.remote.users.IUsersRepository
+import com.catasoft.autoclub.repository.remote.IUsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel

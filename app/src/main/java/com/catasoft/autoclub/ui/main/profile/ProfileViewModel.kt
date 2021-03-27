@@ -4,7 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.model.user.User
-import com.catasoft.autoclub.repository.remote.users.UsersRepository
+import com.catasoft.autoclub.repository.remote.IUsersRepository
+import com.catasoft.autoclub.repository.remote.UsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class ProfileViewModel
 
 @Inject
 constructor(
-    private val usersRepository: UsersRepository
+    private val usersRepository: IUsersRepository
 ) : ViewModel() {
 
     val userLiveData: MutableLiveData<User> = MutableLiveData();

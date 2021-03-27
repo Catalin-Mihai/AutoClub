@@ -7,24 +7,37 @@
 
     <fragment
         android:id="@+id/home"
+        tools:layout="@layout/fragment_home"
         android:name="com.catasoft.autoclub.ui.main.home.HomeFragment"
         android:label="fragment_home">
         <action
             android:id="@+id/action_home_to_profileEditFragment"
             app:destination="@id/profileEditFragment"
+            app:popUpToInclusive="true"
             app:popUpTo="@id/home" />
+        <action
+            android:id="@+id/action_home_to_addCarActivity"
+            app:destination="@id/addCarActivity" />
     </fragment>
     <fragment
         android:id="@+id/search_profile"
+        tools:layout="@layout/fragment_profile_search"
         android:name="com.catasoft.autoclub.ui.main.profilesearch.ProfileSearchFragment"
         android:label="fragment_profile_search" />
     <fragment
         android:id="@+id/feed"
+        tools:layout="@layout/fragment_feed"
         android:name="com.catasoft.autoclub.ui.main.feed.FeedFragment"
         android:label="fragment_feed" />
     <fragment
         android:id="@+id/profileEditFragment"
+        tools:layout="@layout/fragment_profile_edit"
         android:name="com.catasoft.autoclub.ui.main.profileedit.ProfileEditFragment"
         android:label="fragment_profile_edit" />
+    <activity
+        android:id="@+id/addCarActivity"
+        tools:layout="@layout/activity_add_car"
+        android:name="com.catasoft.autoclub.ui.main.addcar.AddCarActivity"
+        android:label="AddCarActivity" />
 
 </navigation>

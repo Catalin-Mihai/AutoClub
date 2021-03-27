@@ -21,7 +21,7 @@
 
             <!-- Media -->
             <ImageView
-                android:id="@+id/ivProfilePhoto"
+                android:id="@+id/ivCarPhoto"
                 android:layout_weight="3"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
@@ -38,7 +38,7 @@
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
-                    android:id="@+id/tvProfileName"
+                    android:id="@+id/tvCarName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Catalin Mihai"

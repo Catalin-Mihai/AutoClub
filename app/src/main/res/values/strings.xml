@@ -73,11 +73,34 @@
     <string name="edit_profile_change_photo">Schimba fotografia</string>
     <string name="edit_profile_change_display_name_hint">Nume</string>
     <string name="edit_profile_change_facebook_profile_hint">Profil facebook</string>
-    <string name="edit_profile_save_button_text">Salveaza</string>
+    <string name="edit_profile_next_button_text">Urmatorul</string>
     <string name="edit_profile_photo_error">Ceva este in neregula cu fotografia aleasa de tine!</string>
+    <string name="edit_profile_save_button_text">Salveaza</string>
 
     <string name="profile_search_text_input_layout_hint">Caută</string>
     <string name="profile_search_item_photo_content_description">Imagine de profil</string>
     <string name="profile_search_itme_car_text_placeholder">%1$s %2$s (%3$s)</string>
+
+    <string name="add_car_pick_photo">Incarca fotografie</string>
+    <string name="add_car_car_make_hint">Marca masinii</string>
+    <string name="add_car_car_model_hint">Modelul masinii</string>
+    <string name="add_car_car_year_hint">Anul masinii</string>
+    <string name="add_car_car_text_2">Eg: AG08BAW</string>
+    <string name="add_car_car_license_example">AG08BAW</string>
+    <string name="add_car_car_year_not_in_interval">Anul trebuie sa fie intre %1$s %2$s</string>
+    <string name="add_car_car_license_hint">Numar inmatriculare</string>
+    <string name="add_car_car_invalid_license">Numar de inmatriculare invalid</string>
+    <string name="add_car_car_already_used_number_plate">Numarul de inmatriculare este deja folosit</string>
+    <string name="add_car_car_valid_number_plate">Numarul de inmatriculare este valid</string>
+    <string name="add_car_car_unchecked_number_plate">Numarul de inmatriculare nu a fost verificat</string>
+    <string name="add_car_car_end_icon_content_description">Verificare</string>
+    <string name="add_car_prev_button_text">Inapoi</string>
+    <string name="add_car_next_button_text">Inainte</string>
+    <string name="add_car_finish_button_text">Gata</string>
+
+    <string name="buttons_bottom_nav_prev_text">Inapoi</string>
+    <string name="buttons_bottom_nav_next_text">Inainte</string>
+
+    <string name="saving">Se salveaza…</string>
 
 </resources>

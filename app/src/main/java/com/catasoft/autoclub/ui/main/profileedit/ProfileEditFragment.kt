@@ -1,5 +1,6 @@
 package com.catasoft.autoclub.ui.main.profileedit
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentProfileEditBinding
 import com.google.android.material.snackbar.Snackbar

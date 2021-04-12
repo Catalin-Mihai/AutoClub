@@ -12,9 +12,7 @@
         android:label="fragment_home">
         <action
             android:id="@+id/action_home_to_profileEditFragment"
-            app:destination="@id/profileEditFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/home" />
+            app:destination="@id/profileEditFragment" />
         <action
             android:id="@+id/action_home_to_addCarActivity"
             app:destination="@id/addCarActivity" />

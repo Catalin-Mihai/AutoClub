@@ -1,9 +1,9 @@
 package com.catasoft.autoclub
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.catasoft.autoclub.ui.main.accountsign.AccountSignActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -25,6 +25,9 @@ class StartActivity : AppCompatActivity() {
             }
 
             val intent = Intent(this, MainActivity::class.java)
+            //Set these flags to start a fresh task. Back pressing will work correctly. The last back press will close the app
+            //instead of returning to the StartActivity
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             Timber.e(intent.toString())
             startMainActivity.launch(intent)
             login = false
@@ -35,8 +38,7 @@ class StartActivity : AppCompatActivity() {
 
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private fun checkLoginStatus(){
 
         if(login){
             val intent = Intent(this, AccountSignActivity::class.java)
@@ -48,7 +50,20 @@ class StartActivity : AppCompatActivity() {
         {
 
         }
+    }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        checkLoginStatus()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        Timber.e("ON RESUME ACTIVITY START")
+//        login = true
+//        checkLoginStatus()
     }
 
     companion object {

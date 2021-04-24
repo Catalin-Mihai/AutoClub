@@ -51,7 +51,7 @@ constructor(
 
     private fun getUsersByInput(input: String) {
         viewModelScope.launch {
-            val users = mUsersRepository.getUsersByPartialName(input)
+            val dbUsers = mUsersRepository.getUsersByPartialName(input)
             //Debug
 //            users.let {
 //                for(user in it) {
@@ -59,18 +59,26 @@ constructor(
 //                }
 //            }
 
-            usersLiveData.postValue(users.map {
-                val userSearchModel = UserSearchModel()
-                userSearchModel.name = it.name
-                userSearchModel.photoDownloadUrl = it.getAvatarDownloadUri()
+            dbUsers?.let { users ->
+                usersLiveData.postValue(users.map {
 
-                val cars:ArrayList<Car> = ArrayList()
-                cars.add(Car("Mazda", "Mazda3"))
-                cars.add(Car("Dacia", "Logan"))
+                    val userSearchModel = UserSearchModel()
+                    userSearchModel.name = it.name
+                    userSearchModel.photoDownloadUrl = kotlin.runCatching {
+                        it.getAvatarDownloadUri()
+                    }.onFailure {
+                        Timber.e("Invalid avatar location!")
+                    }.getOrNull()
 
-                userSearchModel.cars = cars
-                return@map userSearchModel
-            })
+                    val cars:ArrayList<Car> = ArrayList()
+                    cars.add(Car("Mazda", "Mazda3"))
+                    cars.add(Car("Dacia", "Logan"))
+
+                    userSearchModel.cars = cars
+                    return@map userSearchModel
+                })
+            }
+
         }
     }
 

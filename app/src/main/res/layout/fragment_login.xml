@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_welcome_title"
-            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline2"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline3"
             app:layout_constraintBottom_toTopOf="@+id/textView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline2"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline3"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

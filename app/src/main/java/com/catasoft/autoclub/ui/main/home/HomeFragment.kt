@@ -70,6 +70,8 @@ class HomeFragment : BaseFragment(){
         binding.viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+//                pageCollectionAdapter.notifyDataSetChanged()
+//                pageCollectionAdapter.notifyItemRemoved(0)
                 when(position){
                     PROFILE_TAB -> binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, R.drawable.ic_mode_edit_24px) })
                     CARS_TAB -> binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, R.drawable.ic_add_24px) })

@@ -28,7 +28,8 @@ fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
 suspend fun User.getAvatarDownloadUri(): Uri? {
     val ref = "avatar/${this.uid}.jpg"
     Timber.e("Location: $ref")
-    return Firebase.storage.reference.child(ref).downloadUrl.await()
+    val childRef = Firebase.storage.reference.child(ref)
+    return childRef.downloadUrl.await()
 }
 
 suspend fun Car.getAvatarDownloadUri(): Uri? {

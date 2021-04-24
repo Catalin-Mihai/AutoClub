@@ -25,7 +25,7 @@ interface IUsersRepository {
     suspend fun updateByMerging(user: User)
     suspend fun getUserDocumentByUid(uid: String): DocumentReference?
     suspend fun setAvatar(uid: String, photo: Bitmap)
-    suspend fun getUsersByPartialName(partialName: String): List<User>
+    suspend fun getUsersByPartialName(partialName: String): List<User>?
 }
 
 class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() {
@@ -104,11 +104,13 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
         uploadPhotoToFirestore(storageUserPhotoRef, photo)
     }
 
-    override suspend fun getUsersByPartialName(partialName: String): List<User> {
+    override suspend fun getUsersByPartialName(partialName: String): List<User>? {
 
         val snapshot = mUsersCollection.whereGreaterThanOrEqualTo(Constants.USERS_NAME, partialName)
             .whereLessThanOrEqualTo(Constants.USERS_NAME, partialName + "\uf8ff").limit(10).get().await()
 
-        return snapshot.toObjects()
+        if(!snapshot.isEmpty)
+            return snapshot.toObjects()
+        return null
     }
 }

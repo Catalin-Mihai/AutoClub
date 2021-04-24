@@ -3,17 +3,16 @@
     <item
         android:id="@+id/search_profile"
         android:title="@string/profile_search"
-        android:icon="@drawable/profile_search_icon"
-        />
+        android:icon="@drawable/profile_search_icon"/>
 
     <item
         android:id="@+id/feed"
         android:title="@string/feed"
-        android:icon="@drawable/ic_emoji_transportation_24px"/>
+        android:icon="@drawable/baseline_feed_24"/>
 
     <item
         android:id="@+id/home"
         android:title="@string/home"
-        android:icon="@drawable/home_icon"/>
+        android:icon="@drawable/baseline_home_24"/>
 
 </menu>

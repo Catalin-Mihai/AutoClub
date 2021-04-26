@@ -11,5 +11,8 @@ data class UserRegisterModel(
 
 fun UserRegisterModel.toUser() = User (
     name = this.name,
-    numberPlate = this.numberPlate
+    numberPlate = this.numberPlate,
+    carsCount = 0,
+    followersCount = 0,
+    postsCount = 0
 )

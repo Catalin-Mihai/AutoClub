@@ -8,20 +8,27 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.R
+import com.catasoft.autoclub.model.car.Car
 import com.catasoft.autoclub.model.car.CarProfileModel
 import com.catasoft.autoclub.model.user.UserSearchModel
+import com.catasoft.autoclub.ui.main.car.CarDetailsFragment
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
+import timber.log.Timber
 
 
-class CarsListAdapter(private val dataSet: List<CarProfileModel>) :
+class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val listener: CarItemListener) :
     RecyclerView.Adapter<CarsListAdapter.ViewHolder>() {
+
+    interface CarItemListener{
+        fun onCarClicked(car: CarProfileModel)
+    }
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivCarAvatar: ImageView
         val tvCarMakeAndModel: TextView
         val card: MaterialCardView
@@ -29,6 +36,12 @@ class CarsListAdapter(private val dataSet: List<CarProfileModel>) :
         init {
             // Define click listener for the ViewHolder's View.
             card = view.findViewById(R.id.card)
+
+            card.setOnClickListener{
+                Timber.e("Click pe car card!")
+                listener.onCarClicked(dataSet[adapterPosition])
+            }
+
             ivCarAvatar = view.findViewById(R.id.ivCarAvatar)
             tvCarMakeAndModel = view.findViewById(R.id.tvCarMakeAndModel)
         }

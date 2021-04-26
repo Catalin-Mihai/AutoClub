@@ -101,7 +101,7 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             android:contentDescription="Edit profile"
-            android:backgroundTint="@color/accentColor"
+            android:backgroundTint="@color/primaryColor"
             app:tint="@color/white"
             android:src="@drawable/ic_mode_edit_24px" />
 

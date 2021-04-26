@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="viewModel"
+            type="com.catasoft.autoclub.ui.main.profile.ProfileViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -49,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/profile_posts_count_default"
+                        android:text="@{String.valueOf(viewModel.userLiveData.postsCount)}"
                         android:textAppearance="?attr/textAppearanceBody1"
                         android:textColor="@color/primaryColor" />
 
@@ -75,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/profile_followers_count_default"
+                        android:text="@{String.valueOf(viewModel.userLiveData.followersCount)}"
                         android:textAppearance="?attr/textAppearanceBody1"
                         android:textColor="@color/primaryColor" />
 
@@ -101,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/profile_cars_count_default"
+                        android:text="@{String.valueOf(viewModel.userLiveData.carsCount)}"
                         android:textAppearance="?attr/textAppearanceBody1"
                         android:textColor="@color/primaryColor" />
 
@@ -138,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:drawablePadding="5dp"
-                    android:text="@string/profile_display_name_default"
+                    android:text="@{viewModel.userLiveData.name}"
                     android:textAppearance="?attr/textAppearanceBody1"
                     app:drawableStartCompat="@drawable/ic_account_circle_24px" />
 
@@ -148,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:drawablePadding="5dp"
-                    android:text="@string/profile_join_date_default"
+                    android:text="@{viewModel.userLiveData.joinDate}"
                     android:textAppearance="?attr/textAppearanceBody1"
                     app:drawableStartCompat="@drawable/ic_calendar_today_24px" />
 
@@ -158,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:drawablePadding="5dp"
-                    android:text="@string/profile_facebook_default"
+                    android:text="@{viewModel.userLiveData.facebookProfile}"
                     android:textAppearance="?attr/textAppearanceBody1"
                     app:drawableStartCompat="@drawable/ic_facebook_24px" />
 

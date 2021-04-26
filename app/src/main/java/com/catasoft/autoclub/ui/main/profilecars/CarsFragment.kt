@@ -7,19 +7,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentCarsBinding
 import com.catasoft.autoclub.model.car.CarProfileModel
 import com.catasoft.autoclub.ui.main.home.ARG_USER_CARS
 import com.catasoft.autoclub.ui.main.home.ARG_USER_UID
+import com.catasoft.autoclub.ui.main.home.HomeFragmentDirections
 import com.catasoft.autoclub.ui.main.profilesearch.SearchListAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class CarsFragment : Fragment() {
+class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
 
     private lateinit var binding: FragmentCarsBinding
     private var carsList: ArrayList<CarProfileModel> = ArrayList()
@@ -48,7 +51,7 @@ class CarsFragment : Fragment() {
             return
         }
 
-        val carsListAdapter = CarsListAdapter(carsList)
+        val carsListAdapter = CarsListAdapter(carsList, this)
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = carsListAdapter
 
@@ -60,5 +63,11 @@ class CarsFragment : Fragment() {
             carsList.addAll(it)
             carsListAdapter.notifyDataSetChanged()
         })
+    }
+
+    override fun onCarClicked(car: CarProfileModel) {
+        val navController = findNavController()
+        val action = HomeFragmentDirections.actionHomeToCarDetailsFragment(car)
+        navController.navigate(action)
     }
 }

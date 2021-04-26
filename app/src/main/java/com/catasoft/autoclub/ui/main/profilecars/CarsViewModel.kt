@@ -23,13 +23,15 @@ constructor(
 
     fun getUserCarsList(uid: String){
         viewModelScope.launch {
+
             carsList = liveData {
                 emit(carsRepository.getCarsByUserId(uid).map {
                     return@map CarProfileModel(
                         id=it.id,
                         make = it.make,
                         model = it.model,
-                        photoDownloadLink = it.getAvatarDownloadUri()
+//                        photoDownloadLink = it.getAvatarDownloadUri()
+                        photoDownloadLink = kotlin.runCatching { it.getAvatarDownloadUri() }.getOrNull()
                     )
                 })
             }

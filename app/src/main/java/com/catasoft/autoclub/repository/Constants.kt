@@ -6,6 +6,9 @@ object Constants {
     const val USERS_NUMBER_PLATE = "numberPlate"
     const val USERS_JOIN_DATE = "joinDate"
     const val USERS_NAME = "name"
+    const val CARS_COUNT = "carsCount"
+    const val FOLLOWERS_COUNT = "followersCount"
+    const val POSTS_COUNT = "postsCount"
 
     const val COLLECTION_CARS = "cars"
     const val CARS_ID = "id"

@@ -12,5 +12,8 @@ data class User(
     var numberPlate: String? = null,
     var name : String? = null,
     var joinDate: String? = null,
-    var facebookProfile: String? = null
+    var facebookProfile: String? = null,
+    var postsCount: Int? = null,
+    var followersCount: Int? = null,
+    var carsCount: Int? = null
 ): Serializable

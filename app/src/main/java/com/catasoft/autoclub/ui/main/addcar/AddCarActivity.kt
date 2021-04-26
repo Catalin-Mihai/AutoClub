@@ -162,6 +162,9 @@ class AddCarActivity: AppCompatActivity(), BottomButtonsListener {
                 Timber.e("Masina a fost salvata boss!")
                 finish()
             }
+            else{
+                Snackbar.make(binding.root, resources.getText(R.string.generic_error), Snackbar.LENGTH_SHORT).show()
+            }
         })
     }
 

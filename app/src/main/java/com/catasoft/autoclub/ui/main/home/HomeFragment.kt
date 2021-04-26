@@ -34,6 +34,8 @@ class HomeFragment : BaseFragment(){
     override fun onResume() {
         super.onResume()
         Timber.e("HOME RESUMED!")
+        //Refresh the tabs
+        binding.viewPager.adapter = pageCollectionAdapter
     }
 
     override fun onCreateView(

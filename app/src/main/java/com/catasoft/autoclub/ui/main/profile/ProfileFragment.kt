@@ -25,6 +25,7 @@ class ProfileFragment : BaseFragment() {
 
         //lifecycle setters
         binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
         return binding.root
     }
@@ -40,13 +41,6 @@ class ProfileFragment : BaseFragment() {
         else
         {
             viewModel.getUserByUid(argUid)
-
-            viewModel.userLiveData.observe(viewLifecycleOwner, {
-                //Load user info
-                binding.tvDisplayName.text = it.name
-                binding.tvJoinDate.text = it.joinDate
-            })
-
         }
     }
 }

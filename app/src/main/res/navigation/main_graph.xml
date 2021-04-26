@@ -16,6 +16,11 @@
         <action
             android:id="@+id/action_home_to_addCarActivity"
             app:destination="@id/addCarActivity" />
+        <action
+            android:id="@+id/action_home_to_carDetailsFragment"
+            app:destination="@id/carDetailsFragment">
+        </action>
+
     </fragment>
     <fragment
         android:id="@+id/search_profile"
@@ -37,5 +42,14 @@
         tools:layout="@layout/activity_add_car"
         android:name="com.catasoft.autoclub.ui.main.addcar.AddCarActivity"
         android:label="AddCarActivity" />
+    <fragment
+        android:id="@+id/carDetailsFragment"
+        android:name="com.catasoft.autoclub.ui.main.car.CarDetailsFragment"
+        android:label="CarDetailsFragment" >
+        <argument
+            android:name="car"
+            app:argType="com.catasoft.autoclub.model.car.CarProfileModel"
+            app:nullable="true" />
+    </fragment>
 
 </navigation>

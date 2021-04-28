@@ -38,6 +38,22 @@ suspend fun Car.getAvatarDownloadUri(): Uri? {
     return Firebase.storage.reference.child(ref).downloadUrl.await()
 }
 
+suspend fun Car.getAllPhotosDownloadUri(): List<Uri>?{
+    val refUrl = "cars/${this.id}"
+    val listRes = Firebase.storage.reference.child(refUrl).listAll().await()
+    val photosLinks: ArrayList<Uri> = ArrayList()
+    listRes.items.forEach{ item ->
+        val link = item.downloadUrl.await()
+        photosLinks.add(link)
+        Timber.e("Photo link is: %s", link)
+    }
+
+    if(photosLinks.count() == 0)
+        return null
+
+    return photosLinks
+}
+
 fun TextInputLayout.showSuccessEndIcon() {
     this.endIconMode = TextInputLayout.END_ICON_CUSTOM
 

@@ -6,6 +6,7 @@ import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.catasoft.autoclub.util.getAvatarDownloadUri
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -17,6 +18,7 @@ interface ICarsRepository {
     suspend fun addCar(car: Car): Car
     suspend fun setAvatar(id: String, photo: Bitmap)
     suspend fun getCarsByUserId(uid: String): List<Car>
+    suspend fun getCarById(id: String): Car?
 }
 
 class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
@@ -45,5 +47,14 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
     override suspend fun getCarsByUserId(uid: String): List<Car> {
         val snapshot = mCarsCollection.whereEqualTo(Constants.CARS_OWNER_UID, uid).get().await()
         return snapshot.toObjects()
+    }
+
+    override suspend fun getCarById(id: String): Car? {
+        val snapshot = mCarsCollection.whereEqualTo(Constants.CARS_ID, id).limit(1).get().await()
+
+        if (snapshot.isEmpty)
+            return null
+
+        return snapshot.first().toObject()
     }
 }

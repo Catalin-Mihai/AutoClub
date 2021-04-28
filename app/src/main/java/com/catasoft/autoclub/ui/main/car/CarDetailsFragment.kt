@@ -1,17 +1,18 @@
 package com.catasoft.autoclub.ui.main.car
 
+import android.media.Image
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentCarDetailsBinding
-import com.catasoft.autoclub.databinding.FragmentProfileEditBinding
-import com.catasoft.autoclub.model.car.Car
-import com.catasoft.autoclub.model.car.CarProfileModel
 import com.catasoft.autoclub.ui.BaseFragment
+import com.squareup.picasso.Picasso
+import com.stfalcon.imageviewer.StfalconImageViewer
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -20,9 +21,11 @@ private const val ARG_CAR = "car"
 @AndroidEntryPoint
 class CarDetailsFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
-    private var car: CarProfileModel? = null
+    private var carId: String? = null
     private lateinit var binding: FragmentCarDetailsBinding
+    private val viewModel: CarDetailsViewModel by viewModels()
     private val args: CarDetailsFragmentArgs by navArgs()
+    private lateinit var viewer: StfalconImageViewer<Uri?>
 
     init {
         Timber.e("Init")
@@ -30,8 +33,23 @@ class CarDetailsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val car = args.car
-        Timber.e("On create %s", car)
+        carId = args.carId
+        Timber.e("On create %s", carId)
+
+        if(carId != null)
+            viewModel.loadCarDetailsModel(carId!!)
+
+
+    }
+
+    private fun openViewer(startPosition: Int, target: ImageView) {
+
+        viewer = StfalconImageViewer.Builder(context, viewModel.carDetailsModelLive.value?.photosLinks) { view, url ->
+            Picasso.get().load(url).into(view)
+        }
+        .withStartPosition(startPosition)
+        .withTransitionFrom(target)
+        .show()
     }
 
     override fun onCreateView(
@@ -45,6 +63,16 @@ class CarDetailsFragment : BaseFragment() {
 
         //lifecycle setters
         binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
+        viewModel.carDetailsModelLive.observe(viewLifecycleOwner, {
+
+            binding.recyclerView.adapter = CarDetailsPhotosAdapter(viewModel.carDetailsModelLive.value?.photosLinks, object: CarDetailsPhotosAdapter.CarGalleryListener{
+                override fun imageClicked(imageView: ImageView, position: Int) {
+                    openViewer(position, imageView)
+                }
+            })
+        })
 
         return binding.root
     }

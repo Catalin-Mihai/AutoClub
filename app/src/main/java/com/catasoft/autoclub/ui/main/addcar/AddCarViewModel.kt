@@ -58,12 +58,6 @@ constructor(
     //The car model that will be build based on the inputs
     val carEntity: CarCreationModel = CarCreationModel()
 
-    @BindingAdapter("bind:imageBitmap")
-    fun loadImage(iv: ImageView, bitmap: Bitmap?) {
-        iv.setImageBitmap(bitmap)
-    }
-
-
     init {
         // Listen for channel values.
         // Check every last request that is sent from the View (with respect to the debounce time)

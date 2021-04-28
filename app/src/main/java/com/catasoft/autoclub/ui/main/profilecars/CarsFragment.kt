@@ -67,7 +67,7 @@ class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
 
     override fun onCarClicked(car: CarProfileModel) {
         val navController = findNavController()
-        val action = HomeFragmentDirections.actionHomeToCarDetailsFragment(car)
+        val action = HomeFragmentDirections.actionHomeToCarDetailsFragment(car.id)
         navController.navigate(action)
     }
 }

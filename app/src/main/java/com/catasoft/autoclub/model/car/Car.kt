@@ -3,6 +3,12 @@ package com.catasoft.autoclub.model.car
 import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
+import com.catasoft.autoclub.repository.remote.CarsRepository
+import com.catasoft.autoclub.repository.remote.ICarsRepository
+import com.catasoft.autoclub.repository.remote.IUsersRepository
+import com.catasoft.autoclub.repository.remote.UsersRepository
+import com.catasoft.autoclub.util.getAllPhotosDownloadUri
+import com.catasoft.autoclub.util.getAvatarDownloadUri
 
 data class Car(
     var id: String? = null,
@@ -44,4 +50,23 @@ data class Car(
             return arrayOfNulls(size)
         }
     }
+}
+
+suspend fun Car.toCarDetailsModel(usersRepository: IUsersRepository): CarDetailsModel {
+    val carDetailsModel =  CarDetailsModel(
+        id = id,
+        make = make,
+        model = model,
+        year = year,
+        numberPlate = numberPlate
+    )
+
+    val userId = ownerUid
+    if(userId != null)
+        carDetailsModel.owner = usersRepository.getUserByUid(userId)
+
+    carDetailsModel.photosLinks = this.getAllPhotosDownloadUri()
+    carDetailsModel.avatarLink = this.getAvatarDownloadUri()
+
+    return carDetailsModel
 }

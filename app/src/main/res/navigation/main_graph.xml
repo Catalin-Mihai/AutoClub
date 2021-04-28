@@ -44,11 +44,12 @@
         android:label="AddCarActivity" />
     <fragment
         android:id="@+id/carDetailsFragment"
+        tools:layout="@layout/fragment_car_details"
         android:name="com.catasoft.autoclub.ui.main.car.CarDetailsFragment"
-        android:label="CarDetailsFragment" >
+        android:label="CarDetailsFragment">
         <argument
-            android:name="car"
-            app:argType="com.catasoft.autoclub.model.car.CarProfileModel"
+            android:name="carId"
+            app:argType="string"
             app:nullable="true" />
     </fragment>
 

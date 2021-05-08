@@ -31,7 +31,11 @@
         android:id="@+id/feed"
         tools:layout="@layout/fragment_feed"
         android:name="com.catasoft.autoclub.ui.main.feed.FeedFragment"
-        android:label="fragment_feed" />
+        android:label="fragment_feed" >
+        <action
+            android:id="@+id/action_feed_to_addMeetActivity"
+            app:destination="@id/addMeetActivity" />
+    </fragment>
     <fragment
         android:id="@+id/profileEditFragment"
         tools:layout="@layout/fragment_profile_edit"
@@ -52,5 +56,9 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+    <activity
+        android:id="@+id/addMeetActivity"
+        android:name="com.catasoft.autoclub.ui.main.addmeet.AddMeetActivity"
+        android:label="AddMeetActivity" />
 
 </navigation>

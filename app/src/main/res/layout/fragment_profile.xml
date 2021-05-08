@@ -46,7 +46,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/profile_posts_count_headline"
+                        android:text="@string/profile_meets_count_headline"
                         android:textAppearance="?attr/textAppearanceHeadline6"
                         android:textColor="?android:attr/textColorSecondary" />
 
@@ -56,32 +56,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@{String.valueOf(viewModel.userLiveData.postsCount)}"
-                        android:textAppearance="?attr/textAppearanceBody1"
-                        android:textColor="@color/primaryColor" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/profile_followers_count_headline"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        android:textColor="?android:attr/textColorSecondary" />
-
-                    <TextView
-                        android:id="@+id/tvFollowersCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@{String.valueOf(viewModel.userLiveData.followersCount)}"
                         android:textAppearance="?attr/textAppearanceBody1"
                         android:textColor="@color/primaryColor" />
 

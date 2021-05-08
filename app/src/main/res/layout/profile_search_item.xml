@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
@@ -22,9 +22,9 @@
             <!-- Media -->
             <ImageView
                 android:id="@+id/ivCarPhoto"
-                android:layout_weight="3"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:contentDescription="@string/profile_search_item_photo_content_description"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_account_circle_24px" />
@@ -32,9 +32,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="16dp"
-                android:layout_weight="1">
+                android:padding="16dp">
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
@@ -48,14 +48,14 @@
                     android:id="@+id/carsLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Honda Civic Type R (2005)"
                         android:layout_marginTop="8dp"
+                        android:text="Honda Civic Type R (2005)"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary"
                         app:drawableStartCompat="@drawable/ic_car_24px" />
@@ -72,9 +72,7 @@
                 </LinearLayout>
 
 
-
             </LinearLayout>
-
 
 
         </LinearLayout>

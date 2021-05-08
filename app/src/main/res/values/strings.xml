@@ -5,6 +5,7 @@
     <string name="home">Acasa</string>
     <string name="chat">Chat</string>
     <string name="feed">Feed</string>
+    <string name="meet">Meet</string>
 
 
     <string name="button_next">Urmatorul</string>
@@ -59,6 +60,7 @@
     <string name="profile_tab1">Profil</string>
     <string name="profile_tab2">Masini</string>
     <string name="profile_posts_count_headline">Postari</string>
+    <string name="profile_meets_count_headline">Meets</string>
     <string name="profile_followers_count_headline">Urmaritori</string>
     <string name="profile_cars_count_headline">Masini</string>
 

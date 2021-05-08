@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.model.car.Car
 import com.catasoft.autoclub.model.user.UserSearchModel
+import com.catasoft.autoclub.repository.remote.CarsRepository
+import com.catasoft.autoclub.repository.remote.ICarsRepository
 import com.catasoft.autoclub.util.getAvatarDownloadUri
 import com.catasoft.autoclub.repository.remote.IUsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +27,8 @@ class ProfileSearchViewModel
 
 @Inject
 constructor(
-    private val mUsersRepository: IUsersRepository
+    private val mUsersRepository: IUsersRepository,
+    private val mCarsRepository: ICarsRepository
 ) : ViewModel() {
 
     val usersLiveData: MutableLiveData<List<UserSearchModel>> = MutableLiveData()
@@ -70,9 +73,7 @@ constructor(
                         Timber.e("Invalid avatar location!")
                     }.getOrNull()
 
-                    val cars:ArrayList<Car> = ArrayList()
-                    cars.add(Car("Mazda", "Mazda3"))
-                    cars.add(Car("Dacia", "Logan"))
+                    val cars: List<Car> = mCarsRepository.getCarsByUserId(it.uid!!)
 
                     userSearchModel.cars = cars
                     return@map userSearchModel

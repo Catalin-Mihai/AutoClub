@@ -16,12 +16,16 @@ object CurrentUser: ICurrentUser {
 
     private val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
     private var userData = User()
+    private var initiated = false
 
     init {
+        initiate()
+    }
 
-        Timber.e("SUNT CREAT ACUM@@@@@@@@@@@@@@@@@@@@@!")
+    fun initiate(){
+        if (currentFirebaseUser != null && !initiated) {
 
-        if (currentFirebaseUser != null) {
+            Timber.e("SUNT CREAT ACUM@@@@@@@@@@@@@@@@@@@@@!")
 
             Timber.e(currentFirebaseUser.uid)
 
@@ -44,13 +48,12 @@ object CurrentUser: ICurrentUser {
                     if (snapshot != null && snapshot.exists()) {
                         Timber.e("Current data: ${snapshot.data}")
                         userData = snapshot.toObject()!!
+                        initiated = true
                     } else {
                         Timber.e("Current data: null")
                     }
                 }
             }
-
-
         }
         else {
             throw Exception("User is not logged! Can't synchronize data!")

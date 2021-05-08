@@ -32,6 +32,7 @@ constructor(
             val carDbModel = carsRepository.getCarById(carId)
 
             val carDetailsModel = carDbModel?.toCarDetailsModel(usersRepository)
+            /*val carDetailsModel = carDbModel?.toCarDetailsModel(usersRepository)
             carDetailsModel?.photosLinks = listOf(carDetailsModel?.avatarLink !!,
                 carDetailsModel.avatarLink!!,
                 carDetailsModel.avatarLink!!,
@@ -39,7 +40,7 @@ constructor(
                 carDetailsModel.avatarLink!!,
                 carDetailsModel.avatarLink!!,
                 carDetailsModel.avatarLink!!,
-                carDetailsModel.avatarLink!!)
+                carDetailsModel.avatarLink!!)*/
             carDetailsModelLive.postValue(carDetailsModel)
         }
     }

@@ -13,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
+import java.lang.Exception
 
 fun <T> Fragment.getNavigationResult(key: String = "result") =
     findNavController().currentBackStackEntry?.savedStateHandle?.get<T>(key)
@@ -26,16 +27,26 @@ fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
 
 
 suspend fun User.getAvatarDownloadUri(): Uri? {
-    val ref = "avatar/${this.uid}.jpg"
-    Timber.e("Location: $ref")
-    val childRef = Firebase.storage.reference.child(ref)
-    return childRef.downloadUrl.await()
+    return try{
+        val ref = "avatar/${this.uid}.jpg"
+        Timber.e("Location: $ref")
+        val childRef = Firebase.storage.reference.child(ref)
+        childRef.downloadUrl.await()
+    }
+    catch (e: Exception){
+        null
+    }
 }
 
 suspend fun Car.getAvatarDownloadUri(): Uri? {
-    val ref = "cars/${this.id}/avatar.jpg"
-    Timber.e("Car avatar location: $ref")
-    return Firebase.storage.reference.child(ref).downloadUrl.await()
+    return try{
+        val ref = "cars/${this.id}/avatar.jpg"
+        Timber.e("Car avatar location: $ref")
+        Firebase.storage.reference.child(ref).downloadUrl.await()
+    }
+    catch (e: Exception){
+        null
+    }
 }
 
 suspend fun Car.getAllPhotosDownloadUri(): List<Uri>?{

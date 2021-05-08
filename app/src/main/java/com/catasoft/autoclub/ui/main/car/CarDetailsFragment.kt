@@ -1,5 +1,6 @@
 package com.catasoft.autoclub.ui.main.car
 
+import android.graphics.Color
 import android.media.Image
 import android.net.Uri
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.catasoft.autoclub.MainActivity
 import com.catasoft.autoclub.databinding.FragmentCarDetailsBinding
 import com.catasoft.autoclub.ui.BaseFragment
 import com.squareup.picasso.Picasso
@@ -38,7 +40,6 @@ class CarDetailsFragment : BaseFragment() {
 
         if(carId != null)
             viewModel.loadCarDetailsModel(carId!!)
-
 
     }
 
@@ -73,6 +74,15 @@ class CarDetailsFragment : BaseFragment() {
                 }
             })
         })
+
+        val activity = activity as MainActivity
+//        activity.setSupportActionBar(binding.toolbar)
+
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.setDisplayShowHomeEnabled(true)
+//        binding.toolbarLayout.title = "Mithubishi lancer evo 3"
+
+        binding.toolbarLayout.setExpandedTitleColor(Color.WHITE);
 
         return binding.root
     }

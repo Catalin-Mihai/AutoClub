@@ -14,6 +14,7 @@ import com.catasoft.autoclub.MainActivity
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.StartActivity
 import com.catasoft.autoclub.databinding.FragmentLoginBinding
+import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.ui.BaseFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -65,6 +66,8 @@ class LoginFragment : BaseFragment() {
                     Timber.e("firebaseid: %s", it.user?.uid)
 //                    returnIntent.putExtra("firebase_account", it.user?.uid)
                     activity?.setResult(StartActivity.RESULT_LOGIN_OK)
+                    //Instantiate the CurrentUser object
+                    CurrentUser.initiate()
                     activity?.finish()
 //                    showSuccessfulLogin()
                 }

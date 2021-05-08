@@ -62,7 +62,7 @@ class SearchListAdapter(private val dataSet: List<UserSearchModel>) :
             val textView: TextView = LayoutInflater.from(viewHolder.itemView.context)
                 .inflate(R.layout.profile_search_user_car_item, viewHolder.itemView as ViewGroup, false) as TextView
             val text = viewHolder.itemView.context.resources
-                .getString(R.string.profile_search_itme_car_text_placeholder, it.make, it.model, "2005")
+                .getString(R.string.profile_search_itme_car_text_placeholder, it.make, it.model, it.year.toString())
             textView.text = text
             //add it
             viewHolder.carsLinearLayout.addView(textView)

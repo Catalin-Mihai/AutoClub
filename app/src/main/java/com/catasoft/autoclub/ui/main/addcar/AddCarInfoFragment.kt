@@ -75,6 +75,7 @@ class AddCarInfoFragment : Fragment() {
 //            viewModel.saveCar()
 //        }
 
+
         binding.tfCarMake.editText?.addTextChangedListener {
             viewModel.validateNewCarMake(it.toString())
             binding.tfCarMake.resetFeedback()

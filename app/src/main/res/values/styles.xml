@@ -10,4 +10,7 @@
         <item name="android:minHeight">48dp</item>
     </style>
 
+    <style name="ExpandedCarTitle" parent="TextAppearance.AppCompat.Display1">
+        <item name="fontFamily">@font/montserrat</item>
+    </style>
 </resources>

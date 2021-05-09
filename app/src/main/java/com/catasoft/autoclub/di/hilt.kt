@@ -2,10 +2,7 @@ package com.catasoft.autoclub.di
 
 import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.repository.ICurrentUser
-import com.catasoft.autoclub.repository.remote.CarsRepository
-import com.catasoft.autoclub.repository.remote.ICarsRepository
-import com.catasoft.autoclub.repository.remote.IUsersRepository
-import com.catasoft.autoclub.repository.remote.UsersRepository
+import com.catasoft.autoclub.repository.remote.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,4 +20,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindCarsRepository(repo: CarsRepository): ICarsRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindMeetsRepository(repo: MeetsRepository): IMeetsRepository
 }

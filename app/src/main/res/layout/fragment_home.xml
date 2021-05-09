@@ -43,7 +43,7 @@
                         android:layout_height="0dp"
                         android:fitsSystemWindows="true"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_car_24px"
+                        android:src="@drawable/ic_placeholder_view_vector"
                         android:background="@color/white_smoke"
                         app:layout_collapseMode="pin"
                         app:layout_constraintBottom_toTopOf="@+id/tabLayout"

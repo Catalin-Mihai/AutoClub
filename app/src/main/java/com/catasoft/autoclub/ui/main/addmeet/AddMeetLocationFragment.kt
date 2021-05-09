@@ -4,16 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.databinding.ActivityAddMeetBinding
-import com.catasoft.autoclub.databinding.FragmentAddCarSummaryBinding
 import com.catasoft.autoclub.databinding.FragmentAddMeetLocationBinding
-import com.google.android.libraries.places.api.model.LocationBias
+import com.catasoft.autoclub.model.meet.Meet
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
@@ -40,13 +40,29 @@ class AddMeetLocationFragment : Fragment() {
         binding.pickLocationBtn.setOnClickListener {
             // Set the fields to specify which types of place data to
             // return after the user has made a selection.
-            val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.PHOTO_METADATAS, Place.Field.LAT_LNG)
+            val fields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.PHOTO_METADATAS, Place.Field.LAT_LNG, Place.Field.ADDRESS)
 
             // Start the autocomplete intent.
             val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
                 .build(requireContext())
             startActivityForResult(intent, AddMeetViewModel.AUTOCOMPLETE_REQUEST_CODE)
         }
+
+        val timer = object: CountDownTimer(4000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+            override fun onFinish() {
+                binding.pickLocationBtn.error = null
+                viewModel.liveValidationMessage.value = null
+            }
+        }
+
+        viewModel.liveValidationMessage.observe(viewLifecycleOwner, {
+            timer.cancel()
+            binding.pickLocationBtn.error = it
+            timer.start()
+        })
 
         return rootView
     }
@@ -58,18 +74,24 @@ class AddMeetLocationFragment : Fragment() {
                     data?.let {
                         val place = Autocomplete.getPlaceFromIntent(data)
                         Timber.e("Place: ${place.name}, ${place.id}, ${place.address} ${place.latLng?.latitude} ${place.latLng?.longitude}")
-                        viewModel.liveLocationId.value = place.id
-                        viewModel.liveLocationName.value = place.name
-                        viewModel.liveLocationLat.value = place.latLng?.latitude
-                        viewModel.liveLocationLong.value = place.latLng?.longitude
-                        Timber.e("attributions: ${place.photoMetadatas?.get(0)?.zza()}")
+
                         val endpoint = "https://maps.googleapis.com/maps/api/place/photo?"
                         val maxWidth = 400
                         val photoRef = place.photoMetadatas?.get(0)?.zza()
-                        val uri = Uri.parse(
-                            "${endpoint}maxwidth=${maxWidth}&photoreference=${photoRef}&key=${resources.getString(R.string.google_api_key)}")
-                        Timber.e("$uri")
-                        viewModel.liveLocationPhoto.value = uri
+                        val uri = "${endpoint}maxwidth=${maxWidth}&photoreference=${photoRef}&key=${resources.getString(R.string.google_api_key)}"
+                        Timber.e(uri)
+
+                        viewModel.liveMeet.value!!.apply {
+                            placeId = place.id
+                            placeName = place.name
+                            placeLat = place.latLng?.latitude
+                            placeLong = place.latLng?.longitude
+                            placeAddress = place.address
+                            placePhotoLink = uri
+                        }
+                        viewModel.liveMeet.value = viewModel.liveMeet.value
+
+                        Timber.e("attributions: ${place.photoMetadatas?.get(0)?.zza()}")
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {

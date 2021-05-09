@@ -18,6 +18,9 @@ abstract class BaseRepository {
     protected val mUsersCollection =
         FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
 
+    protected val mMeetCollection =
+        FirebaseFirestore.getInstance().collection(Constants.COLLECTION_MEETS)
+
     protected val mCarsCollection =
         FirebaseFirestore.getInstance().collection(Constants.COLLECTION_CARS)
 

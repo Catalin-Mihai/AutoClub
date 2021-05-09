@@ -44,7 +44,8 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
 
         val fragmentList: ArrayList<Fragment> = arrayListOf(
             AddMeetLocationFragment(),
-            AddMeetLocationFragment()
+            AddMeetDescriptionFragment(),
+            AddMeetSummaryFragment()
         )
         viewPager2.adapter = AddCarPageCollectionAdapter(this, fragmentList)
         //Programmatically swipe to pages to let the user know if it's something wrong with the input on the current page
@@ -54,6 +55,23 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
             binding.btnPrev, binding.btnNext, viewPager2, fragmentList.size, this,
             resources.getString(R.string.add_car_prev_button_text), resources.getString(R.string.add_car_next_button_text), resources.getString(
                 R.string.add_car_finish_button_text))
+
+        viewModel.liveValidationState.observe(this, {
+            if(it == true){
+                when(bottomButtonsNavManager.getPageState()){
+                    BottomButtonsNavManager.FIRST_PAGE, BottomButtonsNavManager.MIDDLE_PAGE -> {
+                        //Here we just wanted to know if we can go further with the creation wizard
+                        viewPager2.setCurrentItem(viewPager2.currentItem+1, true)
+                    }
+                }
+            }
+        })
+
+        viewModel.liveMeetSaved.observe(this, {
+            if(it){
+                finish()
+            }
+        })
 
     }
 
@@ -68,14 +86,14 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
 
         //Here we must be sure the input is ok. Can't go further unless the input is good
         //So check the input and wait for the livedata to come with the state
-//        viewModel.validatePage(currentPosition)
+        viewModel.validatePage(currentPosition)
     }
 
     override fun onFinishPressed(currentPosition: Int) {
         Timber.e("Finish")
 
-        //Save the car. If we are at the summary step, we know that the input is good
-//        viewModel.saveCarToDatabase()
+        //Save the new meet
+        viewModel.saveMeet()
 
         Snackbar.make(binding.root, resources.getText(R.string.saving), Snackbar.LENGTH_SHORT).show()
 

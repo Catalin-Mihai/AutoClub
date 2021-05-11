@@ -30,27 +30,15 @@ class AddMeetDescriptionFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val timer = object: CountDownTimer(4000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-
-            }
-
-            override fun onFinish() {
-                binding.outlinedTextField.error = null
-                viewModel.liveValidationMessage.value = null
-            }
-        }
-
         binding.textInput.addTextChangedListener {
             val text = it.toString()
             viewModel.liveMeet.value?.description = text
             viewModel.liveMeet.value = viewModel.liveMeet.value
         }
 
+
         viewModel.liveValidationMessage.observe(viewLifecycleOwner, {
-            timer.cancel()
-            binding.outlinedTextField.error = it
-            timer.start()
+                binding.outlinedTextField.error = it
         })
 
         return rootView

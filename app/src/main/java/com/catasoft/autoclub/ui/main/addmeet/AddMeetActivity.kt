@@ -3,6 +3,7 @@ package com.catasoft.autoclub.ui.main.addmeet
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -29,6 +30,15 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
     private lateinit var viewPager2: ViewPager2
     private lateinit var bottomButtonsNavManager: BottomButtonsNavManager
 
+    private val timer = object: CountDownTimer(4000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+
+        }
+        override fun onFinish() {
+            viewModel.liveValidationMessage.value = null
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,6 +55,7 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
         val fragmentList: ArrayList<Fragment> = arrayListOf(
             AddMeetLocationFragment(),
             AddMeetDescriptionFragment(),
+            AddMeetDateAndTimeFragment(),
             AddMeetSummaryFragment()
         )
         viewPager2.adapter = AddCarPageCollectionAdapter(this, fragmentList)
@@ -73,6 +84,10 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
             }
         })
 
+        viewModel.liveValidationMessage.observe(this, {
+            timer.cancel()
+            timer.start()
+        })
     }
 
     override fun onPrevPressed(currentPosition: Int) {
@@ -99,6 +114,13 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
 
         //disable save button
         binding.btnNext.isClickable = false
+    }
+
+    override fun onPageChanged(currentPosition: Int) {
+        super.onPageChanged(currentPosition)
+
+        timer.cancel()
+        viewModel.liveValidationMessage.value = null
     }
 
 }

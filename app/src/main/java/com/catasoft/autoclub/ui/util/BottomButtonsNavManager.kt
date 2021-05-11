@@ -7,6 +7,9 @@ interface BottomButtonsListener{
     fun onPrevPressed(currentPosition: Int)
     fun onNextPressed(currentPosition: Int)
     fun onFinishPressed(currentPosition: Int)
+    fun onPageChanged(currentPosition: Int) {
+
+    }
 }
 
 //TODO: Convert la clasa builder unde se specifica textele de inceput, intermediare si finale (Inainte, Inapoi, Finalizeaza)
@@ -45,6 +48,7 @@ open class BottomButtonsNavManager(
             override fun onPageSelected(position: Int) {
                 currentPageNumber = position
                 onPageChanged(position)
+                listener.onPageChanged(currentPageNumber)
             }
         })
 

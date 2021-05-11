@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Response
 import timber.log.Timber
+import java.util.*
 import javax.security.auth.callback.Callback
 
 @AndroidEntryPoint
@@ -37,6 +38,14 @@ class MainActivity : AppCompatActivity() {
         //Initialize Places
         // Initialize the SDK
         Places.initialize(applicationContext, resources.getString(R.string.google_api_key))
+
+/*        val cal: Calendar = Calendar.getInstance()
+        cal.set(2021, 4, 11, 13, 52)
+        val milis = cal.timeInMillis
+        Timber.e("%d", milis)
+        cal.timeInMillis = milis + 555555555
+        Timber.e("%s", cal.toString())*/
+
 
 //        // Create a new PlacesClient instance
 //        val placesClient = Places.createClient(this)

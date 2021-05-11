@@ -48,22 +48,6 @@ class AddMeetLocationFragment : Fragment() {
             startActivityForResult(intent, AddMeetViewModel.AUTOCOMPLETE_REQUEST_CODE)
         }
 
-        val timer = object: CountDownTimer(4000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-
-            }
-            override fun onFinish() {
-                binding.pickLocationBtn.error = null
-                viewModel.liveValidationMessage.value = null
-            }
-        }
-
-        viewModel.liveValidationMessage.observe(viewLifecycleOwner, {
-            timer.cancel()
-            binding.pickLocationBtn.error = it
-            timer.start()
-        })
-
         return rootView
     }
 

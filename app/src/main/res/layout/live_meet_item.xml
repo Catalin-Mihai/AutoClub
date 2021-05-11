@@ -6,6 +6,7 @@
 
     <data>
         <import type="android.R"/>
+        <import type="com.catasoft.autoclub.util.HelpersKt"/>
         <import type="androidx.lifecycle.LiveData"/>
         <import type="com.catasoft.autoclub.model.meet.Meet"/>
         <variable
@@ -61,7 +62,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="60"
+                            android:layout_weight="40"
                             android:gravity="center_vertical"
                             android:text="@{liveMeet.placeName}"
                             style="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -70,7 +71,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:layout_weight="40"
+                            android:layout_weight="20"
+                            android:text="@{HelpersKt.formatMillisToDate(liveMeet.meetTime)}"
+                            style="@style/TextAppearance.MaterialComponents.Body2"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_weight="20"
+                            android:text="@{HelpersKt.formatMillisToTime(liveMeet.meetTime)}"
+                            style="@style/TextAppearance.MaterialComponents.Body2"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_weight="20"
                             android:text="@{liveMeet.placeAddress}"
                             style="@style/TextAppearance.MaterialComponents.Body2"/>
 

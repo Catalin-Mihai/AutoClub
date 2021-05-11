@@ -61,7 +61,8 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
 
         docRef.update(
             Constants.USERS_UID, currentAuthUser.uid,
-            Constants.USERS_JOIN_DATE, "$mDay-$month-$year"
+            Constants.USERS_JOIN_DATE, "$mDay-$month-$year",
+            Constants.USERS_NORMALIZED_NAME, user.name?.toUpperCase(Locale.getDefault())
         )
 
         return docRef
@@ -106,8 +107,8 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
 
     override suspend fun getUsersByPartialName(partialName: String): List<User>? {
 
-        val snapshot = mUsersCollection.whereGreaterThanOrEqualTo(Constants.USERS_NAME, partialName)
-            .whereLessThanOrEqualTo(Constants.USERS_NAME, partialName + "\uf8ff").limit(10).get().await()
+        val snapshot = mUsersCollection.whereGreaterThanOrEqualTo(Constants.USERS_NORMALIZED_NAME, partialName.toUpperCase(Locale.getDefault()))
+            .whereLessThanOrEqualTo(Constants.USERS_NORMALIZED_NAME, partialName.toUpperCase(Locale.getDefault()) + "\uf8ff").limit(10).get().await()
 
         if(!snapshot.isEmpty)
             return snapshot.toObjects()

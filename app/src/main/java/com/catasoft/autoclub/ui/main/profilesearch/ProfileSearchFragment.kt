@@ -14,7 +14,7 @@ import kotlinx.coroutines.FlowPreview
 import timber.log.Timber
 
 @FlowPreview
-class ProfileSearchFragment : BaseFragment() {
+class ProfileSearchFragment : BaseFragment(), SearchListAdapter.UserItemListener {
 
     private lateinit var binding: FragmentProfileSearchBinding
     private val viewModel: ProfileSearchViewModel by viewModels()
@@ -34,13 +34,15 @@ class ProfileSearchFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.textField.editText?.addTextChangedListener {
-            viewModel.pushInput(it.toString())
-        }
-
-        val searchListAdapter = SearchListAdapter(searchList)
+        val searchListAdapter = SearchListAdapter(searchList, this)
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = searchListAdapter
+
+        binding.textField.editText?.addTextChangedListener {
+            searchList.clear()
+            searchListAdapter.notifyDataSetChanged()
+            viewModel.pushInput(it.toString())
+        }
 
         viewModel.usersLiveData.observe(viewLifecycleOwner, {
 //            debug
@@ -54,5 +56,9 @@ class ProfileSearchFragment : BaseFragment() {
         })
 
 //        binding.recyclerView.=
+    }
+
+    override fun onUserClicked(user: UserSearchModel) {
+        Timber.e(user.toString())
     }
 }

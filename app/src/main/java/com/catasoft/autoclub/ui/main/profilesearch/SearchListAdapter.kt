@@ -8,30 +8,33 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.R
+import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.model.user.UserSearchModel
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 
 
-class SearchListAdapter(private val dataSet: List<UserSearchModel>) :
+class SearchListAdapter(private val dataSet: List<UserSearchModel>, private val listener: UserItemListener) :
     RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
+
+    interface UserItemListener{
+        fun onUserClicked(user: UserSearchModel)
+    }
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val ivProfilePhoto: ImageView
-        val tvProfileName: TextView
-        val carsLinearLayout: LinearLayout
-        val card: MaterialCardView
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val ivProfilePhoto: ImageView = view.findViewById(R.id.ivCarPhoto)
+        val tvProfileName: TextView = view.findViewById(R.id.tvCarName)
+        val carsLinearLayout: LinearLayout = view.findViewById(R.id.carsLinearLayout)
+        val card: MaterialCardView = view.findViewById(R.id.card)
 
         init {
-            // Define click listener for the ViewHolder's View.
-            card = view.findViewById(R.id.card)
-            ivProfilePhoto = view.findViewById(R.id.ivCarPhoto)
-            tvProfileName = view.findViewById(R.id.tvCarName)
-            carsLinearLayout = view.findViewById(R.id.carsLinearLayout)
+            card.setOnClickListener{
+                listener.onUserClicked(dataSet[adapterPosition])
+            }
         }
     }
 
@@ -67,8 +70,6 @@ class SearchListAdapter(private val dataSet: List<UserSearchModel>) :
             //add it
             viewHolder.carsLinearLayout.addView(textView)
         }
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -1,12 +1,7 @@
 package com.catasoft.autoclub.model.user
 
-import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.tasks.await
-import timber.log.Timber
 import java.io.Serializable
 
 data class User(
@@ -17,7 +12,8 @@ data class User(
     var facebookProfile: String? = null,
     var postsCount: Int? = null,
     var followersCount: Int? = null,
-    var carsCount: Int? = null
+    var carsCount: Int? = null,
+    var normalizedName: String? = null
 ): Serializable, Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -27,7 +23,8 @@ data class User(
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readValue(Int::class.java.classLoader) as? Int
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString()
     ) {
     }
 
@@ -40,6 +37,7 @@ data class User(
         parcel.writeValue(postsCount)
         parcel.writeValue(followersCount)
         parcel.writeValue(carsCount)
+        parcel.writeString(normalizedName)
     }
 
     override fun describeContents(): Int {

@@ -112,6 +112,9 @@ constructor(
                 if(liveMeet.value?.description != null && liveMeet.value?.description!!.length < 100){
                     liveValidationState.value = true
                 }
+                else if(liveMeet.value?.description == null){
+                    liveValidationState.value = true
+                }
                 else {
                     liveValidationState.value = false
                     liveValidationMessage.value = "Descrierea nu poate fi mai mare de 100 de caractere!"

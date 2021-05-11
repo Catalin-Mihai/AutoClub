@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.catasoft.autoclub.util.HelpersKt"/>
         <import type="android.view.View"/>
         <variable
             name="viewModel"
@@ -15,30 +16,91 @@
         android:layout_height="match_parent"
         tools:context=".AddMeetSummaryFragment">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/pickDateBtn"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Alege data intalnirii"
-            android:drawablePadding="4dp"
-            android:drawableStart="@drawable/outline_date_range_24"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/meetLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/pickTimeBtn"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:drawableStart="@drawable/outline_schedule_24"
-            android:drawablePadding="4dp"
-            android:text="Alege data intalnirii"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/pickDateBtn"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:drawableStart="@drawable/outline_date_range_24"
+                    android:drawablePadding="4dp"
+                    android:text="Alege data intalnirii" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:text="@{HelpersKt.formatMillisToDate(viewModel.liveDateCalendar.timeInMillis)}"
+                    android:visibility="@{viewModel.liveDateCalendar != null ? View.VISIBLE : View.INVISIBLE}" />
+
+            </LinearLayout>
+
+            <!--            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />-->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/pickTimeBtn"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:drawableStart="@drawable/outline_schedule_24"
+                    android:drawablePadding="4dp"
+                    android:text="Alege ora intalnirii" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:text="@{HelpersKt.formatMillisToTime(viewModel.liveTimeCalendar.timeInMillis)}"
+                    android:visibility="@{viewModel.liveTimeCalendar != null ? View.VISIBLE : View.INVISIBLE}" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+<!--        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/meetLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pickDateBtn" />
+            app:layout_constraintStart_toStartOf="parent" />-->
 
         <include
             android:id="@+id/meetLayout"
@@ -49,6 +111,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
             app:liveMeet="@{viewModel.liveMeet}" />
 
         <TextView
@@ -56,13 +119,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:visibility="@{viewModel.liveValidationMessage == null ? View.GONE : View.VISIBLE}"
             android:text="@{viewModel.liveValidationMessage}"
             android:textColor="@color/red"
+            android:visibility="@{viewModel.liveValidationMessage == null ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pickTimeBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

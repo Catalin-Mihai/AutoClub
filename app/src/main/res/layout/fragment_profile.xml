@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:cardElevation="6dp"
+            app:cardElevation="4dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -98,7 +98,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             app:cardCornerRadius="10dp"
-            app:cardElevation="6dp"
+            app:cardElevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardStats">

@@ -1,6 +1,17 @@
 package com.catasoft.autoclub.util
 
+import timber.log.Timber
 import java.util.*
+
+fun takeFirstNLetters(str: String?, n: Int): String?{
+
+    if(str == null) return null
+    Timber.e("$str $n")
+    if(str.length > n){
+        return str.substring(0, n) + "..."
+    }
+    return str
+}
 
 fun formatMillisToDate(millis: Long?): String {
 

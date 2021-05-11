@@ -1,30 +1,29 @@
 package com.catasoft.autoclub.ui.main.feed
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.catasoft.autoclub.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.catasoft.autoclub.databinding.FragmentFeedBinding
-import com.catasoft.autoclub.databinding.FragmentProfileBinding
-import com.catasoft.autoclub.repository.CurrentUser
-import com.catasoft.autoclub.ui.main.home.HomeFragmentDirections
+import com.catasoft.autoclub.model.meet.Meet
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-class FeedFragment : Fragment() {
+@AndroidEntryPoint
+class FeedFragment : Fragment(), MeetsListAdapter.MeetItemListener {
 
     private val viewModel: FeedViewModel by viewModels()
     private lateinit var binding: FragmentFeedBinding
     private val AUTOCOMPLETE_REQUEST_CODE = 1
+    private lateinit var recyclerViewAdapter: MeetsListAdapter
+    private var dataSet: ArrayList<Meet> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +37,12 @@ class FeedFragment : Fragment() {
             .build(requireContext())
 //        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getMeets()
     }
 
     override fun onCreateView(
@@ -58,7 +63,21 @@ class FeedFragment : Fragment() {
             navController.navigate(action)
         }
 
+        recyclerViewAdapter = MeetsListAdapter(dataSet, this)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.adapter = recyclerViewAdapter
+
+        viewModel.meetsList.observe(viewLifecycleOwner, {
+            dataSet.clear()
+            dataSet.addAll(it)
+            recyclerViewAdapter.notifyDataSetChanged()
+        })
+
         return binding.root
+    }
+
+    override fun onMeetClicked(meet: Meet) {
+        Timber.e(meet.toString())
     }
 
 }

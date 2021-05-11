@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.catasoft.autoclub.databinding.FragmentAddMeetDescriptionBinding
 import com.catasoft.autoclub.databinding.FragmentAddMeetLocationBinding
 import okhttp3.internal.notifyAll
+import java.util.*
 
 class AddMeetDescriptionFragment : Fragment() {
 
@@ -31,7 +32,7 @@ class AddMeetDescriptionFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.textInput.addTextChangedListener {
-            val text = it.toString()
+            val text = it.toString().trim().capitalize(Locale.ROOT)
             viewModel.liveMeet.value?.description = text
             viewModel.liveMeet.value = viewModel.liveMeet.value
         }

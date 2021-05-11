@@ -6,6 +6,7 @@
 
     <data>
         <import type="android.R"/>
+        <import type="android.view.View"/>
         <import type="com.catasoft.autoclub.util.HelpersKt"/>
         <import type="androidx.lifecycle.LiveData"/>
         <import type="com.catasoft.autoclub.model.meet.Meet"/>
@@ -17,37 +18,44 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/meetCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_margin="8dp">
 
                 <LinearLayout
                     android:id="@+id/linearLayout5"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toTopOf="@+id/textView"
+                    app:layout_constraintBottom_toTopOf="@+id/descriptionTV"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/placeImageView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="50"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:scaleType="centerCrop"
                         bind:imageUri="@{liveMeet.placePhotoLink}"
                         tools:srcCompat="@drawable/ic_placeholder_view_vector" />
 
@@ -56,40 +64,57 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="50"
-                        android:weightSum="100"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:weightSum="100">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="40"
-                            android:gravity="center_vertical"
-                            android:text="@{liveMeet.placeName}"
-                            style="@style/TextAppearance.MaterialComponents.Body1"/>
-
-                        <TextView
+                            android:id="@+id/placeNameTV"
+                            style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
+                            android:layout_weight="30"
+                            android:text="@{liveMeet.placeName}" />
+
+                        <View
+                            android:id="@+id/divider5"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <TextView
+                            android:id="@+id/dateTV"
+                            style="@style/TextAppearance.MaterialComponents.Body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_weight="20"
-                            android:text="@{HelpersKt.formatMillisToDate(liveMeet.meetTime)}"
-                            style="@style/TextAppearance.MaterialComponents.Body2"/>
+                            android:gravity="center_vertical"
+                            android:text="@{HelpersKt.formatMillisToDate(liveMeet.meetTime)}" />
 
                         <TextView
+                            android:id="@+id/timeTV"
+                            style="@style/TextAppearance.MaterialComponents.Body2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
                             android:layout_weight="20"
-                            android:text="@{HelpersKt.formatMillisToTime(liveMeet.meetTime)}"
-                            style="@style/TextAppearance.MaterialComponents.Body2"/>
+                            android:gravity="center_vertical"
+                            android:text="@{HelpersKt.formatMillisToTime(liveMeet.meetTime)}" />
+
+                        <View
+                            android:id="@+id/divider7"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="?android:attr/listDivider" />
 
                         <TextView
+                            android:id="@+id/placeAddressTV"
+                            style="@style/TextAppearance.MaterialComponents.Body2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="30"
                             android:gravity="center_vertical"
-                            android:layout_weight="20"
-                            android:text="@{liveMeet.placeAddress}"
-                            style="@style/TextAppearance.MaterialComponents.Body2"/>
+                            android:text="@{HelpersKt.takeFirstNLetters(liveMeet.placeAddress, 20)}" />
 
                     </LinearLayout>
 
@@ -97,7 +122,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/descriptionTV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"

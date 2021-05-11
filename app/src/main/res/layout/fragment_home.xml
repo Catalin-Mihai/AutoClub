@@ -29,6 +29,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:visibility="invisible"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/Theme.Design.NoActionBar" />
 
@@ -42,7 +43,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:fitsSystemWindows="true"
-                        android:scaleType="fitCenter"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/ic_placeholder_view_vector"
                         android:background="@color/white_smoke"
                         app:layout_collapseMode="pin"

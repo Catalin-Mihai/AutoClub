@@ -31,13 +31,13 @@ constructor(
 
 ) : ViewModel() {
 
-    val livePhotoAdded: MutableLiveData<Bitmap> = MutableLiveData()
+//    val livePhotoAdded: MutableLiveData<Bitmap> = MutableLiveData()
     var carDetailsModelLive: MutableLiveData<CarDetailsModel> = MutableLiveData()
 
     fun addPhoto(bitmap: Bitmap, carId: String){
         viewModelScope.launch {
             carsRepository.addPhoto(carId, bitmap)
-            livePhotoAdded.postValue(bitmap)
+//            livePhotoAdded.postValue(bitmap)
         }.invokeOnCompletion {
             loadCarDetailsModel(carId)
         }

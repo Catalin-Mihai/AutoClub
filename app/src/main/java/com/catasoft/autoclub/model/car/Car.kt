@@ -16,7 +16,9 @@ data class Car(
     var model: String? = null,
     var year: Int? = null,
     var numberPlate: String? = null,
-    var ownerUid: String? = null
+    var ownerUid: String? = null,
+    var avatarUri: String? = null,
+    var photosUri: List<String>? = null
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -24,7 +26,9 @@ data class Car(
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readString(),
+        parcel.createStringArrayList()
     ) {
     }
 
@@ -35,6 +39,8 @@ data class Car(
         parcel.writeValue(year)
         parcel.writeString(numberPlate)
         parcel.writeString(ownerUid)
+        parcel.writeString(avatarUri)
+        parcel.writeStringList(photosUri)
     }
 
     override fun describeContents(): Int {
@@ -50,6 +56,7 @@ data class Car(
             return arrayOfNulls(size)
         }
     }
+
 }
 
 suspend fun Car.toCarDetailsModel(usersRepository: IUsersRepository): CarDetailsModel {
@@ -58,15 +65,17 @@ suspend fun Car.toCarDetailsModel(usersRepository: IUsersRepository): CarDetails
         make = make,
         model = model,
         year = year,
-        numberPlate = numberPlate
+        numberPlate = numberPlate,
+        photosLinks = photosUri?.map { Uri.parse(it) },
+        avatarLink = avatarUri?.let { Uri.parse(it) }
     )
 
     val userId = ownerUid
     if(userId != null)
         carDetailsModel.owner = usersRepository.getUserByUid(userId)
 
-    carDetailsModel.photosLinks = this.getAllPhotosDownloadUri()
-    carDetailsModel.avatarLink = this.getAvatarDownloadUri()
+//    carDetailsModel.photosLinks = this.getAllPhotosDownloadUri()
+//    carDetailsModel.avatarLink = this.getAvatarDownloadUri()
 
     return carDetailsModel
 }

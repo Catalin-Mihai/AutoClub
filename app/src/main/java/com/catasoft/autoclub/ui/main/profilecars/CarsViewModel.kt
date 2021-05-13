@@ -1,5 +1,6 @@
 package com.catasoft.autoclub.ui.main.profilecars
 
+import androidx.core.net.toUri
 import androidx.lifecycle.*
 import com.catasoft.autoclub.model.car.CarProfileModel
 import com.catasoft.autoclub.repository.CurrentUser
@@ -39,11 +40,14 @@ constructor(
                     make = it.make,
                     model = it.model,
 //                        photoDownloadLink = it.getAvatarDownloadUri()
-                    photoDownloadLink = kotlin.runCatching { it.getAvatarDownloadUri() }.getOrNull()
+//                    photoDownloadLink = kotlin.runCatching { it.getAvatarDownloadUri() }.getOrNull()
+                    photoDownloadLink = it.avatarUri?.toUri()
                 )
             }
 
             carsList.postValue(retList)
+
+            dataSource.clear()
             dataSource.addAll(retList)
         }
     }

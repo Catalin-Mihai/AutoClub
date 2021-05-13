@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:minHeight="60dp"
-                app:contentScrim="?attr/colorPrimary"
+                app:contentScrim="@color/primaryColor"
                 app:title="@{viewModel.carDetailsModelLive.make + ' ' + viewModel.carDetailsModelLive.model}"
                 app:expandedTitleTextAppearance="@style/ExpandedCarTitle"
                 app:collapsedTitleGravity="center"

@@ -28,12 +28,14 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import com.stfalcon.imageviewer.StfalconImageViewer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.InternalCoroutinesApi
 import timber.log.Timber
 
 private const val ARG_CAR = "car"
 
+@InternalCoroutinesApi
 @AndroidEntryPoint
-class CarDetailsFragment : BaseFragment() {
+class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryListener {
     // TODO: Rename and change types of parameters
     private var carId: String? = null
     private lateinit var binding: FragmentCarDetailsBinding
@@ -96,14 +98,7 @@ class CarDetailsFragment : BaseFragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        viewModel.carDetailsModelLive.observe(viewLifecycleOwner, {
-
-            binding.recyclerView.adapter = CarDetailsPhotosAdapter(photoDataSet, object: CarDetailsPhotosAdapter.CarGalleryListener{
-                override fun imageClicked(imageView: ImageView, position: Int) {
-                    openViewer(position, imageView)
-                }
-            })
-        })
+        binding.recyclerView.adapter = CarDetailsPhotosAdapter(photoDataSet, this)
 
         val activity = activity as MainActivity
 //        activity.setSupportActionBar(binding.toolbar)
@@ -174,6 +169,10 @@ class CarDetailsFragment : BaseFragment() {
                 Toast.makeText(context, "Ceva nu a mers bine.. Incercati din nou!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun imageClicked(imageView: ImageView, position: Int) {
+        openViewer(position, imageView)
     }
 
 /*    companion object {

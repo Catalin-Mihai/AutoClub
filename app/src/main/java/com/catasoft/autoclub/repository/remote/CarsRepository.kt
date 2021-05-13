@@ -5,6 +5,9 @@ import com.catasoft.autoclub.model.car.Car
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.catasoft.autoclub.repository.State
+import com.catasoft.autoclub.util.getAllCarPhotosDownloadUri
+import com.catasoft.autoclub.util.getAvatarDownloadUri
+import com.catasoft.autoclub.util.getCarAvatarDownloadUri
 import com.catasoft.autoclub.util.getCurrentTimeInMillis
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
@@ -50,6 +53,11 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
 
         val storageUserPhotoRef = Firebase.storage.reference.child("cars/${id}/avatar.jpg")
         uploadPhotoToFirestore(storageUserPhotoRef, photo)
+
+        //Add the link to the car entity for faster access
+        val docRef = mCarsCollection.whereEqualTo(Constants.CARS_ID, id).get().await().documents[0].reference
+        val uri = getCarAvatarDownloadUri(id)
+        docRef.update(Constants.CARS_AVATAR_URI, uri.toString())
     }
 
     override suspend fun getCarsByUserId(uid: String): List<Car> {
@@ -96,5 +104,9 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
     override suspend fun addPhoto(carId: String, bitmap: Bitmap) {
         val storageUserPhotoRef = Firebase.storage.reference.child("cars/${carId}/${getCurrentTimeInMillis()}")
         uploadPhotoToFirestore(storageUserPhotoRef, bitmap)
+
+        //Add the links to the car entity for faster access
+        val docRef = mCarsCollection.whereEqualTo(Constants.CARS_ID, carId).get().await().documents[0].reference
+        docRef.update(Constants.CARS_AVATAR_URI, getAllCarPhotosDownloadUri(carId).toString())
     }
 }

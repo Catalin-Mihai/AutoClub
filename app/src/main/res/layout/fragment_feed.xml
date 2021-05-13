@@ -37,7 +37,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:drawableStart="@drawable/ic_add_24px"
-                    android:drawableTint="@color/primaryColor"
+                    android:drawableTint="?attr/colorPrimary"
                     android:text="Adauga un meeting"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

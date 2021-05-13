@@ -19,12 +19,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/main_bottom_menu" />
 
+        <!--            android:background="@color/blue_grey_50"-->
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/blue_grey_50"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"

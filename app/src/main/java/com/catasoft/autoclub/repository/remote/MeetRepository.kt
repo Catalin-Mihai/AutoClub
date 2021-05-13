@@ -4,6 +4,7 @@ import com.catasoft.autoclub.model.meet.Meet
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.catasoft.autoclub.repository.CurrentUser
+import com.catasoft.autoclub.util.getCurrentTimeInMillis
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.tasks.await
@@ -21,8 +22,7 @@ class MeetsRepository @Inject constructor(): IMeetsRepository, BaseRepository(){
     override suspend fun addMeet(meet: Meet): Meet {
         val docRef = mMeetCollection.add(meet).await()
 
-        val cc = Calendar.getInstance()
-        val time = cc.timeInMillis
+        val time = getCurrentTimeInMillis()
 
         docRef.update(
             Constants.MEETS_ID, docRef.id,

@@ -48,6 +48,9 @@ android {
 
 dependencies {
 
+    //Image Picker
+    implementation 'com.github.dhaval2404:imagepicker:1.8'
+
     //Time Picker
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
 

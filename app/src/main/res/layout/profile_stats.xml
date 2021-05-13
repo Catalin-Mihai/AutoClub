@@ -38,7 +38,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/profile_posts_count_default"
                 android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="@color/primaryColor" />
+                android:textColor="?attr/colorPrimary" />
 
         </LinearLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/profile_followers_count_default"
                 android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="@color/primaryColor" />
+                android:textColor="?attr/colorPrimary" />
 
         </LinearLayout>
 
@@ -90,7 +90,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/profile_cars_count_default"
                 android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="@color/primaryColor" />
+                android:textColor="?attr/colorPrimary" />
 
         </LinearLayout>
     </LinearLayout>

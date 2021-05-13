@@ -21,10 +21,7 @@ class CarDetailsPhotosAdapter(private val links: List<Uri>?, val listener: CarGa
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val ivPhoto: ImageView
-        init {
-            ivPhoto = view.findViewById(R.id.ivCarPhoto)
-        }
+        val ivPhoto: ImageView = view.findViewById(R.id.ivCarPhoto)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

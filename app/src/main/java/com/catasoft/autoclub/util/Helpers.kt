@@ -3,6 +3,11 @@ package com.catasoft.autoclub.util
 import timber.log.Timber
 import java.util.*
 
+fun getCurrentTimeInMillis(): Long {
+    val cc = Calendar.getInstance()
+    return cc.timeInMillis
+}
+
 fun takeFirstNLetters(str: String?, n: Int): String?{
 
     if(str == null) return null

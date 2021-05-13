@@ -21,7 +21,7 @@ class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val li
     RecyclerView.Adapter<CarsListAdapter.ViewHolder>() {
 
     interface CarItemListener{
-        fun onCarClicked(car: CarProfileModel)
+        fun onCarClicked(car: CarProfileModel, view: View)
     }
 
     /**
@@ -31,15 +31,14 @@ class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val li
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivCarAvatar: ImageView
         val tvCarMakeAndModel: TextView
-        val card: MaterialCardView
+        val card: MaterialCardView = view.findViewById(R.id.card)
 
         init {
             // Define click listener for the ViewHolder's View.
-            card = view.findViewById(R.id.card)
 
             card.setOnClickListener{
                 Timber.e("Click pe car card!")
-                listener.onCarClicked(dataSet[adapterPosition])
+                listener.onCarClicked(dataSet[adapterPosition], it)
             }
 
             ivCarAvatar = view.findViewById(R.id.ivCarAvatar)
@@ -65,6 +64,7 @@ class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val li
 //        viewHolder.textView.text = dataSet[position]
         viewHolder.tvCarMakeAndModel.text = "${dataSet[position].make} ${dataSet[position].model}"
         Picasso.get().load(dataSet[position].photoDownloadLink).into(viewHolder.ivCarAvatar)
+        viewHolder.ivCarAvatar.transitionName = "shared_car_item_transition$position"
     }
 
     // Return the size of your dataset (invoked by the layout manager)

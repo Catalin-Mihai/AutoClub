@@ -57,7 +57,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@{String.valueOf(viewModel.userLiveData.postsCount)}"
                         android:textAppearance="?attr/textAppearanceBody1"
-                        android:textColor="@color/primaryColor" />
+                        android:textColor="?attr/colorPrimary" />
 
                 </LinearLayout>
 
@@ -83,7 +83,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@{String.valueOf(viewModel.userLiveData.carsCount)}"
                         android:textAppearance="?attr/textAppearanceBody1"
-                        android:textColor="@color/primaryColor" />
+                        android:textColor="?attr/colorPrimary" />
 
                 </LinearLayout>
 

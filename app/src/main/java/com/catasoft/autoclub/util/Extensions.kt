@@ -3,6 +3,7 @@ package com.catasoft.autoclub.util
 import android.net.Uri
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.R
@@ -53,16 +54,18 @@ suspend fun Car.getAllPhotosDownloadUri(): List<Uri>?{
     val refUrl = "cars/${this.id}"
     val listRes = Firebase.storage.reference.child(refUrl).listAll().await()
     val photosLinks: ArrayList<Uri> = ArrayList()
+
     listRes.items.forEach{ item ->
         val link = item.downloadUrl.await()
         photosLinks.add(link)
-        Timber.e("Photo link is: %s", link)
     }
 
     if(photosLinks.count() == 0)
         return null
 
-    return photosLinks
+    val list = photosLinks.map { it.toString() }.sortedDescending().map { it.toUri() }
+    list.forEach { Timber.e(it.toString()) }
+    return list
 }
 
 fun TextInputLayout.showSuccessEndIcon() {

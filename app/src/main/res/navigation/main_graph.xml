@@ -55,6 +55,12 @@
             android:name="carId"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="transition_name"
+            app:argType="string" />
+        <argument
+            android:name="avatar_bitmap"
+            app:argType="android.graphics.Bitmap" />
     </fragment>
     <activity
         android:id="@+id/addMeetActivity"

@@ -58,8 +58,8 @@
                         android:layout_height="48dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:tabTextColor="@color/black"
-                        app:tabSelectedTextColor="@color/primaryColor"
+                        app:tabTextColor="?attr/colorPrimary"
+                        app:tabSelectedTextColor="?attr/colorPrimary"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ivPhoto">
 
@@ -102,8 +102,6 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             app:borderWidth="0dp"
-            android:contentDescription="Edit profile"
-            android:backgroundTint="@color/primaryColor"
             app:tint="@color/white"
             android:src="@drawable/ic_mode_edit_24px" />
 

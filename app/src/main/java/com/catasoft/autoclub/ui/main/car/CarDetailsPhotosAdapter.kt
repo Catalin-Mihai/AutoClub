@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.R
+import com.catasoft.autoclub.model.car.CarPhotoModel
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 
 
-class CarDetailsPhotosAdapter(private val links: List<Uri>?, val listener: CarGalleryListener) :
+class CarDetailsPhotosAdapter(private val carPhotoModels: List<CarPhotoModel>?, val listener: CarGalleryListener) :
     RecyclerView.Adapter<CarDetailsPhotosAdapter.ViewHolder>(){
 
     interface CarGalleryListener{
@@ -33,7 +34,7 @@ class CarDetailsPhotosAdapter(private val links: List<Uri>?, val listener: CarGa
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        Picasso.get().load(links?.get(position)).into(holder.ivPhoto)
+        Picasso.get().load(carPhotoModels?.get(position)?.photoUri).into(holder.ivPhoto)
         holder.photoCard.setOnClickListener {
             listener.imageClicked(holder.ivPhoto, position)
         }
@@ -43,6 +44,6 @@ class CarDetailsPhotosAdapter(private val links: List<Uri>?, val listener: CarGa
         }
     }
 
-    override fun getItemCount(): Int = links?.count() ?: 0
+    override fun getItemCount(): Int = carPhotoModels?.count() ?: 0
 
 }

@@ -6,10 +6,7 @@ import com.catasoft.autoclub.model.car.Car
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.catasoft.autoclub.repository.State
-import com.catasoft.autoclub.util.getAllCarPhotosDownloadUri
-import com.catasoft.autoclub.util.getAvatarDownloadUri
-import com.catasoft.autoclub.util.getCarAvatarDownloadUri
-import com.catasoft.autoclub.util.getCurrentTimeInMillis
+import com.catasoft.autoclub.util.*
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
@@ -31,6 +28,7 @@ interface ICarsRepository {
     suspend fun getCarById(id: String): Car?
     suspend fun addPhoto(carId: String, bitmap: Bitmap)
     suspend fun addDescription(carId: String, description: String?)
+    suspend fun deletePhoto(carId: String, photoUri: String)
 }
 
 @ExperimentalCoroutinesApi
@@ -59,9 +57,7 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
         //Add the link to the car entity for faster access
         val docRef = mCarsCollection.whereEqualTo(Constants.CARS_ID, id).get().await().documents[0].reference
         val uri = getCarAvatarDownloadUri(id)
-        docRef.set({
-            Constants.CARS_AVATAR_URI to uri.toString()
-        })
+        docRef.update(Constants.CARS_AVATAR_URI, uri.toString())
     }
 
     override suspend fun getCarsByUserId(uid: String): List<Car> {
@@ -108,9 +104,6 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
     override suspend fun addPhoto(carId: String, bitmap: Bitmap) {
         val storageUserPhotoRef = Firebase.storage.reference
             .child("cars/${carId}/${getCurrentTimeInMillis()}")
-//        val photoDownloadUri = storageUserPhotoRef.downloadUrl.await().toString()
-//
-//        Timber.e("photoDownloadUri: $photoDownloadUri")
 
         uploadPhotoToFirestore(storageUserPhotoRef, bitmap)
 
@@ -122,19 +115,24 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
             Timber.e(it.toString())
             docRef.update(Constants.CARS_PHOTOS_URI_ARRAY, newPhotosArray)
         }
+    }
 
+    override suspend fun deletePhoto(carId: String, photoUri: String) {
+        //Remove the link from the array
+        val document = mCarsCollection.whereEqualTo(Constants.CARS_ID, carId).get().await().documents[0]
+        val docRef = document.reference
+        val data: Car? = document.toObject()
 
-        /*if(oldPhotosArray == null){
-            docRef.set({
-                Constants.CARS_PHOTOS_URI_ARRAY to ArrayList<String>().add(photoDownloadUri)
-            })
+        if(data != null){
+            val oldUris = data.photosUri
+            oldUris?.let {
+                val newUris = (it as ArrayList)
+                newUris.remove(photoUri)
+                docRef.update(Constants.CARS_PHOTOS_URI_ARRAY, newUris)
+            }
+            //Delete the file from storage
+            deleteCarPhotoByUri(carId, photoUri)
         }
-        else {
-            oldPhotosArray.add(photoDownloadUri)
-            docRef.set({
-                Constants.CARS_PHOTOS_URI_ARRAY to oldPhotosArray
-            })
-        }*/
     }
 
     override suspend fun addDescription(carId: String, description: String?) {

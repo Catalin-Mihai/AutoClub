@@ -174,16 +174,6 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <!--            android:backgroundTint="?attr/colorPrimary"-->
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            app:borderWidth="0dp"
-            app:tint="@color/white"
-            android:src="@drawable/ic_mode_edit_24px" />-->
         <com.nambimobile.widgets.efab.ExpandableFabLayout
             android:id="@+id/expandableFabLayout"
             android:layout_width="match_parent"
@@ -191,39 +181,6 @@
             android:layout_gravity="end|bottom"
             app:borderWidth="0dp"
             app:tint="@color/white">
-
-            <!-- The next 3 Views will only display in portrait orientation -->
-            <!--<com.nambimobile.widgets.efab.Overlay
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:overlay_orientation="portrait"/>
-            <com.nambimobile.widgets.efab.ExpandableFab
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                app:efab_color="@color/primaryColor"
-                app:tint="@color/white"
-                app:efab_icon="@drawable/outline_build_24"
-                app:efab_iconAnimationRotationDeg="270"
-                app:efab_orientation="portrait"/>
-            <com.nambimobile.widgets.efab.FabOption
-                android:id="@+id/addDescriptionBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_orientation="portrait"
-                app:fab_color="@color/primaryDarkColor"
-                app:fab_icon="@drawable/outline_description_24"
-                app:label_text="Adauga o descriere" />
-            <com.nambimobile.widgets.efab.FabOption
-                android:id="@+id/addPhotoBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_orientation="portrait"
-                app:fab_color="@color/secondaryDarkColor"
-                app:fab_icon="@drawable/outline_photo_camera_24"
-                app:label_text="Incarca o fotografie" />-->
 
 
         </com.nambimobile.widgets.efab.ExpandableFabLayout>

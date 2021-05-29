@@ -55,6 +55,14 @@ constructor(
 
     }
 
+    fun deleteCarPhoto(carId: String, uri: Uri){
+        viewModelScope.launch {
+            carsRepository.deletePhoto(carId, uri.toString())
+        }.invokeOnCompletion {
+            loadCarDetailsModel(carId)
+        }
+    }
+
     fun saveDescription(text: String, carId: String) {
         viewModelScope.launch {
             carsRepository.addDescription(carId, text)

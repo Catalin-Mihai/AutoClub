@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.view.Gravity
@@ -17,7 +16,6 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -27,10 +25,9 @@ import com.afollestad.materialdialogs.input.input
 import com.catasoft.autoclub.MainActivity
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentCarDetailsBinding
+import com.catasoft.autoclub.model.car.CarPhotoModel
 import com.catasoft.autoclub.ui.BaseFragment
-import com.catasoft.autoclub.util.showSuccessEndIcon
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialFadeThrough
@@ -53,10 +50,11 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
     private lateinit var binding: FragmentCarDetailsBinding
     private val viewModel: CarDetailsViewModel by viewModels()
     private val args: CarDetailsFragmentArgs by navArgs()
-    private lateinit var viewer: StfalconImageViewer<Uri?>
-    private var photoDataSet: ArrayList<Uri> = ArrayList()
+    private lateinit var viewer: StfalconImageViewer<CarPhotoModel>
     private lateinit var loadingSnackbar: Snackbar
     private var efabChildrenViewGroup: List<View>? = null
+    private var carPhotoModels: ArrayList<CarPhotoModel> = ArrayList()
+    private var overlayView: CarPhotoOverlayView? = null
 
     private val addPhotoBtn by lazy {
         createAddPhotoBtn()
@@ -86,16 +84,43 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
         viewModel.loadCarDetailsModel(carId!!)
     }
 
+    private fun setupOverlayView(carPhotoModels: ArrayList<CarPhotoModel>, startPosition: Int) {
+        overlayView = CarPhotoOverlayView(requireContext()).apply {
+
+            update(carPhotoModels[startPosition])
+
+            onDeleteClick = {
+
+                val currentPosition = viewer.currentPosition()
+
+                viewModel.deleteCarPhoto(carPhotoModels[currentPosition].carId!!, carPhotoModels[currentPosition].photoUri!!)
+
+                carPhotoModels.removeAt(currentPosition)
+                val photos = carPhotoModels.toMutableList()
+                viewer.updateImages(photos)
+
+                carPhotoModels.getOrNull(currentPosition)
+                    ?.let { photo -> update(photo) }
+            }
+        }
+    }
+
     private fun openViewer(startPosition: Int, target: ImageView) {
+
+        setupOverlayView(carPhotoModels, startPosition)
 
         viewer = StfalconImageViewer.Builder(
             context,
-            viewModel.carDetailsModelLive.value?.photosLinks
-        ) { view, url ->
-            Picasso.get().load(url).into(view)
+            carPhotoModels
+        ) { view, carModel ->
+            Picasso.get().load(carModel.photoUri).into(view)
         }
+            .withImageChangeListener { position ->
+                overlayView?.update(carPhotoModels[position])
+            }
             .withStartPosition(startPosition)
             .withTransitionFrom(target)
+            .withOverlayView(overlayView)
             .show()
     }
 
@@ -178,16 +203,14 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-//        createExpandableFAB()
 
-        binding.recyclerView.adapter = CarDetailsPhotosAdapter(photoDataSet, this)
+        binding.recyclerView.adapter = CarDetailsPhotosAdapter(carPhotoModels, this)
 
         val activity = activity as MainActivity
-//        activity.setSupportActionBar(binding.toolbar)
 
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         activity.supportActionBar?.setDisplayShowHomeEnabled(true)
-//        binding.toolbarLayout.title = "Mithubishi lancer evo 3"
+
 
         binding.toolbarLayout.setExpandedTitleColor(Color.WHITE)
 
@@ -218,11 +241,24 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
         }
 
         viewModel.carDetailsModelLive.observe(viewLifecycleOwner, {
-            it.photosLinks?.let { newData ->
-                photoDataSet.clear()
-                photoDataSet.addAll(newData)
+
+            it.photosLinks?.let { photosLinks ->
+                carPhotoModels.clear()
+
+                val newDataCollection: ArrayList<CarPhotoModel> = photosLinks.map { uri ->
+                    CarPhotoModel(
+                        carId = this.carId,
+                        photoUri = uri,
+                        description = "A se pune data aici!!!"
+                    )
+                } as ArrayList<CarPhotoModel>
+
+
+                carPhotoModels.addAll(newDataCollection)
+
                 binding.recyclerView.adapter?.notifyDataSetChanged()
                 loadingSnackbar.dismiss()
+
             }
         })
     }

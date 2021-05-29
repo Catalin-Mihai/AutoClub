@@ -1,14 +1,29 @@
 package com.catasoft.autoclub.util
 
 import android.net.Uri
-import androidx.core.net.toUri
-import com.catasoft.autoclub.model.car.Car
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.lang.Exception
 import java.util.*
+
+suspend fun deleteCarPhotoByUri(carId: String, uri: String){
+    runCatching {
+        val refUrl = "cars/${carId}"
+        val listRes = Firebase.storage.reference.child(refUrl).listAll().await()
+        val photosLinks: ArrayList<Uri> = ArrayList()
+
+        listRes.items.forEach { item ->
+            val link = item.downloadUrl.await()
+            if(link.toString() == uri){
+                //This item is the one!
+                item.delete().await()
+                return@forEach
+            }
+        }
+    }
+}
 
 suspend fun getCarAvatarDownloadUri(carId: String): Uri? {
     return try{
@@ -21,21 +36,22 @@ suspend fun getCarAvatarDownloadUri(carId: String): Uri? {
     }
 }
 
-suspend fun getAllCarPhotosDownloadUri(carId: String): List<String>?{
+suspend fun getAllCarPhotosDownloadUri(carId: String): List<String>? {
     val refUrl = "cars/${carId}"
     val listRes = Firebase.storage.reference.child(refUrl).listAll().await()
     val photosLinks: ArrayList<Uri> = ArrayList()
 
-    listRes.items.forEach{ item ->
-        val link = item.downloadUrl.await()
-        photosLinks.add(link)
+    listRes.items.forEach { item ->
+        if(item.name != "avatar.jpg"){
+            val link = item.downloadUrl.await()
+            photosLinks.add(link)
+        }
     }
 
-    if(photosLinks.count() == 0)
+    if (photosLinks.count() == 0)
         return null
 
-    val list = photosLinks.map { it.toString() }.sortedDescending()
-    return list
+    return photosLinks.map { it.toString() }.sortedDescending()
 }
 
 fun getCurrentTimeInMillis(): Long {

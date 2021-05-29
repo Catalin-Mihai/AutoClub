@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.R
+import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 
 
@@ -20,6 +21,7 @@ class CarDetailsPhotosAdapter(private val links: List<Uri>?, val listener: CarGa
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val ivPhoto: ImageView = view.findViewById(R.id.ivCarPhoto)
+        val photoCard: MaterialCardView = view.findViewById(R.id.photoCard)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,10 +34,10 @@ class CarDetailsPhotosAdapter(private val links: List<Uri>?, val listener: CarGa
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         Picasso.get().load(links?.get(position)).into(holder.ivPhoto)
-        holder.ivPhoto.setOnClickListener {
+        holder.photoCard.setOnClickListener {
             listener.imageClicked(holder.ivPhoto, position)
         }
-        holder.ivPhoto.setOnLongClickListener {
+        holder.photoCard.setOnLongClickListener {
             listener.imageLongClicked(holder.ivPhoto, position)
             true
         }

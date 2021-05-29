@@ -144,7 +144,6 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
         val fabsOverlay = Overlay(requireContext(), Orientation.PORTRAIT)
 
         binding.expandableFabLayout.addViews(expandableFab, addDescriptionBtn, addPhotoBtn, fabsOverlay)
-
     }
 
     override fun onPause() {

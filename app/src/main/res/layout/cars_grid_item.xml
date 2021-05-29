@@ -4,18 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivCarPhoto"
-        android:layout_width="match_parent"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/photoCard"
+        android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/profile_search_item_photo_content_description"
-        android:padding="4dp"
-        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_placeholder_view_vector" />
+        android:adjustViewBounds="true"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCarPhoto"
+            android:layout_width="match_parent"
+            android:padding="4dp"
+            android:adjustViewBounds="true"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/profile_search_item_photo_content_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_placeholder_view_vector" />
+    </com.google.android.material.card.MaterialCardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,13 +4,10 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.ui.main.profilesearch.SearchListAdapter
 import com.squareup.picasso.Picasso
-import java.util.*
 
 
 class CarDetailsPhotosAdapter(private val links: List<Uri>?, val listener: CarGalleryListener) :
@@ -18,6 +15,7 @@ class CarDetailsPhotosAdapter(private val links: List<Uri>?, val listener: CarGa
 
     interface CarGalleryListener{
         fun imageClicked(imageView: ImageView, position: Int)
+        fun imageLongClicked(imageView: ImageView, position: Int)
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -36,6 +34,10 @@ class CarDetailsPhotosAdapter(private val links: List<Uri>?, val listener: CarGa
         Picasso.get().load(links?.get(position)).into(holder.ivPhoto)
         holder.ivPhoto.setOnClickListener {
             listener.imageClicked(holder.ivPhoto, position)
+        }
+        holder.ivPhoto.setOnLongClickListener {
+            listener.imageLongClicked(holder.ivPhoto, position)
+            true
         }
     }
 

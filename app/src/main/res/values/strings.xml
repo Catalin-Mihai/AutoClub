@@ -104,5 +104,10 @@
     <string name="buttons_bottom_nav_next_text">Inainte</string>
 
     <string name="saving">Se salveaza…</string>
+    <string name="submit">Confirmare</string>
+    <string name="cancel">Anulare</string>
+
+
+    <string name="add_car_car_description">Adauga o descriere autovehiculului tau</string>
 
 </resources>

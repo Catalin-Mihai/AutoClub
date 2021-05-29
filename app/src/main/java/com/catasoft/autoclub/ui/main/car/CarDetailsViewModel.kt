@@ -17,6 +17,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import okhttp3.internal.notifyAll
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -49,17 +50,17 @@ constructor(
             val carDbModel = carsRepository.getCarById(carId)
 
             val carDetailsModel = carDbModel?.toCarDetailsModel(usersRepository)
-            /*val carDetailsModel = carDbModel?.toCarDetailsModel(usersRepository)
-            carDetailsModel?.photosLinks = listOf(carDetailsModel?.avatarLink !!,
-                carDetailsModel.avatarLink!!,
-                carDetailsModel.avatarLink!!,
-                carDetailsModel.avatarLink!!,
-                carDetailsModel.avatarLink!!,
-                carDetailsModel.avatarLink!!,
-                carDetailsModel.avatarLink!!,
-                carDetailsModel.avatarLink!!)*/
             carDetailsModelLive.postValue(carDetailsModel)
         }
 
+    }
+
+    fun saveDescription(text: String, carId: String) {
+        viewModelScope.launch {
+            carsRepository.addDescription(carId, text)
+        }.invokeOnCompletion {
+            carDetailsModelLive.value?.description = text
+            carDetailsModelLive.value = carDetailsModelLive.value
+        }
     }
 }

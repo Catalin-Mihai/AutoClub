@@ -21,7 +21,7 @@ suspend fun getCarAvatarDownloadUri(carId: String): Uri? {
     }
 }
 
-suspend fun getAllCarPhotosDownloadUri(carId: String): List<Uri>?{
+suspend fun getAllCarPhotosDownloadUri(carId: String): List<String>?{
     val refUrl = "cars/${carId}"
     val listRes = Firebase.storage.reference.child(refUrl).listAll().await()
     val photosLinks: ArrayList<Uri> = ArrayList()
@@ -34,8 +34,7 @@ suspend fun getAllCarPhotosDownloadUri(carId: String): List<Uri>?{
     if(photosLinks.count() == 0)
         return null
 
-    val list = photosLinks.map { it.toString() }.sortedDescending().map { it.toUri() }
-    list.forEach { Timber.e(it.toString()) }
+    val list = photosLinks.map { it.toString() }.sortedDescending()
     return list
 }
 

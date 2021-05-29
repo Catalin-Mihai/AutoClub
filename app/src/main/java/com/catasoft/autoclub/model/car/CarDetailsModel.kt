@@ -13,8 +13,9 @@ data class CarDetailsModel(
     var numberPlate: String? = null,
     var owner: User? = null,
     var avatarLink: Uri? = null,
-    var photosLinks: List<Uri>? = null
-): Parcelable {
+    var photosLinks: List<Uri>? = null,
+    var description: String? = null
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -23,7 +24,8 @@ data class CarDetailsModel(
         parcel.readString(),
         parcel.readParcelable(User::class.java.classLoader),
         parcel.readParcelable(Uri::class.java.classLoader),
-        parcel.createTypedArrayList(Uri.CREATOR)
+        parcel.createTypedArrayList(Uri.CREATOR),
+        parcel.readString()
     ) {
     }
 
@@ -36,6 +38,7 @@ data class CarDetailsModel(
         parcel.writeParcelable(owner, flags)
         parcel.writeParcelable(avatarLink, flags)
         parcel.writeTypedList(photosLinks)
+        parcel.writeString(description)
     }
 
     override fun describeContents(): Int {
@@ -51,4 +54,5 @@ data class CarDetailsModel(
             return arrayOfNulls(size)
         }
     }
+
 }

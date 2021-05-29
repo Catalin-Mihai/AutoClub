@@ -18,7 +18,8 @@ data class Car(
     var numberPlate: String? = null,
     var ownerUid: String? = null,
     var avatarUri: String? = null,
-    var photosUri: List<String>? = null
+    var photosUri: List<String>? = null,
+    var description: String? = null
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -28,7 +29,8 @@ data class Car(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.createStringArrayList()
+        parcel.createStringArrayList(),
+        parcel.readString()
     ) {
     }
 
@@ -41,6 +43,7 @@ data class Car(
         parcel.writeString(ownerUid)
         parcel.writeString(avatarUri)
         parcel.writeStringList(photosUri)
+        parcel.writeString(description)
     }
 
     override fun describeContents(): Int {
@@ -67,7 +70,8 @@ suspend fun Car.toCarDetailsModel(usersRepository: IUsersRepository): CarDetails
         year = year,
         numberPlate = numberPlate,
         photosLinks = photosUri?.map { Uri.parse(it) },
-        avatarLink = avatarUri?.let { Uri.parse(it) }
+        avatarLink = avatarUri?.let { Uri.parse(it) },
+        description = description
     )
 
     val userId = ownerUid

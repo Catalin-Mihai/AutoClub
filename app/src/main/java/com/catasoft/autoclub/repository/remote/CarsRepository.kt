@@ -1,6 +1,7 @@
 package com.catasoft.autoclub.repository.remote
 
 import android.graphics.Bitmap
+import android.net.Uri
 import com.catasoft.autoclub.model.car.Car
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
@@ -29,6 +30,7 @@ interface ICarsRepository {
     suspend fun getCarsByUserIdAsFlow(uid: String): Flow<State<List<Car>>>
     suspend fun getCarById(id: String): Car?
     suspend fun addPhoto(carId: String, bitmap: Bitmap)
+    suspend fun addDescription(carId: String, description: String?)
 }
 
 @ExperimentalCoroutinesApi
@@ -57,7 +59,9 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
         //Add the link to the car entity for faster access
         val docRef = mCarsCollection.whereEqualTo(Constants.CARS_ID, id).get().await().documents[0].reference
         val uri = getCarAvatarDownloadUri(id)
-        docRef.update(Constants.CARS_AVATAR_URI, uri.toString())
+        docRef.set({
+            Constants.CARS_AVATAR_URI to uri.toString()
+        })
     }
 
     override suspend fun getCarsByUserId(uid: String): List<Car> {
@@ -102,11 +106,39 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
     }
 
     override suspend fun addPhoto(carId: String, bitmap: Bitmap) {
-        val storageUserPhotoRef = Firebase.storage.reference.child("cars/${carId}/${getCurrentTimeInMillis()}")
+        val storageUserPhotoRef = Firebase.storage.reference
+            .child("cars/${carId}/${getCurrentTimeInMillis()}")
+//        val photoDownloadUri = storageUserPhotoRef.downloadUrl.await().toString()
+//
+//        Timber.e("photoDownloadUri: $photoDownloadUri")
+
         uploadPhotoToFirestore(storageUserPhotoRef, bitmap)
 
         //Add the links to the car entity for faster access
         val docRef = mCarsCollection.whereEqualTo(Constants.CARS_ID, carId).get().await().documents[0].reference
-        docRef.update(Constants.CARS_AVATAR_URI, getAllCarPhotosDownloadUri(carId).toString())
+        val newPhotosArray = getAllCarPhotosDownloadUri(carId)
+
+        newPhotosArray?.let {
+            Timber.e(it.toString())
+            docRef.update(Constants.CARS_PHOTOS_URI_ARRAY, newPhotosArray)
+        }
+
+
+        /*if(oldPhotosArray == null){
+            docRef.set({
+                Constants.CARS_PHOTOS_URI_ARRAY to ArrayList<String>().add(photoDownloadUri)
+            })
+        }
+        else {
+            oldPhotosArray.add(photoDownloadUri)
+            docRef.set({
+                Constants.CARS_PHOTOS_URI_ARRAY to oldPhotosArray
+            })
+        }*/
+    }
+
+    override suspend fun addDescription(carId: String, description: String?) {
+        val carDocRef = mCarsCollection.whereEqualTo(Constants.CARS_ID, carId).get().await().documents[0].reference
+        carDocRef.update(Constants.CARS_DESCRIPTION, description)
     }
 }

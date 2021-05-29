@@ -19,6 +19,7 @@ object Constants {
     const val CARS_OWNER_UID = "ownerUid"
     const val CARS_PHOTOS_URI_ARRAY = "photosUri"
     const val CARS_AVATAR_URI = "avatarUri"
+    const val CARS_DESCRIPTION = "description"
 
     const val COLLECTION_MEETS = "meets"
     const val MEETS_ID = "id"

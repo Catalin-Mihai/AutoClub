@@ -48,6 +48,13 @@ android {
 
 dependencies {
 
+    //Material dialogs
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
+    implementation 'com.afollestad.material-dialogs:input:3.3.0'
+
+    //Expandable fab
+    implementation 'com.nambimobile.widgets:expandable-fab:1.0.2'
+
     //Image Picker
     implementation 'com.github.dhaval2404:imagepicker:1.8'
 

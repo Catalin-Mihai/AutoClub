@@ -36,20 +36,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:weightSum="100"
                 android:padding="16dp">
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
                     android:id="@+id/tvCarMakeAndModel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="10"
                     android:text="Mazda MazdaSpeed3"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
+                <ImageView
+                    android:id="@+id/btnMore"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="90"
+                    android:src="@drawable/outline_more_vert_24" />
 
             </LinearLayout>
-
 
         </LinearLayout>
 

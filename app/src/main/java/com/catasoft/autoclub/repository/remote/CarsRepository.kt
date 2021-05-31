@@ -29,6 +29,7 @@ interface ICarsRepository {
     suspend fun addPhoto(carId: String, bitmap: Bitmap)
     suspend fun addDescription(carId: String, description: String?)
     suspend fun deletePhoto(carId: String, photoUri: String)
+    suspend fun deleteCar(carId: String)
 }
 
 @ExperimentalCoroutinesApi
@@ -133,6 +134,11 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
             //Delete the file from storage
             deleteCarPhotoByUri(carId, photoUri)
         }
+    }
+
+    override suspend fun deleteCar(carId: String) {
+        val docRef = mCarsCollection.whereEqualTo(Constants.CARS_ID, carId).get().await().documents[0].reference
+        docRef.delete()
     }
 
     override suspend fun addDescription(carId: String, description: String?) {

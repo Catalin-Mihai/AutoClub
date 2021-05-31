@@ -25,6 +25,7 @@ constructor(
 
     var dataSource: ArrayList<CarProfileModel> = ArrayList()
     var carsList: MutableLiveData<List<CarProfileModel>> = MutableLiveData()
+    var liveCarDeleted: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         Timber.e("S-a creat CARS VIEWMODEL!")
@@ -46,39 +47,30 @@ constructor(
             }
 
             carsList.postValue(retList)
-
             dataSource.clear()
             dataSource.addAll(retList)
         }
     }
-    /*fun getUserCarsList(uid: String){
+
+    fun deleteCar(carId: String){
         viewModelScope.launch {
-            carsRepository.getCarsByUserIdAsFlow(uid).collect { state ->
-                when(state){
-                    is State.Failed -> {
+            carsRepository.deleteCar(carId)
+            liveCarDeleted.postValue(true)
 
-                    }
-                    is State.Success -> {
+            var toBeDeletedIndex = -1
 
-                        val retlist = state.data.map {
-                            CarProfileModel(
-                                id=it.id,
-                                make = it.make,
-                                model = it.model,
-//                        photoDownloadLink = it.getAvatarDownloadUri()
-                                photoDownloadLink = kotlin.runCatching { it.getAvatarDownloadUri() }.getOrNull()
-                            )
-                        }
-
-                        carsList.postValue(retlist)
-
-                        dataSource.addAll(retlist)
-                    }
-                    is State.Loading -> {
-
-                    }
-                }
+            for(i: Int in 0 until dataSource.size){
+                if(dataSource[i].id == carId)
+                    toBeDeletedIndex = i
             }
+
+            if(toBeDeletedIndex != -1)
+                dataSource.removeAt(toBeDeletedIndex)
+
+            val newDataSource = dataSource
+            dataSource.clear()
+            dataSource.addAll(newDataSource)
+            carsList.postValue(dataSource)
         }
-    }*/
+    }
 }

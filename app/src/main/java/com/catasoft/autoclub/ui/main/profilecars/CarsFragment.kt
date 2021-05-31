@@ -23,6 +23,7 @@ import com.catasoft.autoclub.ui.main.home.ARG_USER_CARS
 import com.catasoft.autoclub.ui.main.home.ARG_USER_UID
 import com.catasoft.autoclub.ui.main.home.HomeFragmentDirections
 import com.catasoft.autoclub.ui.main.profilesearch.SearchListAdapter
+import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,6 +69,15 @@ class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
             carsListAdapter.notifyDataSetChanged()
 //            Timber.e(viewModel.dataSource.toString())
         })
+
+        viewModel.liveCarDeleted.observe(viewLifecycleOwner, {
+            if(it){
+                Snackbar.make(requireView(), "Autovehicul sters cu succes!", Snackbar.LENGTH_LONG).show()
+            }
+            else {
+                Snackbar.make(requireView(), "Eroare la stergerea autovehiculului!", Snackbar.LENGTH_LONG).show()
+            }
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,5 +99,23 @@ class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
 //        val navController = findNavController()
 //        val action = HomeFragmentDirections.actionHomeToCarDetailsFragment(car.id)
 //        navController.navigate(action)
+    }
+
+    override fun onMoreOptionClickedOn(car: CarProfileModel, view: View) {
+        Timber.e(car.toString())
+//        viewModel.deleteCar(car.id!!)
+        val popupMenu = popupMenu {
+            section {
+                item {
+                    label = "Sterge"
+                    icon = R.drawable.ic_delete //optional
+                    callback = { //optional
+                        viewModel.deleteCar(car.id!!)
+                    }
+                }
+            }
+        }
+
+        popupMenu.show(requireContext(), view)
     }
 }

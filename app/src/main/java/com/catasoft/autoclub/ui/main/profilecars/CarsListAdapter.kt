@@ -22,6 +22,7 @@ class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val li
 
     interface CarItemListener{
         fun onCarClicked(car: CarProfileModel, view: View)
+        fun onMoreOptionClickedOn(car: CarProfileModel, view: View)
     }
 
     /**
@@ -32,6 +33,7 @@ class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val li
         val ivCarAvatar: ImageView
         val tvCarMakeAndModel: TextView
         val card: MaterialCardView = view.findViewById(R.id.card)
+        val btnMore: ImageView = view.findViewById(R.id.btnMore)
 
         init {
             // Define click listener for the ViewHolder's View.
@@ -39,6 +41,10 @@ class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val li
             card.setOnClickListener{
                 Timber.e("Click pe car card!")
                 listener.onCarClicked(dataSet[adapterPosition], it)
+            }
+
+            btnMore.setOnClickListener {
+                listener.onMoreOptionClickedOn(dataSet[adapterPosition], it)
             }
 
             ivCarAvatar = view.findViewById(R.id.ivCarAvatar)

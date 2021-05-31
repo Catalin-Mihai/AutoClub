@@ -30,7 +30,7 @@ class CarPhotoOverlayView constructor(
     }
 
     fun update(carPhotoModel: CarPhotoModel) {
-        carOverlayDescriptionText?.text = carPhotoModel.description
+//        carOverlayDescriptionText?.text = carPhotoModel.description
         carOverlayDeleteButton?.setOnClickListener { onDeleteClick(carPhotoModel) }
     }
 }

@@ -6,11 +6,14 @@
 
     <application
         android:name=".BaseApp"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.main.profilesearch.SearchProfileDetailsActivity"
+            android:theme="@style/ActivityNoTitle"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.main.accountsign.AccountSignActivity" />
         <activity android:name=".ui.main.addmeet.AddMeetActivity" />
@@ -32,7 +35,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
-
     </application>
 
 </manifest>

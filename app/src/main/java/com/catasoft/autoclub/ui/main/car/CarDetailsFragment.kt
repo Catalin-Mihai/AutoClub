@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
@@ -27,6 +28,7 @@ import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentCarDetailsBinding
 import com.catasoft.autoclub.model.car.CarPhotoModel
 import com.catasoft.autoclub.ui.BaseFragment
+import com.catasoft.autoclub.util.isCurrentUser
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
@@ -38,6 +40,8 @@ import com.stfalcon.imageviewer.StfalconImageViewer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import timber.log.Timber
+import com.catasoft.autoclub.util.toDp
+import com.catasoft.autoclub.util.toPx
 
 
 private const val ARG_CAR = "car"
@@ -109,7 +113,7 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
 
         setupOverlayView(carPhotoModels, startPosition)
 
-        viewer = StfalconImageViewer.Builder(
+        val builder = StfalconImageViewer.Builder(
             context,
             carPhotoModels
         ) { view, carModel ->
@@ -120,8 +124,14 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
             }
             .withStartPosition(startPosition)
             .withTransitionFrom(target)
-            .withOverlayView(overlayView)
-            .show()
+
+        val userUid = viewModel.carDetailsModelLive.value?.owner?.uid
+
+        if(userUid != null && isCurrentUser(userUid)){
+            builder.withOverlayView(overlayView)
+        }
+
+        viewer = builder.show()
     }
 
     private fun createAddPhotoBtn(): FabOption{
@@ -155,8 +165,8 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
             CoordinatorLayout.LayoutParams.WRAP_CONTENT
         ).apply {
             gravity = Gravity.BOTTOM or Gravity.END
-            marginEnd = 16
-            bottomMargin = 16
+            marginEnd = 16.toPx
+            bottomMargin = 16.toPx
         }
         expandableFab.layoutParams = params
         expandableFab.efabColor = ResourcesCompat.getColor(resources, R.color.primaryColor, null)
@@ -171,9 +181,13 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
         binding.expandableFabLayout.addViews(expandableFab, addDescriptionBtn, addPhotoBtn, fabsOverlay)
     }
 
+    private fun removeFinalExpandableFAB() {
+        binding.expandableFabLayout.removeAllViews()
+    }
+
     override fun onPause() {
         //Some bugs with the library. This seems to fix them!
-        binding.expandableFabLayout.removeAllViews()
+        removeFinalExpandableFAB()
         super.onPause()
     }
 
@@ -206,10 +220,10 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
 
         binding.recyclerView.adapter = CarDetailsPhotosAdapter(carPhotoModels, this)
 
-        val activity = activity as MainActivity
+        val act = this.activity as AppCompatActivity
 
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        act.supportActionBar?.setDisplayShowHomeEnabled(true)
 
 
         binding.toolbarLayout.setExpandedTitleColor(Color.WHITE)

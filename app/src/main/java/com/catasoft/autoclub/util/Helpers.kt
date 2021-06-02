@@ -1,12 +1,44 @@
 package com.catasoft.autoclub.util
 
 import android.net.Uri
+import android.view.View
+import com.catasoft.autoclub.repository.CurrentUser
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.lang.Exception
 import java.util.*
+
+suspend fun getUserAvatarUri(userUid: String): Uri? {
+    return try{
+        val ref = "avatar/${userUid}.jpg"
+        Timber.e("Location: $ref")
+        val childRef = Firebase.storage.reference.child(ref)
+        childRef.downloadUrl.await()
+    }
+    catch (e: Exception){
+        null
+    }
+}
+
+fun getUserActionsVisibility(userUid: String?, goneView: Boolean = true): Int {
+
+    var retVal = View.INVISIBLE
+    if(goneView) retVal = View.GONE
+
+    if(userUid == null)
+        return retVal
+
+    if(isCurrentUser(userUid))
+        return View.VISIBLE
+
+    return retVal
+}
+
+fun isCurrentUser(userUid: String): Boolean {
+    return userUid == CurrentUser.getUid()
+}
 
 suspend fun deleteCarPhotoByUri(carId: String, uri: String){
     runCatching {

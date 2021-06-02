@@ -58,7 +58,7 @@ class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
             return
         }
 
-        val carsListAdapter = CarsListAdapter(viewModel.dataSource, this)
+        val carsListAdapter = CarsListAdapter(viewModel.dataSource, userUid, this)
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = carsListAdapter
 

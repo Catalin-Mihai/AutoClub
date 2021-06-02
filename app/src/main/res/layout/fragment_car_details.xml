@@ -6,6 +6,7 @@
 
     <data>
         <import type="com.catasoft.autoclub.repository.CurrentUser"/>
+        <import type="com.catasoft.autoclub.util.HelpersKt"/>
         <import type="android.view.View"/>
         <variable
             name="viewModel"
@@ -176,6 +177,7 @@
 
         <com.nambimobile.widgets.efab.ExpandableFabLayout
             android:id="@+id/expandableFabLayout"
+            android:visibility="@{HelpersKt.getUserActionsVisibility(viewModel.carDetailsModelLive.owner.uid, true)}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="end|bottom"

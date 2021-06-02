@@ -12,12 +12,14 @@ import com.catasoft.autoclub.model.car.Car
 import com.catasoft.autoclub.model.car.CarProfileModel
 import com.catasoft.autoclub.model.user.UserSearchModel
 import com.catasoft.autoclub.ui.main.car.CarDetailsFragment
+import com.catasoft.autoclub.util.getUserActionsVisibility
+import com.catasoft.autoclub.util.isCurrentUser
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 import timber.log.Timber
 
 
-class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val listener: CarItemListener) :
+class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val userUid: String, private val listener: CarItemListener) :
     RecyclerView.Adapter<CarsListAdapter.ViewHolder>() {
 
     interface CarItemListener{
@@ -43,9 +45,12 @@ class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val li
                 listener.onCarClicked(dataSet[adapterPosition], it)
             }
 
-            btnMore.setOnClickListener {
-                listener.onMoreOptionClickedOn(dataSet[adapterPosition], it)
-            }
+            if(isCurrentUser(userUid))
+                btnMore.setOnClickListener {
+                    listener.onMoreOptionClickedOn(dataSet[adapterPosition], it)
+                }
+
+            btnMore.visibility = getUserActionsVisibility(userUid)
 
             ivCarAvatar = view.findViewById(R.id.ivCarAvatar)
             tvCarMakeAndModel = view.findViewById(R.id.tvCarMakeAndModel)

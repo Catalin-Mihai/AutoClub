@@ -10,6 +10,10 @@
         tools:layout="@layout/fragment_home"
         android:name="com.catasoft.autoclub.ui.main.home.HomeFragment"
         android:label="fragment_home">
+        <argument
+            android:name="userUid"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_home_to_profileEditFragment"
             app:destination="@id/profileEditFragment" />
@@ -26,7 +30,8 @@
         android:id="@+id/search_profile"
         tools:layout="@layout/fragment_profile_search"
         android:name="com.catasoft.autoclub.ui.main.profilesearch.ProfileSearchFragment"
-        android:label="fragment_profile_search" />
+        android:label="fragment_profile_search" >
+    </fragment>
     <fragment
         android:id="@+id/feed"
         tools:layout="@layout/fragment_feed"
@@ -65,6 +70,16 @@
     <activity
         android:id="@+id/addMeetActivity"
         android:name="com.catasoft.autoclub.ui.main.addmeet.AddMeetActivity"
-        android:label="AddMeetActivity" />
+        android:label="AddMeetActivity"
+        tools:layout="@layout/activity_add_meet"/>
+    <!--<fragment
+        android:id="@+id/searchInfoFragment"
+        android:name="com.catasoft.autoclub.ui.main.profilesearch.SearchInfoFragment"
+        android:label="SearchInfoFragment">
+        <argument
+            android:name="uid"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>-->
 
 </navigation>

@@ -3,6 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.catasoft.autoclub.util.HelpersKt"/>
+        <variable
+            name="userUid"
+            type="String" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -99,11 +107,13 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="@{HelpersKt.getUserActionsVisibility(userUid, true)}"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             app:borderWidth="0dp"
             app:tint="@color/white"
-            android:src="@drawable/ic_mode_edit_24px" />
+            android:src="@drawable/ic_mode_edit_24px"
+            tools:ignore="ContentDescription" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

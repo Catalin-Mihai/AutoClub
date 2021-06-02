@@ -14,7 +14,6 @@ import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentHomeBinding
 import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.ui.BaseFragment
-import com.catasoft.autoclub.ui.main.profile.ProfileFragment
 import com.catasoft.autoclub.util.getNavigationResultLiveData
 import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
@@ -30,6 +29,8 @@ class HomeFragment : BaseFragment(){
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var pageCollectionAdapter: HomePageCollectionAdapter
+    private var userUid: String? = null
+
 
     override fun onResume() {
         super.onResume()
@@ -43,13 +44,14 @@ class HomeFragment : BaseFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater)
 
-        //lifecycle setters
+        userUid = arguments?.takeIf { it.containsKey(ARG_USER_UID) }?.getString(ARG_USER_UID) ?: CurrentUser.getUid()
+
+        binding = FragmentHomeBinding.inflate(inflater)
+        binding.userUid = userUid
         binding.lifecycleOwner = this
 
 //        binding.toolbar.setupWithNavController(findNavController())
-
 //        binding.toolbarLayout.setupWithNavController(binding.toolbar, findNavController())
 //        binding.toolbar.text
 
@@ -61,11 +63,10 @@ class HomeFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        Timber.e("HOME ESTE CREAT LOL?")
 
-        val userUidToBeDisplayed = CurrentUser.getUid()
+        viewModel.getAvatarDownloadUri(userUid!!)
 
-        pageCollectionAdapter = HomePageCollectionAdapter(this, userUidToBeDisplayed)
+        pageCollectionAdapter = HomePageCollectionAdapter(this, userUid)
         binding.viewPager.adapter = pageCollectionAdapter
 
         //Change the fab icon based on the context
@@ -106,17 +107,17 @@ class HomeFragment : BaseFragment(){
             }
         }
 
-        //When a user finish the car addition fragment
+/*        //When a user finish the car addition fragment
         val result = this.getNavigationResultLiveData<String>("test")
         //Do not convert to lambda. It will not create a new instance
         result?.observe(viewLifecycleOwner, object: Observer<String>{
             override fun onChanged(t: String?) {
                 Timber.e("VALUE RECEIVED: $t")
             }
-        })
+        })*/
 
-        Timber.e("AM AJUNS IN MY PROFILE!")
-        viewModel.getAvatarDownloadUri()
+//        Timber.e("AM AJUNS IN MY PROFILE!")
+
 
         viewModel.avatarUri.observe(viewLifecycleOwner, {
             //Load User photo

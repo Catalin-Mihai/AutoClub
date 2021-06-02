@@ -9,6 +9,7 @@ import com.catasoft.autoclub.repository.remote.IUsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 
@@ -69,6 +70,7 @@ constructor(
 
         val userCopy = CurrentUser.getEntity()
         userCopy.name = displayName
+        userCopy.normalizedName = userCopy.name?.toUpperCase(Locale.getDefault())
 
         viewModelScope.launch {
             mUsersRepository.updateByMerging(userCopy)

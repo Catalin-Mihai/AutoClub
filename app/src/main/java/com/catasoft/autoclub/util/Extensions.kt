@@ -1,5 +1,6 @@
 package com.catasoft.autoclub.util
 
+import android.content.res.Resources
 import android.net.Uri
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
@@ -26,17 +27,14 @@ fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
 }
 
+val Float.toPx get() = this * Resources.getSystem().displayMetrics.density
+val Float.toDp get() = this / Resources.getSystem().displayMetrics.density
+
+val Int.toPx get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+val Int.toDp get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
 suspend fun User.getAvatarDownloadUri(): Uri? {
-    return try{
-        val ref = "avatar/${this.uid}.jpg"
-        Timber.e("Location: $ref")
-        val childRef = Firebase.storage.reference.child(ref)
-        childRef.downloadUrl.await()
-    }
-    catch (e: Exception){
-        null
-    }
+    return getUserAvatarUri(this.uid!!)
 }
 
 suspend fun Car.getAvatarDownloadUri(): Uri? {

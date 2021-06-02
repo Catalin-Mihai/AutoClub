@@ -6,5 +6,6 @@ import com.catasoft.autoclub.model.car.Car
 data class UserSearchModel(
     var name: String? = null,
     var cars: List<Car>? = null,
-    var photoDownloadUrl: Uri? = null
+    var photoDownloadUrl: Uri? = null,
+    var uid: String? = null
 )

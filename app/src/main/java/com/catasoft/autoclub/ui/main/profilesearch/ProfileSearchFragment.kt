@@ -1,19 +1,28 @@
 package com.catasoft.autoclub.ui.main.profilesearch
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentProfileSearchBinding
 import com.catasoft.autoclub.model.user.UserSearchModel
 import com.catasoft.autoclub.ui.BaseFragment
+import com.catasoft.autoclub.ui.main.home.ARG_USER_UID
+import com.catasoft.autoclub.ui.main.home.HomeFragment
+import com.catasoft.autoclub.ui.main.profile.ProfileFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import timber.log.Timber
 
 @FlowPreview
+@AndroidEntryPoint
 class ProfileSearchFragment : BaseFragment(), SearchListAdapter.UserItemListener {
 
     private lateinit var binding: FragmentProfileSearchBinding
@@ -60,5 +69,11 @@ class ProfileSearchFragment : BaseFragment(), SearchListAdapter.UserItemListener
 
     override fun onUserClicked(user: UserSearchModel) {
         Timber.e(user.toString())
+        val bundle = bundleOf(ARG_USER_UID to user.uid)
+//        findNavController().navigate(R.id.action_search_profile_to_searchInfoFragment, bundle)
+        val intent = Intent(requireContext(), SearchProfileDetailsActivity::class.java).apply {
+            putExtra(ARG_USER_UID, user.uid)
+        }
+        startActivity(intent)
     }
 }

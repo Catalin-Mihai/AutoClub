@@ -67,6 +67,7 @@ constructor(
 
                     val userSearchModel = UserSearchModel()
                     userSearchModel.name = it.name
+                    userSearchModel.uid = it.uid
                     userSearchModel.photoDownloadUrl = kotlin.runCatching {
                         it.getAvatarDownloadUri()
                     }.onFailure {

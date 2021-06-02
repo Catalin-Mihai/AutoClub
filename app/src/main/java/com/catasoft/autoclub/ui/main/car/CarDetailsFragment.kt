@@ -23,11 +23,11 @@ import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
-import com.catasoft.autoclub.MainActivity
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentCarDetailsBinding
 import com.catasoft.autoclub.model.car.CarPhotoModel
 import com.catasoft.autoclub.ui.BaseFragment
+import com.catasoft.autoclub.ui.main.custom.CarPhotoOverlayView
 import com.catasoft.autoclub.util.isCurrentUser
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
@@ -40,7 +40,6 @@ import com.stfalcon.imageviewer.StfalconImageViewer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import timber.log.Timber
-import com.catasoft.autoclub.util.toDp
 import com.catasoft.autoclub.util.toPx
 
 

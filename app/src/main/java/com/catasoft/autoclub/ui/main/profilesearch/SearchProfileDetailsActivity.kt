@@ -10,6 +10,7 @@ import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.ActivityAddMeetBinding
 import com.catasoft.autoclub.databinding.ActivitySearchProfileDetailsBinding
 import com.catasoft.autoclub.ui.main.home.ARG_USER_UID
+import com.catasoft.autoclub.ui.main.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -28,10 +29,21 @@ class SearchProfileDetailsActivity : AppCompatActivity() {
         userUid = intent.getStringExtra(ARG_USER_UID)
         Timber.e(userUid)
 
+        //Pass the argument to the start destination
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         navHostFragment.navController.setGraph(R.navigation.main_graph, bundleOf(ARG_USER_UID to userUid))
 
-        Timber.e("Nav: ")
+        binding.toolbar.setTitle("Search")
+
+        binding.toolbar.onBackPressed {
+            val currentFragment = navHostFragment.navController.currentDestination?.id
+            if(currentFragment == R.id.carDetailsFragment){
+                navHostFragment.navController.navigateUp()
+            }
+            else{
+                finish()
+            }
+        }
     }
 }

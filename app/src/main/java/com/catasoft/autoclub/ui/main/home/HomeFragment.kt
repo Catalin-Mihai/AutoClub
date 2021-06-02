@@ -51,9 +51,7 @@ class HomeFragment : BaseFragment(){
         binding.userUid = userUid
         binding.lifecycleOwner = this
 
-//        binding.toolbar.setupWithNavController(findNavController())
-//        binding.toolbarLayout.setupWithNavController(binding.toolbar, findNavController())
-//        binding.toolbar.text
+
 
         Timber.e("SE CREAZA HOME")
 

@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.ui.main.car
+package com.catasoft.autoclub.ui.main.custom
 
 import android.content.Context
 import android.graphics.Color

@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.main.profilesearch.SearchProfileDetailsActivity"
-            android:theme="@style/ActivityNoTitle"/>
+            android:theme="@style/ActivityFullScreen"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.main.accountsign.AccountSignActivity" />
         <activity android:name=".ui.main.addmeet.AddMeetActivity" />

@@ -9,20 +9,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.catasoft.autoclub.ui.main.custom.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="90"
-            android:background="@color/blue_200">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_weight="93"/>
 
         <androidx.fragment.app.FragmentContainerView
-            android:layout_weight="10"
             android:id="@+id/fragmentContainer"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:clipToPadding="false"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_graph" />
 

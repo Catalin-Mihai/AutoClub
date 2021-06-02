@@ -78,7 +78,7 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
     }
 
     override suspend fun getUserDocumentByUid(uid: String): DocumentReference? {
-        return mUsersCollection.whereEqualTo(Constants.USERS_UID, uid).get().await().documents.firstOrNull()?.reference;
+        return mUsersCollection.whereEqualTo(Constants.USERS_UID, uid).get().await().documents.firstOrNull()?.reference
     }
 
     override suspend fun getUserByNumberPlate(numberPlate: String): User? {
@@ -114,4 +114,5 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
             return snapshot.toObjects()
         return null
     }
+
 }

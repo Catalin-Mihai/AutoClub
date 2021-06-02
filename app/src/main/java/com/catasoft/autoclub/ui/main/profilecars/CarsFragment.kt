@@ -2,6 +2,7 @@ package com.catasoft.autoclub.ui.main.profilecars
 
 import android.media.Image
 import android.os.Bundle
+import android.text.BoringLayout.make
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,7 @@ class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
 
     private lateinit var binding: FragmentCarsBinding
     private val viewModel: CarsViewModel by viewModels()
+    private var userUid: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +51,7 @@ class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val userUid = arguments?.takeIf { it.containsKey(ARG_USER_UID) }?.getString(ARG_USER_UID)
+        userUid = arguments?.takeIf { it.containsKey(ARG_USER_UID) }?.getString(ARG_USER_UID)
 
         if(userUid == null) {
             //TODO: Make the snackbar functional. Now it's displayed pretty wrong
@@ -58,12 +60,12 @@ class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
             return
         }
 
-        val carsListAdapter = CarsListAdapter(viewModel.dataSource, userUid, this)
+        val carsListAdapter = CarsListAdapter(viewModel.dataSource, userUid!!, this)
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = carsListAdapter
 
         //Fetch the user cars
-        viewModel.getUserCarsList(userUid)
+        viewModel.getUserCarsList(userUid!!)
 
         viewModel.carsList.observe(viewLifecycleOwner, {
             carsListAdapter.notifyDataSetChanged()
@@ -71,11 +73,13 @@ class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
         })
 
         viewModel.liveCarDeleted.observe(viewLifecycleOwner, {
-            if(it){
-                Snackbar.make(requireView(), "Autovehicul sters cu succes!", Snackbar.LENGTH_LONG).show()
-            }
-            else {
-                Snackbar.make(requireView(), "Eroare la stergerea autovehiculului!", Snackbar.LENGTH_LONG).show()
+            it?.let {
+                if(it){
+                    Toast.makeText(requireContext(), "Autovehicul sters cu succes!", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    Toast.makeText(requireContext(), "Eroare la stergerea autovehiculului!", Toast.LENGTH_LONG).show()
+                }
             }
         })
     }
@@ -110,7 +114,7 @@ class CarsFragment : Fragment(), CarsListAdapter.CarItemListener {
                     label = "Sterge"
                     icon = R.drawable.ic_delete //optional
                     callback = { //optional
-                        viewModel.deleteCar(car.id!!)
+                        viewModel.deleteCar(car.id!!, userUid!!)
                     }
                 }
             }

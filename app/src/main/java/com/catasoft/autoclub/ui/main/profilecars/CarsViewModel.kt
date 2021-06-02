@@ -25,7 +25,7 @@ constructor(
 
     var dataSource: ArrayList<CarProfileModel> = ArrayList()
     var carsList: MutableLiveData<List<CarProfileModel>> = MutableLiveData()
-    var liveCarDeleted: MutableLiveData<Boolean> = MutableLiveData()
+    var liveCarDeleted: MutableLiveData<Boolean?> = MutableLiveData(null)
 
     init {
         Timber.e("S-a creat CARS VIEWMODEL!")
@@ -52,12 +52,14 @@ constructor(
         }
     }
 
-    fun deleteCar(carId: String){
+    fun deleteCar(carId: String, userUid: String){
         viewModelScope.launch {
             carsRepository.deleteCar(carId)
             liveCarDeleted.postValue(true)
 
-            var toBeDeletedIndex = -1
+            getUserCarsList(userUid)
+
+            /*var toBeDeletedIndex = -1
 
             for(i: Int in 0 until dataSource.size){
                 if(dataSource[i].id == carId)
@@ -70,7 +72,7 @@ constructor(
             val newDataSource = dataSource
             dataSource.clear()
             dataSource.addAll(newDataSource)
-            carsList.postValue(dataSource)
+            carsList.postValue(dataSource)*/
         }
     }
 }

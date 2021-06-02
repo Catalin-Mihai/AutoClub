@@ -137,7 +137,17 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
     }
 
     override suspend fun deleteCar(carId: String) {
-        val docRef = mCarsCollection.whereEqualTo(Constants.CARS_ID, carId).get().await().documents[0].reference
+        val carDoc = mCarsCollection.whereEqualTo(Constants.CARS_ID, carId).get().await().documents[0]
+        val car: Car? = carDoc.toObject()
+        val docRef = carDoc.reference
+        //update user cars number
+        if(car?.ownerUid != null){
+            val ownerDoc = mUsersCollection.whereEqualTo(Constants.USERS_UID, car.ownerUid).get().await().documents[0]
+            val currentCarsCount: Int = (ownerDoc.get(Constants.CARS_COUNT) as Long).toInt()
+            Timber.e("Cars count: %s", currentCarsCount)
+            ownerDoc.reference.update(Constants.CARS_COUNT,  currentCarsCount - 1).await()
+        }
+
         docRef.delete()
     }
 

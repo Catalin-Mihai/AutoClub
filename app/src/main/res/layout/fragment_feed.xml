@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.main.feed.FeedFragment">
+    tools:context=".ui.main.meets.FeedFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.catasoft.autoclub.ui.main.feed.FeedViewModel" />
+            type="com.catasoft.autoclub.ui.main.meets.FeedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

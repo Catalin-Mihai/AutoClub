@@ -35,7 +35,7 @@
     <fragment
         android:id="@+id/feed"
         tools:layout="@layout/fragment_feed"
-        android:name="com.catasoft.autoclub.ui.main.feed.FeedFragment"
+        android:name="com.catasoft.autoclub.ui.main.meets.FeedFragment"
         android:label="fragment_feed" >
         <action
             android:id="@+id/action_feed_to_addMeetActivity"
@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/carDetailsFragment"
         tools:layout="@layout/fragment_car_details"
-        android:name="com.catasoft.autoclub.ui.main.car.CarDetailsFragment"
+        android:name="com.catasoft.autoclub.ui.main.cardetails.CarDetailsFragment"
         android:label="CarDetailsFragment">
         <argument
             android:name="carId"

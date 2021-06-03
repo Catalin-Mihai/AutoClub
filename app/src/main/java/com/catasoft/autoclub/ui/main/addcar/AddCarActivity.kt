@@ -8,6 +8,7 @@ import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.ActivityAddCarBinding
 import com.catasoft.autoclub.ui.util.BottomButtonsListener
 import com.catasoft.autoclub.ui.util.BottomButtonsNavManager
+import com.catasoft.autoclub.ui.util.GenericPageCollectionAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
@@ -35,7 +36,7 @@ class AddCarActivity: AppCompatActivity(), BottomButtonsListener {
             AddCarNumberPlateFragment(),
             AddCarSummaryFragment()
         )
-        viewPager2.adapter = AddCarPageCollectionAdapter(this, fragmentList)
+        viewPager2.adapter = GenericPageCollectionAdapter(this, fragmentList)
         //Programmatically swipe to pages to let the user know if it's something wrong with the input on the current page
         viewPager2.isUserInputEnabled = false
 

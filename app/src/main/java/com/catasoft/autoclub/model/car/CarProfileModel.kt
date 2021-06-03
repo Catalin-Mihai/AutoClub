@@ -8,7 +8,8 @@ data class CarProfileModel(
     var id: String?,
     var make: String?,
     var model: String?,
-    var photoDownloadLink: Uri?
+    var avatarDownloadLink: Uri?
+
 ): Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -22,7 +23,7 @@ data class CarProfileModel(
         parcel.writeString(id)
         parcel.writeString(make)
         parcel.writeString(model)
-        parcel.writeParcelable(photoDownloadLink, flags)
+        parcel.writeParcelable(avatarDownloadLink, flags)
     }
 
     override fun describeContents(): Int {

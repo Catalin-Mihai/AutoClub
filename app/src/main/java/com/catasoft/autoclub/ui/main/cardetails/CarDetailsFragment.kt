@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.ui.main.car
+package com.catasoft.autoclub.ui.main.cardetails
 
 import android.app.Activity
 import android.content.Intent
@@ -27,7 +27,7 @@ import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentCarDetailsBinding
 import com.catasoft.autoclub.model.car.CarPhotoModel
 import com.catasoft.autoclub.ui.BaseFragment
-import com.catasoft.autoclub.ui.main.custom.CarPhotoOverlayView
+import com.catasoft.autoclub.ui.custom.CarPhotoOverlayView
 import com.catasoft.autoclub.util.isCurrentUser
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar

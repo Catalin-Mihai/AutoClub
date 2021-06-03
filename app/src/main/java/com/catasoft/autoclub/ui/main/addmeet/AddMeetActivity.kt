@@ -1,7 +1,5 @@
 package com.catasoft.autoclub.ui.main.addmeet
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.activity.viewModels
@@ -10,11 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.ActivityAddMeetBinding
-import com.catasoft.autoclub.ui.main.addcar.AddCarPageCollectionAdapter
+import com.catasoft.autoclub.ui.util.GenericPageCollectionAdapter
 import com.catasoft.autoclub.ui.util.BottomButtonsListener
 import com.catasoft.autoclub.ui.util.BottomButtonsNavManager
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
@@ -58,7 +54,7 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
             AddMeetDateAndTimeFragment(),
             AddMeetSummaryFragment()
         )
-        viewPager2.adapter = AddCarPageCollectionAdapter(this, fragmentList)
+        viewPager2.adapter = GenericPageCollectionAdapter(this, fragmentList)
         //Programmatically swipe to pages to let the user know if it's something wrong with the input on the current page
         viewPager2.isUserInputEnabled = false
 

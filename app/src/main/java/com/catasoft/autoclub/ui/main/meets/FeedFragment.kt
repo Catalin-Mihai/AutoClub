@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.ui.main.feed
+package com.catasoft.autoclub.ui.main.meets
 
 import android.os.Bundle
 import android.view.LayoutInflater

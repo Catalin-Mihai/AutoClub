@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.ui.main.feed
+package com.catasoft.autoclub.ui.main.meets
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.model.car.CarProfileModel
 import com.catasoft.autoclub.model.meet.Meet
-import com.catasoft.autoclub.util.dateAndTimeToMillis
 import com.catasoft.autoclub.util.formatMillisToDate
 import com.catasoft.autoclub.util.formatMillisToTime
 import com.catasoft.autoclub.util.takeFirstNLetters

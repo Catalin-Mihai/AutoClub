@@ -13,9 +13,7 @@
 
 
     <string name="login_welcome_title">Bine ai venit la</string>
-    <string name="login_welcome_message">Esti pe cale sa descoperi toti proprietarii de masini din Romania\n\n
-        <b>Dar...</b>\n\n
-        Avem nevoie de contul tau Google pentru a incepe
+    <string name="login_welcome_message">Te rugăm să te autentifici pentru a putea continua
     </string>
     <string name="login_success">Salut, %1$s! Tocmai te-ai conectat!</string>
     <string name="login_fail">Hopa! Ceva nu a mers bine la conectarea in cont</string>
@@ -26,7 +24,7 @@
     <!--    <string name="same_input"></string>-->
 
     <string name="register_car_headline">Masina mea</string>
-    <string name="register_car_text_1">Sa incepem cu numarul tau de inmatriculare</string>
+    <string name="register_car_text_1">Introduceti numărul de inmatriculare al autovehiculului</string>
     <string name="register_car_text_2">Eg: AG08BAW</string>
     <string name="register_car_license_example">AG08BAW</string>
     <string name="register_car_license_hint">Numar inmatriculare</string>

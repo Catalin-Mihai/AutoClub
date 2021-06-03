@@ -1,10 +1,10 @@
-package com.catasoft.autoclub.ui.main.addcar
+package com.catasoft.autoclub.ui.util
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class AddCarPageCollectionAdapter(fa: FragmentActivity, private val fragments: ArrayList<Fragment>): FragmentStateAdapter(fa) {
+class GenericPageCollectionAdapter(fa: FragmentActivity, private val fragments: ArrayList<Fragment>): FragmentStateAdapter(fa) {
 
     override fun getItemCount(): Int = fragments.size
 

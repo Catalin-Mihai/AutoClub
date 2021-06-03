@@ -78,7 +78,7 @@ class LoginFragment : BaseFragment() {
                 is LoginState.NotRegistered -> {
                     Timber.e("INCEPE PROCESUL DE AUTENTIFICARE")
                     val navController = findNavController()
-                    navController.navigate(R.id.action_loginFragment_to_registerFragment2)
+                    navController.navigate(R.id.action_loginFragment_to_registerMyProfileFragment)
                 }
             }
         })

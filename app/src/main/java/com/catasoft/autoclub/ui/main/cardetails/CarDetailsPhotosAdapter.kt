@@ -1,6 +1,5 @@
-package com.catasoft.autoclub.ui.main.car
+package com.catasoft.autoclub.ui.main.cardetails
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

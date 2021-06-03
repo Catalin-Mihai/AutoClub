@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.ui.main.custom
+package com.catasoft.autoclub.ui.custom
 
 import android.content.Context
 import android.graphics.Color
@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.model.car.CarDetailsModel
 import com.catasoft.autoclub.model.car.CarPhotoModel
 
 class CarPhotoOverlayView constructor(

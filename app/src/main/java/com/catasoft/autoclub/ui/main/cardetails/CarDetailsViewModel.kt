@@ -1,24 +1,17 @@
-package com.catasoft.autoclub.ui.main.car
+package com.catasoft.autoclub.ui.main.cardetails
 
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.model.car.CarDetailsModel
-import com.catasoft.autoclub.model.car.CarProfileModel
 import com.catasoft.autoclub.model.car.toCarDetailsModel
-import com.catasoft.autoclub.repository.State
 import com.catasoft.autoclub.repository.remote.ICarsRepository
 import com.catasoft.autoclub.repository.remote.IUsersRepository
-import com.catasoft.autoclub.repository.remote.UsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import okhttp3.internal.notifyAll
-import timber.log.Timber
 import javax.inject.Inject
 
 @InternalCoroutinesApi

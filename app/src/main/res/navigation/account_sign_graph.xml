@@ -7,16 +7,11 @@
         android:name="com.catasoft.autoclub.ui.main.login.LoginFragment"
         android:label="LoginFragment" >
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment2"
-            app:destination="@id/register_car" />
-    </fragment>
-    <fragment
-        android:id="@+id/register_car"
-        android:name="com.catasoft.autoclub.ui.main.register.RegisterMyCarFragment"
-        android:label="RegisterMyCarFragment" >
-        <action
-            android:id="@+id/action_register_car_to_registerMyProfileFragment"
+            android:id="@+id/action_loginFragment_to_registerMyProfileFragment"
             app:destination="@id/registerMyProfileFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerNewAccountFragment"
+            app:destination="@id/registerNewAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerMyProfileFragment"
@@ -36,5 +31,13 @@
         <argument
             android:name="userModel"
             app:argType="com.catasoft.autoclub.model.user.UserRegisterModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerNewAccountFragment"
+        android:name="com.catasoft.autoclub.ui.main.register.RegisterNewAccountFragment"
+        android:label="RegisterNewAccountFragment" >
+        <action
+            android:id="@+id/action_registerNewAccountFragment_to_registerMyProfileFragment"
+            app:destination="@id/registerMyProfileFragment" />
     </fragment>
 </navigation>

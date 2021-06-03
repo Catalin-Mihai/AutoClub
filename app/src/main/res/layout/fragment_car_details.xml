@@ -10,7 +10,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.catasoft.autoclub.ui.main.car.CarDetailsViewModel" />
+            type="com.catasoft.autoclub.ui.main.cardetails.CarDetailsViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

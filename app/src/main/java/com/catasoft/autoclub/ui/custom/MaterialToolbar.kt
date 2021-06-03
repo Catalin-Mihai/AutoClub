@@ -1,4 +1,4 @@
-package com.catasoft.autoclub.ui.main.custom
+package com.catasoft.autoclub.ui.custom
 
 import android.content.Context
 import android.util.AttributeSet

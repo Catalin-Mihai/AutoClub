@@ -20,6 +20,7 @@ data class Car(
     var avatarUri: String? = null,
     var photosUri: List<String>? = null,
     var description: String? = null
+
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),

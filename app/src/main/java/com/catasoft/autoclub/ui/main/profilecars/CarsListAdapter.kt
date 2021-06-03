@@ -4,14 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.model.car.Car
 import com.catasoft.autoclub.model.car.CarProfileModel
-import com.catasoft.autoclub.model.user.UserSearchModel
-import com.catasoft.autoclub.ui.main.car.CarDetailsFragment
 import com.catasoft.autoclub.util.getUserActionsVisibility
 import com.catasoft.autoclub.util.isCurrentUser
 import com.google.android.material.card.MaterialCardView
@@ -74,7 +70,7 @@ class CarsListAdapter(private val dataSet: List<CarProfileModel>, private val us
         // contents of the view with that element
 //        viewHolder.textView.text = dataSet[position]
         viewHolder.tvCarMakeAndModel.text = "${dataSet[position].make} ${dataSet[position].model}"
-        Picasso.get().load(dataSet[position].photoDownloadLink).into(viewHolder.ivCarAvatar)
+        Picasso.get().load(dataSet[position].avatarDownloadLink).into(viewHolder.ivCarAvatar)
         viewHolder.ivCarAvatar.transitionName = "shared_car_item_transition$position"
     }
 

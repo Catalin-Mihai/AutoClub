@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Auto Club</string>
-    <string name="profile_search">Gaseste o masina</string>
-    <string name="home">Acasa</string>
+    <string name="profile_search">Găsește o masina</string>
+    <string name="home">Acasă</string>
     <string name="chat">Chat</string>
     <string name="feed">Feed</string>
     <string name="meet">Meet</string>
@@ -10,59 +10,59 @@
     <string name="meets_menu_most_recent">Cele mai recente</string>
     <string name="meets_menu_closest">Cele mai apropiate</string>
 
-    <string name="button_next">Urmatorul</string>
-    <string name="button_finish">Finalizeaza</string>
+    <string name="button_next">Următorul</string>
+    <string name="button_finish">Finalizează</string>
 
 
     <string name="login_welcome_title">Bine ai venit la</string>
     <string name="login_welcome_message">Te rugăm să te autentifici pentru a putea continua
     </string>
     <string name="login_success">Salut, %1$s! Tocmai te-ai conectat!</string>
-    <string name="login_fail">Hopa! Ceva nu a mers bine la conectarea in cont</string>
+    <string name="login_fail">Hopa! Ceva nu a mers bine la conectarea în cont</string>
 
-    <string name="generic_error">Hopa! Ceva nu a mers bine… Incercati din nou!</string>
+    <string name="generic_error">Hopa! Ceva nu a mers bine… Încercați din nou!</string>
     <string name="fetch_error">Nu putem comunica cu serverul</string>
     <string name="empty_input">Campul este gol</string>
     <!--    <string name="same_input"></string>-->
 
-    <string name="register_car_headline">Masina mea</string>
-    <string name="register_car_text_1">Introduceti numărul de inmatriculare al autovehiculului</string>
+    <string name="register_car_headline">Mașina mea</string>
+    <string name="register_car_text_1">Introduceți numărul de înmatriculare al autovehiculului</string>
     <string name="register_car_text_2">Eg: AG08BAW</string>
     <string name="register_car_license_example">AG08BAW</string>
-    <string name="register_car_license_hint">Numar inmatriculare</string>
-    <string name="register_car_invalid_license">Numar de inmatriculare invalid</string>
-    <string name="register_car_already_used_number_plate">Numarul de inmatriculare este deja folosit</string>
-    <string name="register_car_valid_number_plate">Numarul de inmatriculare este valid</string>
-    <string name="register_car_unchecked_number_plate">Numarul de inmatriculare nu a fost verificat</string>
+    <string name="register_car_license_hint">Număr înmatriculare</string>
+    <string name="register_car_invalid_license">Număr de înmatriculare invalid</string>
+    <string name="register_car_already_used_number_plate">Numarul de înmatriculare este deja folosit</string>
+    <string name="register_car_valid_number_plate">Numarul de înmatriculare este valid</string>
+    <string name="register_car_unchecked_number_plate">Numarul de înmatriculare nu a fost verificat</string>
     <string name="register_car_end_icon_content_description">Verificare</string>
 
     <string name="register_profile_headline">Profilul meu</string>
-    <string name="register_profile_text_1">Ajuta celelalte persoane sa te identifice specificand datele tale de contact</string>
+    <string name="register_profile_text_1">Ajută celelalte persoane să te identifice specificând datele tale de contact</string>
     <string name="register_profile_name">Numele tau</string>
     <string name="register_profile_name_hint">Introdu numele…</string>
-    <string name="register_profile_text_2">Mai tarziu vei putea adauga si profilul tau de pe celelalte retele de socializare.</string>
-    <string name="register_profile_invalid_name">Numele trebuie sa contina intre %1$d si %2$d caractere</string>
+    <string name="register_profile_text_2">Mai târziu vei putea adăuga și profilul tău de pe celelalte rețele de socializare.</string>
+    <string name="register_profile_invalid_name">Numele trebuie să conțină între %1$d și %2$d caractere</string>
 
 
     <string name="register_finish_headline">Gata</string>
-    <string name="register_finish_text_1">Asa arata noua ta identitate</string>
+    <string name="register_finish_text_1">Așa arată noua ta identitate</string>
     <string name="register_finish_text_2">Drumuri bune, colegu\'!</string>
     <string name="register_finish_icon_profile_content_description">profile icon</string>
     <string name="register_finish_icon_car_content_description">car plate icon</string>
-    <string name="register_finish_button">Am inteles</string>
+    <string name="register_finish_button">Am înțeles</string>
 
-    <string name="register_fail_registration">Inregistrarea contului nu a reusit! Va rugam sa incercati din nou!</string>
-    <string name="register_success_registration">Inregistrarea contului a reusit! Navigare placuta!</string>
+    <string name="register_fail_registration">înregistrarea contului nu a reușit! Vă rugăm să încercați din nou!</string>
+    <string name="register_success_registration">Contul este gata! Navigare plăcută!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <string name="profile_tab1">Profil</string>
-    <string name="profile_tab2">Masini</string>
-    <string name="profile_posts_count_headline">Postari</string>
+    <string name="profile_tab2">Mașini</string>
+    <string name="profile_posts_count_headline">Postări</string>
     <string name="profile_meets_count_headline">Meets</string>
-    <string name="profile_followers_count_headline">Urmaritori</string>
-    <string name="profile_cars_count_headline">Masini</string>
+    <string name="profile_followers_count_headline">Urmăritori</string>
+    <string name="profile_cars_count_headline">Mașini</string>
 
     <string name="profile_posts_count_default">N/A</string>
     <string name="profile_followers_count_default">N/A</string>
@@ -72,42 +72,42 @@
     <string name="profile_join_date_default">N/A</string>
     <string name="profile_display_name_default">N/A</string>
 
-    <string name="edit_profile_change_photo">Schimba fotografia</string>
+    <string name="edit_profile_change_photo">Schimbă fotografia</string>
     <string name="edit_profile_change_display_name_hint">Nume</string>
     <string name="edit_profile_change_facebook_profile_hint">Profil facebook</string>
-    <string name="edit_profile_next_button_text">Urmatorul</string>
-    <string name="edit_profile_photo_error">Ceva este in neregula cu fotografia aleasa de tine!</string>
-    <string name="edit_profile_save_button_text">Salveaza</string>
+    <string name="edit_profile_next_button_text">Următorul</string>
+    <string name="edit_profile_photo_error">Ceva este în neregula cu fotografia aleasă de tine!</string>
+    <string name="edit_profile_save_button_text">Salvează</string>
 
     <string name="profile_search_text_input_layout_hint">Caută</string>
     <string name="profile_search_item_photo_content_description">Imagine de profil</string>
     <string name="profile_search_itme_car_text_placeholder">%1$s %2$s (%3$s)</string>
 
-    <string name="add_car_pick_photo">Incarca fotografie</string>
-    <string name="add_car_car_make_hint">Marca masinii</string>
-    <string name="add_car_car_model_hint">Modelul masinii</string>
-    <string name="add_car_car_year_hint">Anul masinii</string>
+    <string name="add_car_pick_photo">Încarcă o fotografie</string>
+    <string name="add_car_car_make_hint">Marca</string>
+    <string name="add_car_car_model_hint">Modelul</string>
+    <string name="add_car_car_year_hint">Anul de fabricație</string>
     <string name="add_car_car_text_2">Eg: AG08BAW</string>
     <string name="add_car_car_license_example">AG08BAW</string>
-    <string name="add_car_car_year_not_in_interval">Anul trebuie sa fie intre %1$s %2$s</string>
-    <string name="add_car_car_license_hint">Numar inmatriculare</string>
-    <string name="add_car_car_invalid_license">Numar de inmatriculare invalid</string>
-    <string name="add_car_car_already_used_number_plate">Numarul de inmatriculare este deja folosit</string>
-    <string name="add_car_car_valid_number_plate">Numarul de inmatriculare este valid</string>
-    <string name="add_car_car_unchecked_number_plate">Numarul de inmatriculare nu a fost verificat</string>
+    <string name="add_car_car_year_not_in_interval">Anul trebuie să fie între %1$s %2$s</string>
+    <string name="add_car_car_license_hint">Număr înmatriculare</string>
+    <string name="add_car_car_invalid_license">Număr de înmatriculare invalid</string>
+    <string name="add_car_car_already_used_number_plate">Numărul de înmatriculare este deja folosit</string>
+    <string name="add_car_car_valid_number_plate">Numarul de înmatriculare este valid</string>
+    <string name="add_car_car_unchecked_number_plate">Numarul de înmatriculare nu a fost verificat</string>
     <string name="add_car_car_end_icon_content_description">Verificare</string>
-    <string name="add_car_prev_button_text">Inapoi</string>
-    <string name="add_car_next_button_text">Inainte</string>
+    <string name="add_car_prev_button_text">Înapoi</string>
+    <string name="add_car_next_button_text">Înainte</string>
     <string name="add_car_finish_button_text">Gata</string>
 
-    <string name="buttons_bottom_nav_prev_text">Inapoi</string>
-    <string name="buttons_bottom_nav_next_text">Inainte</string>
+    <string name="buttons_bottom_nav_prev_text">Înapoi</string>
+    <string name="buttons_bottom_nav_next_text">Înainte</string>
 
-    <string name="saving">Se salveaza…</string>
+    <string name="saving">Se salvează…</string>
     <string name="submit">Confirmare</string>
     <string name="cancel">Anulare</string>
 
 
-    <string name="add_car_car_description">Adauga o descriere autovehiculului tau</string>
+    <string name="add_car_car_description">Adaugă o descriere autovehiculului tău</string>
 
 </resources>

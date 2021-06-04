@@ -25,6 +25,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:orientation="vertical">
 
                     <!--<androidx.appcompat.widget.Toolbar
@@ -54,62 +55,45 @@
 
                     </androidx.appcompat.widget.Toolbar>-->
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/clChangePhoto"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="40dp">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivPhoto"
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:layout_margin="20dp"
-                            android:fitsSystemWindows="true"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_car_24px"
-                            app:layout_collapseMode="pin"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tvChangePhoto"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/add_car_pick_photo"
-                            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
-                            android:textColor="@color/blue_700"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/ivPhoto" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tvChangePhoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:textAlignment="center"
+                        android:text="Completați câmpurile de mai jos"
+                        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
+                        />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tfCarMake"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
                         android:hint="@string/add_car_car_make_hint">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="15dp" />
+                            android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tfCarModel"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
                         android:hint="@string/add_car_car_model_hint">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="15dp" />
+                            android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,12 +101,13 @@
                         android:id="@+id/tfCarYear"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:hint="@string/add_car_car_year_hint">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="15dp" />
+                            android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

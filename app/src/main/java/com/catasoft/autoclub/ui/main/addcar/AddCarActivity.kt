@@ -33,6 +33,7 @@ class AddCarActivity: AppCompatActivity(), BottomButtonsListener {
 
         val fragmentList = arrayListOf(
             AddCarInfoFragment(),
+            AddCarAvatarFragment(),
             AddCarNumberPlateFragment(),
             AddCarSummaryFragment()
         )

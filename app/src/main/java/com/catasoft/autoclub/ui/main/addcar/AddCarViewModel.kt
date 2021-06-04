@@ -81,7 +81,9 @@ constructor(
 
         if(carYearState.value == null)
             carYearState.postValue(CarYearState.Null)
+    }
 
+    private fun checkIfExistsCarAvatarInput() {
         if(photoState.value == null)
             photoState.postValue(PhotoState.Null)
     }
@@ -133,6 +135,9 @@ constructor(
         when(pageNumber){
             0 -> checkAndSaveCarInfo()
             1 -> {
+                checkAndSaveAvatarInfo()
+            }
+            2 -> {
                 if (numberPlateAvailable.value != NumberPlateState.NotUsed) {
                     numberPlateAvailable.postValue(NumberPlateState.InvalidFormat)
                     currentPageValidState.postValue(false)
@@ -156,7 +161,6 @@ constructor(
         var carMake: String
         var carModel: String
         var carYear: Int
-        var photo: Bitmap
 
         checkIfExistsCarInfoInputs()
 
@@ -165,14 +169,29 @@ constructor(
             carMake = (carMakeState.value as CarMakeState.Valid).carMake
             carModel = (carModelState.value as CarModelState.Valid).carModel
             carYear = (carYearState.value as CarYearState.Valid).carYear
-            photo = (photoState.value as PhotoState.Valid).photo
-
 
             carEntity.model = carModel
             carEntity.make = carMake
             carEntity.year = carYear
-            carEntity.photo = photo
 
+            currentPageValidState.postValue(true)
+
+        }.onFailure {
+            currentPageValidState.postValue(false)
+        }
+    }
+
+    private fun checkAndSaveAvatarInfo() {
+
+        var photo: Bitmap
+
+        checkIfExistsCarAvatarInput()
+
+        //If the cast works, then the input is good
+        kotlin.runCatching {
+
+            photo = (photoState.value as PhotoState.Valid).photo
+            carEntity.photo = photo
             currentPageValidState.postValue(true)
 
         }.onFailure {

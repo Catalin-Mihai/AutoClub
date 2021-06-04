@@ -3,6 +3,7 @@ package com.catasoft.autoclub.repository.remote
 import android.graphics.Bitmap
 import android.net.Uri
 import com.catasoft.autoclub.model.car.Car
+import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.catasoft.autoclub.repository.State
@@ -25,6 +26,7 @@ interface ICarsRepository {
     suspend fun setAvatar(id: String, photo: Bitmap)
     suspend fun getCarsByUserId(uid: String): List<Car>
     suspend fun getCarsByUserIdAsFlow(uid: String): Flow<State<List<Car>>>
+    suspend fun getCarsByNumberPlate(numberPlate: String): List<Car>?
     suspend fun getCarById(id: String): Car?
     suspend fun addPhoto(carId: String, bitmap: Bitmap)
     suspend fun addDescription(carId: String, description: String?)
@@ -91,6 +93,15 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
             }
         }
 
+    override suspend fun getCarsByNumberPlate(numberPlate: String): List<Car>? {
+        val cars = mCarsCollection.whereEqualTo(Constants.CARS_NUMBER_PLATE, numberPlate).limit(1)
+        val snapshot = cars.get().await()
+
+        if(snapshot.isEmpty)
+            return null
+
+        return snapshot.first().toObject()
+    }
 
 
     override suspend fun getCarById(id: String): Car? {

@@ -21,7 +21,6 @@ interface IUsersRepository {
     suspend fun getUserByUid(uid: String): User?
     suspend fun getAllUsers(): List<User>?
     suspend fun addUser(user: User): DocumentReference
-    suspend fun getUserByNumberPlate(numberPlate: String): User?
     suspend fun updateByMerging(user: User)
     suspend fun getUserDocumentByUid(uid: String): DocumentReference?
     suspend fun setAvatar(uid: String, photo: Bitmap)
@@ -79,16 +78,6 @@ class UsersRepository @Inject constructor(): IUsersRepository, BaseRepository() 
 
     override suspend fun getUserDocumentByUid(uid: String): DocumentReference? {
         return mUsersCollection.whereEqualTo(Constants.USERS_UID, uid).get().await().documents.firstOrNull()?.reference
-    }
-
-    override suspend fun getUserByNumberPlate(numberPlate: String): User? {
-        val users = mUsersCollection.whereEqualTo(Constants.USERS_NUMBER_PLATE, numberPlate).limit(1)
-        val snapshot = users.get().await()
-
-        if(snapshot.isEmpty)
-            return null
-
-        return snapshot.first().toObject()
     }
 
     override suspend fun updateByMerging(user: User) {

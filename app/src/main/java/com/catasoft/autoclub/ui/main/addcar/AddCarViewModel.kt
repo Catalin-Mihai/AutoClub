@@ -231,7 +231,7 @@ constructor(
         }
 
         BaseRepository.singleResultAsStateFlow {
-            mUsersRepository.getUserByNumberPlate(numberPlate)
+            mCarsRepository.getCarsByNumberPlate(numberPlate)
         }.collect { state ->
             when(state){
                 is State.Loading -> {
@@ -242,7 +242,7 @@ constructor(
                         numberPlateAvailable.postValue(NumberPlateState.NotUsed)
                         carEntity.numberPlate = numberPlate
                     } else
-                        numberPlateAvailable.postValue(NumberPlateState.Used(state.data))
+                        numberPlateAvailable.postValue(NumberPlateState.Used)
                 }
                 is State.Failed -> {
                     numberPlateAvailable.postValue(NumberPlateState.FetchError)
@@ -317,7 +317,7 @@ constructor(
         const val MAX_YEAR = 2021
 
         sealed class NumberPlateState {
-            data class Used(val ownedByUser: User) : NumberPlateState()
+            object Used : NumberPlateState()
             object NotUsed : NumberPlateState()
             object Fetching: NumberPlateState()
             object FetchError: NumberPlateState()

@@ -1,15 +1,13 @@
 package com.catasoft.autoclub.ui.main.profilesearch
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.model.car.Car
 import com.catasoft.autoclub.model.user.UserSearchModel
-import com.catasoft.autoclub.repository.remote.CarsRepository
 import com.catasoft.autoclub.repository.remote.ICarsRepository
-import com.catasoft.autoclub.util.getAvatarDownloadUri
 import com.catasoft.autoclub.repository.remote.IUsersRepository
+import com.catasoft.autoclub.util.getAvatarDownloadUri
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
@@ -32,7 +30,9 @@ constructor(
 ) : ViewModel() {
 
     val usersLiveData: MutableLiveData<List<UserSearchModel>> = MutableLiveData()
+    val carsLiveData: MutableLiveData<List<Car>> = MutableLiveData()
     private val inputChannel = Channel<String?>()
+    private var searchMode: Int = ProfileSearchFragment.NONE_SEARCH
 
     init {
         viewModelScope.launch {
@@ -41,12 +41,30 @@ constructor(
                 .filter { !it.isNullOrBlank() }
                 .collect {
                     Timber.e("Channel: %s", it)
-                    getUsersByInput(it!!)
+
+                    when(searchMode){
+                        ProfileSearchFragment.NUMBER_PLATE_SEARCH -> {
+                            getCarsByPartialNumberPlate(it!!)
+                        }
+                        ProfileSearchFragment.USER_NAME_SEARCH -> {
+                            getUsersByInput(it!!)
+                        }
+                    }
                 }
         }
     }
 
-    fun pushInput(input: String?) {
+    private fun getCarsByPartialNumberPlate(numberPlate: String){
+        viewModelScope.launch {
+            val cars = mCarsRepository.getCarsByPartialNumberPlate(numberPlate)
+            cars?.let {
+                carsLiveData.postValue(cars)
+            }
+        }
+    }
+
+    fun pushInput(input: String?, searchMode: Int) {
+        this.searchMode = searchMode
         viewModelScope.launch {
             inputChannel.send(input)
         }
@@ -55,12 +73,6 @@ constructor(
     private fun getUsersByInput(input: String) {
         viewModelScope.launch {
             val dbUsers = mUsersRepository.getUsersByPartialName(input)
-            //Debug
-//            users.let {
-//                for(user in it) {
-//                    Timber.e("%s", user)
-//                }
-//            }
 
             dbUsers?.let { users ->
                 usersLiveData.postValue(users.map {

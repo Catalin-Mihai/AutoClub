@@ -1,46 +1,40 @@
-package com.catasoft.autoclub.ui.main.addmeet
+package com.catasoft.autoclub.ui.main.register
 
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.CountDownTimer
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.databinding.ActivityAddMeetBinding
-import com.catasoft.autoclub.ui.util.GenericPageCollectionAdapter
+import com.catasoft.autoclub.databinding.ActivityRegisterProfileBinding
+import com.catasoft.autoclub.ui.main.addmeet.*
 import com.catasoft.autoclub.ui.util.BottomButtonsListener
 import com.catasoft.autoclub.ui.util.BottomButtonsNavManager
-import com.google.android.material.snackbar.Snackbar
+import com.catasoft.autoclub.ui.util.GenericPageCollectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.FlowPreview
 import timber.log.Timber
 
-@FlowPreview
-@AndroidEntryPoint
-class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
 
-    private val viewModel: AddMeetViewModel by viewModels()
-    private lateinit var binding: ActivityAddMeetBinding
+@AndroidEntryPoint
+class RegisterProfileActivity: AppCompatActivity(), BottomButtonsListener {
+
+    private val viewModel: RegisterViewModel by viewModels()
+    private lateinit var binding: ActivityRegisterProfileBinding
     private lateinit var viewPager2: ViewPager2
     private lateinit var bottomButtonsNavManager: BottomButtonsNavManager
-
-    private val timer = object: CountDownTimer(4000, 1000) {
-        override fun onTick(millisUntilFinished: Long) {
-
-        }
-        override fun onFinish() {
-            viewModel.liveValidationMessage.value = null
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityAddMeetBinding.inflate(layoutInflater)
+        binding = ActivityRegisterProfileBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
+        Timber.e("Register Activity!")
 
         //lifecycle setters
         binding.lifecycleOwner = this
@@ -48,10 +42,8 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
         viewPager2 = binding.viewPager
 
         val fragmentList: ArrayList<Fragment> = arrayListOf(
-            AddMeetLocationFragment(),
-            AddMeetDescriptionFragment(),
-            AddMeetDateAndTimeFragment(),
-            AddMeetSummaryFragment()
+            RegisterMyProfileFragment(),
+            RegisterFinishFragment()
         )
         viewPager2.adapter = GenericPageCollectionAdapter(this, fragmentList)
         //Programmatically swipe to pages to let the user know if it's something wrong with the input on the current page
@@ -72,50 +64,29 @@ class AddMeetActivity : AppCompatActivity(), BottomButtonsListener {
                 }
             }
         })
-
-        viewModel.liveMeetSaved.observe(this, {
-            if(it){
-                finish()
-            }
-        })
-
-        viewModel.liveValidationMessage.observe(this, {
-            timer.cancel()
-            timer.start()
-        })
     }
 
     override fun onPrevPressed(currentPosition: Int) {
-        Timber.e("Prev")
-        //Can go back without problems, even if the input is bad.
         viewPager2.setCurrentItem(currentPosition-1, true)
     }
 
     override fun onNextPressed(currentPosition: Int) {
-        Timber.e("Next")
-
-        //Here we must be sure the input is ok. Can't go further unless the input is good
-        //So check the input and wait for the livedata to come with the state
-        viewModel.validatePage(currentPosition)
+        viewModel.validatePage(0)
     }
 
     override fun onFinishPressed(currentPosition: Int) {
-        Timber.e("Finish")
-
-        //Save the new meet
-        viewModel.saveMeet()
-
-        Snackbar.make(binding.root, resources.getText(R.string.saving), Snackbar.LENGTH_SHORT).show()
-
-        //disable save button
-        binding.btnNext.isClickable = false
+        val mIcon = ResourcesCompat.getDrawable(resources, R.drawable.default_user_avatar, null)?.toBitmap()
+        Timber.e(mIcon.toString())
+        viewModel.registerUserInDatabase(mIcon)
     }
 
     override fun onPageChanged(currentPosition: Int) {
         super.onPageChanged(currentPosition)
-
-        timer.cancel()
         viewModel.liveValidationMessage.value = null
     }
 
+    companion object {
+        const val RESULT_REGISTERED = 1
+        const val RESULT_NOT_REGISTERED = 2
+    }
 }

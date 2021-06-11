@@ -19,7 +19,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 interface ICarsRepository {
     suspend fun addCar(car: Car): Car
@@ -27,6 +29,7 @@ interface ICarsRepository {
     suspend fun getCarsByUserId(uid: String): List<Car>
     suspend fun getCarsByUserIdAsFlow(uid: String): Flow<State<List<Car>>>
     suspend fun getCarsByNumberPlate(numberPlate: String): List<Car>?
+    suspend fun getCarsByPartialNumberPlate(partialNumberPlate: String): List<Car>?
     suspend fun getCarById(id: String): Car?
     suspend fun addPhoto(carId: String, bitmap: Bitmap)
     suspend fun addDescription(carId: String, description: String?)
@@ -100,9 +103,21 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
         if(snapshot.isEmpty)
             return null
 
-        return snapshot.first().toObject()
+        return snapshot.toObjects()
     }
 
+    override suspend fun getCarsByPartialNumberPlate(partialNumberPlate: String): List<Car>? {
+        val cars = mCarsCollection.whereGreaterThanOrEqualTo(Constants.CARS_NUMBER_PLATE, partialNumberPlate.toUpperCase(
+            Locale.getDefault()))
+            .whereLessThanOrEqualTo(Constants.CARS_NUMBER_PLATE, partialNumberPlate.toUpperCase(Locale.getDefault()) + "\uf8ff").limit(10)
+
+        val snapshot = cars.get().await()
+
+        if(snapshot.isEmpty)
+            return null
+
+        return snapshot.toObjects()
+    }
 
     override suspend fun getCarById(id: String): Car? {
         val snapshot = mCarsCollection.whereEqualTo(Constants.CARS_ID, id).limit(1).get().await()

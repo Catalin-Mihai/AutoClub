@@ -7,7 +7,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
-import java.lang.Exception
+import java.io.InputStream
 import java.util.*
 
 suspend fun getUserAvatarUri(userUid: String): Uri? {

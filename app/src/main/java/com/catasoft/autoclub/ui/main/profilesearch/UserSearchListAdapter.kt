@@ -8,14 +8,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.model.user.UserSearchModel
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 
 
-class SearchListAdapter(private val dataSet: List<UserSearchModel>, private val listener: UserItemListener) :
-    RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
+class UserSearchListAdapter(private val dataSet: List<UserSearchModel>, private val listener: UserItemListener) :
+    RecyclerView.Adapter<UserSearchListAdapter.ViewHolder>() {
 
     interface UserItemListener{
         fun onUserClicked(user: UserSearchModel)

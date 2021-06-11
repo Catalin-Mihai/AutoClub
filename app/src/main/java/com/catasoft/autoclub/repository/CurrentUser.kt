@@ -1,6 +1,7 @@
 package com.catasoft.autoclub.repository
 
 import com.catasoft.autoclub.model.user.User
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -19,10 +20,10 @@ object CurrentUser: ICurrentUser {
     private var initiated = false
 
     init {
-        initiate()
+        initiate {  }
     }
 
-    fun initiate(){
+    fun initiate(callback: () -> Unit = {}){
         if (currentFirebaseUser != null && !initiated) {
 
             Timber.e("SUNT CREAT ACUM@@@@@@@@@@@@@@@@@@@@@!")
@@ -34,29 +35,32 @@ object CurrentUser: ICurrentUser {
 
             //Get the initial user
             query.get().addOnSuccessListener {
-                userData = it.first().toObject()
-                val userDoc = it.documents.first().reference
+                if(!it.isEmpty){
+                    userData = it.first().toObject()
+                    val userDoc = it.documents.first().reference
 
-                //Add a data listener to keep the user forever updated
-                userDoc.addSnapshotListener{snapshot, e ->
+                    //Add a data listener to keep the user forever updated
+                    userDoc.addSnapshotListener{snapshot, e ->
 
-                    if (e != null) {
-                        Timber.e("Listen failed. $e")
-                        return@addSnapshotListener
-                    }
+                        if (e != null) {
+                            Timber.e("Listen failed. $e")
+                            return@addSnapshotListener
+                        }
 
-                    if (snapshot != null && snapshot.exists()) {
-                        Timber.e("Current data: ${snapshot.data}")
-                        userData = snapshot.toObject()!!
-                        initiated = true
-                    } else {
-                        Timber.e("Current data: null")
+                        if (snapshot != null && snapshot.exists()) {
+                            Timber.e("Current data: ${snapshot.data}")
+                            userData = snapshot.toObject()!!
+                            initiated = true
+                        } else {
+                            Timber.e("Current data: null")
+                        }
                     }
                 }
+                callback()
             }
         }
         else {
-            throw Exception("User is not logged! Can't synchronize data!")
+            callback()
         }
     }
 

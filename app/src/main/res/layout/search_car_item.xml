@@ -25,11 +25,11 @@
             <ImageView
                 android:id="@+id/ivCarPhoto"
                 android:layout_width="112dp"
-                android:layout_height="112dp"
-                android:layout_gravity="center_vertical|center"
+                android:layout_height="86dp"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@string/profile_search_item_photo_content_description"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_account_circle_24px" />
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_car_24px" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,39 +39,37 @@
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
-                    android:id="@+id/tvCarName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Catalin Mihai"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
-
-                <LinearLayout
-                    android:id="@+id/carsLinearLayout"
+                    android:id="@+id/carMakeAndModel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical">
+                    android:drawablePadding="15dp"
+                    android:text="Audi A4"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="4dp"
+                    app:drawableStartCompat="@drawable/ic_car_24px" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Honda Civic Type R (2005)"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:drawableStartCompat="@drawable/ic_car_24px" />
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/carYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="15dp"
+                    android:textSize="16sp"
+                    android:text="7 iunie 2021"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    app:drawableStartCompat="@drawable/ic_calendar_today_24px" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Honda Civic Type R (2005)"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:drawableStartCompat="@drawable/ic_car_24px" />
-
-                </LinearLayout>
-
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/carNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="15dp"
+                    android:textSize="16sp"
+                    android:text="AG08BAW"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    app:drawableStartCompat="@drawable/ic_license_plate" />
 
             </LinearLayout>
 

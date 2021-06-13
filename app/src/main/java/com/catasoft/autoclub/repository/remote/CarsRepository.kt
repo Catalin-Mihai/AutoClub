@@ -1,9 +1,7 @@
 package com.catasoft.autoclub.repository.remote
 
 import android.graphics.Bitmap
-import android.net.Uri
 import com.catasoft.autoclub.model.car.Car
-import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.Constants
 import com.catasoft.autoclub.repository.State
@@ -48,9 +46,9 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
         //update user cars number
         if(car.ownerUid != null){
             val ownerDoc = mUsersCollection.whereEqualTo(Constants.USERS_UID, car.ownerUid).get().await().documents[0]
-            val currentCarsCount: Int = (ownerDoc.get(Constants.CARS_COUNT) as Long).toInt()
+            val currentCarsCount: Int = (ownerDoc.get(Constants.USERS_CARS_COUNT) as Long).toInt()
             Timber.e("Cars count: %s", currentCarsCount)
-            ownerDoc.reference.update(Constants.CARS_COUNT,  currentCarsCount + 1).await()
+            ownerDoc.reference.update(Constants.USERS_CARS_COUNT,  currentCarsCount + 1).await()
         }
         return car
     }
@@ -169,9 +167,9 @@ class CarsRepository @Inject constructor(): ICarsRepository, BaseRepository(){
         //update user cars number
         if(car?.ownerUid != null){
             val ownerDoc = mUsersCollection.whereEqualTo(Constants.USERS_UID, car.ownerUid).get().await().documents[0]
-            val currentCarsCount: Int = (ownerDoc.get(Constants.CARS_COUNT) as Long).toInt()
+            val currentCarsCount: Int = (ownerDoc.get(Constants.USERS_CARS_COUNT) as Long).toInt()
             Timber.e("Cars count: %s", currentCarsCount)
-            ownerDoc.reference.update(Constants.CARS_COUNT,  currentCarsCount - 1).await()
+            ownerDoc.reference.update(Constants.USERS_CARS_COUNT,  currentCarsCount - 1).await()
         }
 
         docRef.delete()

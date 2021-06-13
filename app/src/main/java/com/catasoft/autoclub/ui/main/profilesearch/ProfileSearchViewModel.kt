@@ -10,6 +10,7 @@ import com.catasoft.autoclub.repository.remote.IUsersRepository
 import com.catasoft.autoclub.util.getAvatarDownloadUri
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@InternalCoroutinesApi
 @FlowPreview
 @HiltViewModel
 class ProfileSearchViewModel

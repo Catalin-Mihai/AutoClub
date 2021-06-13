@@ -17,7 +17,7 @@ class CarsSearchListAdapter(private val dataSet: List<Car>, private val listener
     RecyclerView.Adapter<CarsSearchListAdapter.ViewHolder>(){
 
         interface CarItemListener{
-            fun onCarClicked(car: Car)
+            fun onCarClicked(car: Car, view: View)
         }
 
         /**
@@ -34,7 +34,7 @@ class CarsSearchListAdapter(private val dataSet: List<Car>, private val listener
 
             init {
                 card.setOnClickListener{
-                    listener.onCarClicked(dataSet[adapterPosition])
+                    listener.onCarClicked(dataSet[adapterPosition], it)
                 }
             }
         }
@@ -59,6 +59,7 @@ class CarsSearchListAdapter(private val dataSet: List<Car>, private val listener
             viewHolder.tvCarMakeAndModel.text = "${dataSet[position].make} ${dataSet[position].model}"
             viewHolder.tvCarYear.text = dataSet[position].year.toString()
             viewHolder.tvNumberPlate.text = dataSet[position].numberPlate
+//            viewHolder.ivProfilePhoto.transitionName = "shared_car_item_transition$position"
 //            viewHolder.tvOwner.text = dataSet[position].ownerUid
         }
 

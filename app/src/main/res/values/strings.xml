@@ -37,7 +37,7 @@
     <string name="register_car_end_icon_content_description">Verificare</string>
 
     <string name="register_profile_headline">Profilul meu</string>
-    <string name="register_profile_text_1">Ajută celelalte persoane să te identifice specificând datele tale de contact</string>
+    <string name="register_profile_text_1">Ajută celelalte persoane să te identifice specificând numele tău de utilizator</string>
     <string name="register_profile_name">Numele tau</string>
     <string name="register_profile_name_hint">Introdu numele…</string>
     <string name="register_profile_text_2">Mai târziu vei putea adăuga și profilul tău de pe celelalte rețele de socializare.</string>
@@ -45,8 +45,8 @@
 
 
     <string name="register_finish_headline">Gata</string>
-    <string name="register_finish_text_1">Așa arată noua ta identitate</string>
-    <string name="register_finish_text_2">Drumuri bune, colegu\'!</string>
+    <string name="register_finish_text_1">Profilul tău este gata!\n Nu uita că poți să-ți adaugi și alte detalii de contact oricând dorești!</string>
+    <string name="register_finish_text_2">Bun venit în comunitate!</string>
     <string name="register_finish_icon_profile_content_description">profile icon</string>
     <string name="register_finish_icon_car_content_description">car plate icon</string>
     <string name="register_finish_button">Am înțeles</string>

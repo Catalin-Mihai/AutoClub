@@ -29,9 +29,22 @@ class MeetsRepository @Inject constructor(): IMeetsRepository, BaseRepository(){
             Constants.MEETS_CREATION_TIME, time,
             Constants.MEETS_OWNER_UID, CurrentUser.getUid()
         ).await()
-//        Timber.e("INTRE")
-
         meet.id = docRef.id
+
+        meet.ownerUid = CurrentUser.getUid()
+        //update user meets number
+        if(meet.ownerUid != null){
+            val ownerDoc = mUsersCollection.whereEqualTo(Constants.USERS_UID, meet.ownerUid).get().await().documents[0]
+            val dbVal = ownerDoc.get(Constants.USERS_MEETS_COUNT)
+
+            var currentMeetsCount: Int = 0
+            if(dbVal != null)
+                currentMeetsCount = (dbVal as Long).toInt()
+
+            Timber.e("Meets count: %s", currentMeetsCount)
+            ownerDoc.reference.update(Constants.USERS_MEETS_COUNT, currentMeetsCount + 1).await()
+        }
+
         return meet
     }
 

@@ -7,9 +7,9 @@ object Constants {
     const val USERS_JOIN_DATE = "joinDate"
     const val USERS_NAME = "name"
     const val USERS_NORMALIZED_NAME = "normalizedName"
-    const val CARS_COUNT = "carsCount"
+    const val USERS_CARS_COUNT = "carsCount"
+    const val USERS_MEETS_COUNT = "postsCount"
     const val FOLLOWERS_COUNT = "followersCount"
-    const val POSTS_COUNT = "postsCount"
 
     const val COLLECTION_CARS = "cars"
     const val CARS_ID = "id"

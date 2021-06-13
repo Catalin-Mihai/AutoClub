@@ -6,73 +6,128 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/constraintLayout3"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:textColor="?colorPrimary" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:layout_marginBottom="16dp">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.textfield.TextInputEditText
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.15" />
+
+                <View
+                    android:id="@+id/divider5"
                     android:layout_width="match_parent"
-                    android:inputType="textEmailAddress"
-                    android:layout_height="match_parent" />
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Înregistrare"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline3"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Parola"
-                android:textColor="?colorPrimary" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:layout_marginBottom="8dp">
-
-                <com.google.android.material.textfield.TextInputEditText
+                <LinearLayout
+                    android:id="@+id/constraintLayout3"
                     android:layout_width="match_parent"
-                    android:inputType="textPassword"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="48dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider5"
+                    app:layout_constraintVertical_bias="0.39999998">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textColor="?colorPrimary" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegister"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:layout_gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/materialButton2"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/emailInputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:inputType="textEmailAddress">
 
-        </LinearLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textEmailAddress" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Parola"
+                        android:textColor="?colorPrimary" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/passwordInputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:inputType="textPassword">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textPassword" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRegister"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Register"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/materialButton2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -12,13 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.main.profilesearch.SearchCarDetailsActivity"
+            android:theme="@style/ActivityFullScreen"
+            />
+        <activity
             android:name=".ui.main.profilesearch.SearchProfileDetailsActivity"
-            android:theme="@style/ActivityFullScreen"/>
+            android:theme="@style/ActivityFullScreen" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.main.accountsign.AccountSignActivity" />
         <activity android:name=".ui.main.addmeet.AddMeetActivity" />
-        <activity android:name=".ui.main.register.RegisterProfileActivity"/>
-
+        <activity android:name=".ui.main.register.RegisterProfileActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".ui.main.addcar.AddCarActivity" />
 
         <meta-data

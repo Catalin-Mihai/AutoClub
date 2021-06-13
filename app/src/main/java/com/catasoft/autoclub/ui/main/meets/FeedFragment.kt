@@ -104,6 +104,12 @@ class FeedFragment : Fragment(), MeetsListAdapter.MeetItemListener {
 
     override fun onMeetClicked(meet: Meet) {
         Timber.e(meet.toString())
+
+        val meetBottomDialogFragment = MeetDetailsFragment(meet)
+        activity?.supportFragmentManager?.let {
+            meetBottomDialogFragment.show(it, meetBottomDialogFragment.tag)
+        }
+
     }
 
 }

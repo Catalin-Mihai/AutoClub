@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -28,6 +29,7 @@ import com.catasoft.autoclub.databinding.FragmentCarDetailsBinding
 import com.catasoft.autoclub.model.car.CarPhotoModel
 import com.catasoft.autoclub.ui.BaseFragment
 import com.catasoft.autoclub.ui.custom.CarPhotoOverlayView
+import com.catasoft.autoclub.ui.main.profilesearch.SearchCarDetailsActivity
 import com.catasoft.autoclub.util.isCurrentUser
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
@@ -41,10 +43,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import timber.log.Timber
 import com.catasoft.autoclub.util.toPx
+import kotlinx.coroutines.FlowPreview
 
 
 private const val ARG_CAR = "car"
 
+@FlowPreview
 @InternalCoroutinesApi
 @AndroidEntryPoint
 class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryListener {
@@ -77,6 +81,19 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                Timber.e("BackPress!")
+                val activity = requireActivity()
+                if(activity is SearchCarDetailsActivity)
+                    activity.finish()
+                else
+                    findNavController().navigateUp()
+            }
+        })
+
+        Timber.e(args.toString())
 
         carId = args.carId
         Timber.e("On create %s", carId)
@@ -198,17 +215,19 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val transitionName = args.transitionName
-        binding.ivCarPhoto.transitionName = transitionName
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            duration = 500
-        }
-        exitTransition = MaterialFadeThrough().apply {
-            duration = 2000
+        args.transitionName?.let {
+            binding.ivCarPhoto.transitionName = it
+            sharedElementEnterTransition = MaterialContainerTransform().apply {
+                duration = 500
+            }
+            exitTransition = MaterialFadeThrough().apply {
+                duration = 2000
+            }
         }
 
-        val avatarBitmap = args.avatarBitmap
-        binding.ivCarPhoto.setImageBitmap(avatarBitmap)
+        args.avatarBitmap?.let {
+            binding.ivCarPhoto.setImageBitmap(it)
+        }
 
         loadingSnackbar = Snackbar.make(binding.root, "Se salveaza...", Snackbar.LENGTH_INDEFINITE)
 
@@ -254,6 +273,10 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
         }
 
         viewModel.carDetailsModelLive.observe(viewLifecycleOwner, {
+
+            if(args.avatarBitmap == null){
+                Picasso.get().load(it.avatarLink).into(binding.ivCarPhoto)
+            }
 
             it.photosLinks?.let { photosLinks ->
                 carPhotoModels.clear()

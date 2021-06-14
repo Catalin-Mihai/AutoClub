@@ -30,6 +30,9 @@ import com.catasoft.autoclub.model.car.CarPhotoModel
 import com.catasoft.autoclub.ui.BaseFragment
 import com.catasoft.autoclub.ui.custom.CarPhotoOverlayView
 import com.catasoft.autoclub.ui.main.profilesearch.SearchCarDetailsActivity
+import com.catasoft.autoclub.util.Constants.CAR_PHOTO_HEIGHT
+import com.catasoft.autoclub.util.Constants.CAR_PHOTO_WIDTH
+import com.catasoft.autoclub.util.Constants.MAX_IMAGE_SIZE
 import com.catasoft.autoclub.util.isCurrentUser
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
@@ -314,13 +317,13 @@ class CarDetailsFragment : BaseFragment(), CarDetailsPhotosAdapter.CarGalleryLis
     private fun pickImage() =
         ImagePicker.with(this)
             .crop(
-                400f,
-                400f
+                CAR_PHOTO_WIDTH.toFloat(),
+                CAR_PHOTO_HEIGHT.toFloat()
             )                    //Crop image(Optional), Check Customization for more option
-            .compress(128)            //Final image size will be less than 1 MB(Optional)
+            .compress(MAX_IMAGE_SIZE)            //Final image size will be less than 1 MB(Optional)
             .maxResultSize(
-                1080,
-                1080
+                CAR_PHOTO_WIDTH,
+                CAR_PHOTO_HEIGHT
             )    //Final image resolution will be less than 1080 x 1080(Optional)
             .start()
 

@@ -16,6 +16,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentProfileEditBinding
+import com.catasoft.autoclub.util.Constants.MAX_IMAGE_SIZE
+import com.catasoft.autoclub.util.Constants.USER_AVATAR_HEIGHT
+import com.catasoft.autoclub.util.Constants.USER_AVATAR_WIDTH
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
@@ -90,9 +93,9 @@ class ProfileEditFragment : Fragment() {
 
     private fun pickAvatarImage() =
         ImagePicker.with(this)
-            .crop(400f, 400f)	    			//Crop image(Optional), Check Customization for more option
-            .compress(128)			//Final image size will be less than 1 MB(Optional)
-            .maxResultSize(1080, 1080)	//Final image resolution will be less than 1440 x 1080(Optional)
+            .crop(USER_AVATAR_WIDTH.toFloat(), USER_AVATAR_HEIGHT.toFloat())	    			//Crop image(Optional), Check Customization for more option
+            .compress(MAX_IMAGE_SIZE)			//Final image size will be less than 1 MB(Optional)
+            .maxResultSize(USER_AVATAR_WIDTH, USER_AVATAR_HEIGHT)	//Final image resolution will be less than 1440 x 1080(Optional)
             .start()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

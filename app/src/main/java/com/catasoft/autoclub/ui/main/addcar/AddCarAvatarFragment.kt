@@ -11,9 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentAddCarAvatarBinding
-import com.catasoft.autoclub.databinding.FragmentAddCarInfoBinding
+import com.catasoft.autoclub.util.Constants.CAR_AVATAR_HEIGHT
+import com.catasoft.autoclub.util.Constants.CAR_AVATAR_WIDTH
+import com.catasoft.autoclub.util.Constants.MAX_IMAGE_SIZE
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
@@ -47,9 +48,9 @@ class AddCarAvatarFragment : Fragment() {
 
     private fun pickAvatarImage() =
         ImagePicker.with(this)
-            .crop(300f, 200f)	    			//Crop image(Optional), Check Customization for more option
-            .compress(128)			//Final image size will be less than 1 MB(Optional)
-            .maxResultSize(1440, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+            .crop(CAR_AVATAR_WIDTH.toFloat(), CAR_AVATAR_HEIGHT.toFloat())	    			//Crop image(Optional), Check Customization for more option
+            .compress(MAX_IMAGE_SIZE)			//Final image size will be less than 1 MB(Optional)
+            .maxResultSize(CAR_AVATAR_WIDTH, CAR_AVATAR_HEIGHT)	//Final image resolution will be less than 1080 x 1080(Optional)
             .start()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

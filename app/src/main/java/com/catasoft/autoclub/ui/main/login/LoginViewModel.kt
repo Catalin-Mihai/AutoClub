@@ -42,7 +42,7 @@ constructor(
                 val credential = GoogleAuthProvider.getCredential(account?.idToken!!, null)
 
                 //Lansat in IO thread
-                firebaseAuth.signInWithCredential(credential)
+                firebaseAuth.signInWithCredential(credential).await()
             }.onSuccess {
                 Timber.e("signInWithCredential:success")
                 val user = firebaseAuth.currentUser

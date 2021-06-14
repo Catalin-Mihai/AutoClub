@@ -1,5 +1,7 @@
 package com.catasoft.autoclub.ui.main.meets;
 
+import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +12,7 @@ import com.catasoft.autoclub.repository.remote.IMeetsRepository
 import com.catasoft.autoclub.util.getAvatarDownloadUri
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,6 +31,22 @@ constructor(
             val meets = mMeetsRepository.getAllMeets()
             meetsList.postValue(meets)
 //            Timber.e(meets.toString())
+        }
+    }
+
+    fun getClosetsMeets(userLocation: Location){
+        viewModelScope.launch {
+            var meets = mMeetsRepository.getAllMeets()
+            meets = meets?.let {
+                return@let it.sortedBy { meet ->
+                    val meetLoc = Location(LocationManager.NETWORK_PROVIDER)
+                    meetLoc.latitude = meet.placeLat!!
+                    meetLoc.longitude = meet.placeLong!!
+                    return@sortedBy userLocation.distanceTo(meetLoc)
+                }
+            }
+            meetsList.postValue(meets)
+            Timber.e(meets.toString())
         }
     }
 

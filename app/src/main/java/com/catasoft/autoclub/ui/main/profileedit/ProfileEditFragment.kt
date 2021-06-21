@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -69,6 +70,12 @@ class ProfileEditFragment : Fragment() {
         binding.tfDisplayName.error = error
     }
 
+    private fun showSnackBar(message: String?){
+        message?.let {
+            Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
 /*    private val pickImage =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
@@ -107,17 +114,15 @@ class ProfileEditFragment : Fragment() {
                 fileUri?.let {
                     Picasso.get().load(it).into(object: Target{
                         override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                            binding.btnSave.isClickable = true
                             lastPhoto = bitmap
                             binding.ivPhoto.setImageBitmap(bitmap)
+                            binding.savePhotoBtn.visibility = View.VISIBLE
                         }
 
                         override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
                         }
 
                         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                            //disable save button until the photo is loaded...
-                            binding.btnSave.isClickable = false
                         }
 
                     })
@@ -135,41 +140,65 @@ class ProfileEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*
-        TODO: validation for every field. Now I'm validating all fields on save press
-        Can be done like the car number plate validation
-        */
-
-        binding.btnSave.setOnClickListener{
-
-            viewModel.validateFields(getDisplayNameInputText(), getFacebookProfileInputText(), lastPhoto)
+        binding.tfDisplayName.editText?.doOnTextChanged { text, _, _, _ ->
+            if(text?.isNotEmpty() == true){
+                binding.saveNameBtn.visibility = View.VISIBLE
+            }
+            else {
+                binding.saveNameBtn.visibility = View.GONE
+            }
         }
 
+        binding.tfFacebook.editText?.doOnTextChanged { text, _, _, _ ->
+            if(text?.isNotEmpty() == true){
+                binding.saveFbBtn.visibility = View.VISIBLE
+            }
+            else {
+                binding.saveFbBtn.visibility = View.GONE
+            }
+        }
 
         binding.tvChangePhoto.setOnClickListener{
             pickAvatarImage()
+        }
+
+        binding.saveNameBtn.setOnClickListener {
+            val inputedName = binding.tfDisplayName.editText?.text.toString()
+            viewModel.updateDisplayName(inputedName)
+        }
+
+        binding.saveFbBtn.setOnClickListener {
+            val inputedFb = binding.tfFacebook.editText?.text.toString()
+            viewModel.updateFacebookProfile(inputedFb)
+        }
+
+        binding.savePhotoBtn.setOnClickListener {
+            viewModel.updatePhoto(lastPhoto)
         }
 
         viewModel.displayNameState.observe(viewLifecycleOwner, {
 
             Timber.e(it.toString())
             when (it) {
-                is ProfileEditViewModel.Companion.DisplayNameState.Valid -> {
-                    viewModel.updateDisplayName(it.displayName)
-                    errorForDisplayName(null)
+                is ProfileEditViewModel.Companion.DisplayNameState.Saved -> {
+                    showSnackBar("Noul nume a fost salvat!")
                 }
 
-                ProfileEditViewModel.Companion.DisplayNameState.Unchanged -> {
+                is ProfileEditViewModel.Companion.DisplayNameState.Unchanged -> {
                     //Do not display an error as it is already the user name
-                    errorForDisplayName(null)
+                    errorForDisplayName("Aveți deja acest nume!")
                 }
 
-                ProfileEditViewModel.Companion.DisplayNameState.Used -> {
+                is ProfileEditViewModel.Companion.DisplayNameState.Used -> {
 
                 }
 
-                ProfileEditViewModel.Companion.DisplayNameState.Null -> {
+                is ProfileEditViewModel.Companion.DisplayNameState.Null -> {
                     errorForDisplayName(resources.getString(R.string.empty_input))
+                }
+
+                is ProfileEditViewModel.Companion.DisplayNameState.Error -> {
+                    errorForDisplayName("Eroare la salvarea numelui! Vă rugăm să reîncercați!")
                 }
 
             }
@@ -181,21 +210,24 @@ class ProfileEditFragment : Fragment() {
 
             when (it) {
 
-                is ProfileEditViewModel.Companion.FacebookProfileState.Valid -> {
-                    viewModel.updateFacebookProfile(it.facebookProfile)
-                    errorForFacebookProfile(null)
+                is ProfileEditViewModel.Companion.FacebookProfileState.Saved -> {
+                    showSnackBar("Noul profil de facebook a fost salvat!")
                 }
 
-                ProfileEditViewModel.Companion.FacebookProfileState.Null -> {
+                is ProfileEditViewModel.Companion.FacebookProfileState.Null -> {
                     errorForFacebookProfile(resources.getString(R.string.empty_input))
                 }
 
-                ProfileEditViewModel.Companion.FacebookProfileState.Unchanged -> {
-                    errorForFacebookProfile(null)
+                is ProfileEditViewModel.Companion.FacebookProfileState.Unchanged -> {
+                    errorForFacebookProfile("Aveți deja asociat acest profil de facebook!")
                 }
 
-                ProfileEditViewModel.Companion.FacebookProfileState.Used -> {
+                is ProfileEditViewModel.Companion.FacebookProfileState.Used -> {
 
+                }
+
+                is ProfileEditViewModel.Companion.FacebookProfileState.Error -> {
+                    errorForFacebookProfile("Eroare la salvarea profilului de facebook! Vă rugăm să reîncercați!")
                 }
 
             }
@@ -204,10 +236,10 @@ class ProfileEditFragment : Fragment() {
         viewModel.photoState.observe(viewLifecycleOwner, {
             when(it) {
                 ProfileEditViewModel.Companion.PhotoState.Error -> {
-                    Snackbar.make(binding.root, resources.getText(R.string.edit_profile_photo_error), Snackbar.LENGTH_LONG)
+                    showSnackBar(resources.getText(R.string.edit_profile_photo_error).toString())
                 }
-                is ProfileEditViewModel.Companion.PhotoState.Valid -> {
-                    viewModel.updatePhoto(it.photo)
+                is ProfileEditViewModel.Companion.PhotoState.Saved -> {
+                    showSnackBar("Noua fotografie a fost salvată!")
                 }
             }
         })

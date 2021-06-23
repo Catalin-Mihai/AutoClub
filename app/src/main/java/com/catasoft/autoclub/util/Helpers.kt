@@ -101,10 +101,28 @@ fun takeFirstNLetters(str: String?, n: Int): String?{
     return str
 }
 
+fun getMonth(month: Int): String {
+    return when(month){
+        0 -> "Ianuarie"
+        1 -> "Februarie"
+        2 -> "Martie"
+        3 -> "Aprilie"
+        4 -> "Mai"
+        5 -> "Iunie"
+        6 -> "Iulie"
+        7 -> "August"
+        8 -> "Septembrie"
+        9 -> "Octombrie"
+        10 -> "Noiembrie"
+        11 -> "Decembrie"
+        else -> "Nedefinit"
+    }
+}
+
 fun formatMillisToDate(millis: Long?): String {
 
     if(millis == null)
-        return "Data nesetata"
+        return "Dată nesetată"
 
     val calendar: Calendar = Calendar.getInstance()
     calendar.timeInMillis = millis
@@ -112,13 +130,13 @@ fun formatMillisToDate(millis: Long?): String {
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-    return "$year-$month-$day"
+    return "$day ${getMonth(month)} $year"
 }
 
 fun formatMillisToDateAndTime(millis: Long?): String {
 
     if(millis == null)
-        return "Data si ora nesetata"
+        return "Dată și oră nesetate"
 
     val calendar: Calendar = Calendar.getInstance()
     calendar.timeInMillis = millis
@@ -134,7 +152,7 @@ fun formatMillisToDateAndTime(millis: Long?): String {
 fun formatMillisToTime(millis: Long?): String {
 
     if(millis == null)
-        return "Ora nesetata"
+        return "Oră nesetată"
 
     val calendar: Calendar = Calendar.getInstance()
     calendar.timeInMillis = millis
@@ -142,7 +160,7 @@ fun formatMillisToTime(millis: Long?): String {
     val hour = calendar.get(Calendar.HOUR_OF_DAY)
     val minutes = calendar.get(Calendar.MINUTE)
 
-    return "$hour:$minutes"
+    return "${if(hour < 10) "0$hour" else hour}:${if(minutes < 10) "0$minutes" else minutes}"
 }
 
 fun dateAndTimeToMillis(

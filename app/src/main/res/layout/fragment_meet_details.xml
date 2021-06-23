@@ -7,11 +7,15 @@
     <data>
         <import type="android.R"/>
         <import type="android.view.View"/>
+        <import type="androidx.lifecycle.LiveData"/>
         <import type="com.catasoft.autoclub.util.HelpersKt"/>
         <import type="com.catasoft.autoclub.model.meet.Meet"/>
         <variable
             name="meet"
             type="Meet" />
+        <variable
+            name="viewModel"
+            type="com.catasoft.autoclub.ui.main.meets.MeetDetailsViewModel" />
 
     </data>
 
@@ -44,27 +48,34 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/linearLayout3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:padding="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.7" />
+
                         <ImageView
                             android:id="@+id/placeImageView"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
                             android:layout_weight="70"
                             android:adjustViewBounds="true"
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
                             android:scaleType="fitXY"
-                            app:layout_constraintBottom_toTopOf="@+id/descriptionTV"
-                            app:layout_constraintEnd_toStartOf="@+id/detailsList"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline7"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.0"
@@ -74,21 +85,19 @@
                         <LinearLayout
                             android:id="@+id/detailsList"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="16dp"
-                            android:layout_weight="30"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="8dp"
-                            android:weightSum="100"
+                            app:layout_constraintBottom_toTopOf="@+id/detailsList2"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/placeImageView"
+                            app:layout_constraintStart_toStartOf="@+id/guideline7"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="20"
                                 android:src="@drawable/ic_calendar_today_24px" />
 
                             <TextView
@@ -96,19 +105,27 @@
                                 style="@style/TextAppearance.MaterialComponents.Body1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="20"
-                                android:gravity="center_vertical"
+                                android:gravity="center_vertical|center"
                                 android:text="@{HelpersKt.formatMillisToDate(meet.meetTime)}" />
 
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="20" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/detailsList2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/guideline7"
+                            app:layout_constraintTop_toBottomOf="@+id/detailsList">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="20"
+                                android:layout_marginTop="16dp"
                                 android:src="@drawable/outline_schedule_24" />
 
                             <TextView
@@ -116,18 +133,12 @@
                                 style="@style/TextAppearance.MaterialComponents.Body1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="20"
-                                android:gravity="center_vertical"
+                                android:gravity="center_vertical|center"
                                 android:text="@{HelpersKt.formatMillisToTime(meet.meetTime)}" />
-
-                            <!--                        <View
-                                android:id="@+id/divider7"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="?android:attr/listDivider" />-->
-
                         </LinearLayout>
-                    </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/placeNameTV"
@@ -184,10 +195,23 @@
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
+                        android:id="@+id/ownerNameTV"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_vertical"
+                        android:visibility="@{viewModel.liveOwner.name != null ? View.VISIBLE : View.GONE }"
+                        android:text="@{viewModel.liveOwner.name}"
+                        app:drawableStartCompat="@drawable/outline_account_circle_24" />
+
+                    <TextView
                         android:id="@+id/descriptionTV"
                         android:layout_width="match_parent"
                         android:layout_marginTop="16dp"
                         android:layout_height="wrap_content"
+                        android:visibility="@{(meet.description == null || meet.description.length() == 0) ? View.GONE : View.VISIBLE}"
                         android:text="@{meet.description}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         app:layout_constraintBottom_toBottomOf="parent"

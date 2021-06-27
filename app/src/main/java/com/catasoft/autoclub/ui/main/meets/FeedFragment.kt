@@ -169,9 +169,11 @@ class FeedFragment : Fragment(), MeetsListAdapter.MeetItemListener {
         binding.recyclerView.adapter = recyclerViewAdapter
 
         viewModel.meetsList.observe(viewLifecycleOwner, {
-            dataSet.clear()
-            dataSet.addAll(it)
-            recyclerViewAdapter.notifyDataSetChanged()
+            it?.let{ list ->
+                dataSet.clear()
+                dataSet.addAll(list)
+                recyclerViewAdapter.notifyDataSetChanged()
+            }
         })
 
         return binding.root

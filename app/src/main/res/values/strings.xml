@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Auto Club</string>
-    <string name="profile_search">Găsește o masina</string>
+    <string name="profile_search">Găsește</string>
     <string name="home">Acasă</string>
     <string name="chat">Chat</string>
     <string name="feed">Feed</string>

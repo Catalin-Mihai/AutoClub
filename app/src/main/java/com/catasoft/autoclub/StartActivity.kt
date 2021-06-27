@@ -41,6 +41,11 @@ class StartActivity : AppCompatActivity() {
                         }
                     }
                 }
+                RESULT_CANCELED -> {
+                    //Back press
+                    //Shut down the whole app by finishing this activity
+                    finish()
+                }
             }
             login = false
         }
@@ -72,28 +77,30 @@ class StartActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         Timber.e(intent.toString())
         startMainActivity.launch(intent)
+        finish()
     }
 
     private val startMainActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()){}
 
-    private fun checkLoginStatus(){
-        if(login){
-            Timber.e(login.toString())
-            val intent = Intent(this, AccountSignActivity::class.java)
-            Timber.e(intent.toString())
-            startForLoginResult.launch(intent)
-            login = false
-        }
-        else
-        {
+    private fun gotoAccountSignActivity(){
+        val intent = Intent(this, AccountSignActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        Timber.e(intent.toString())
+        startForLoginResult.launch(intent)
+    }
 
-        }
+    private fun checkLoginStatus(){
+//        if(login){
+            Timber.e(login.toString())
+            gotoAccountSignActivity()
+            login = false
+//        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Timber.e("On create")
         checkLoginStatus()
     }
 

@@ -24,7 +24,7 @@ constructor(
     private val mMeetsRepository: IMeetsRepository
 ): ViewModel(){
 
-    val meetsList: MutableLiveData<List<Meet>> = MutableLiveData()
+    val meetsList: MutableLiveData<List<Meet>?> = MutableLiveData()
 
     fun getMeets(){
         viewModelScope.launch {

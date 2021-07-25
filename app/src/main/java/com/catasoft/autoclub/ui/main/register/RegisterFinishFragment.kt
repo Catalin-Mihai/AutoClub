@@ -6,11 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.catasoft.autoclub.R
-import com.catasoft.autoclub.StartActivity
 import com.catasoft.autoclub.databinding.FragmentRegisterFinishBinding
-import com.google.android.material.snackbar.Snackbar
-import timber.log.Timber
 
 class RegisterFinishFragment : Fragment() {
 

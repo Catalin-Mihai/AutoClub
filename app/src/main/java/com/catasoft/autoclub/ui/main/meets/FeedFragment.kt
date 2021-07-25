@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import com.catasoft.autoclub.R
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,13 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.catasoft.autoclub.databinding.FragmentFeedBinding
 import com.catasoft.autoclub.model.meet.Meet
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 @AndroidEntryPoint

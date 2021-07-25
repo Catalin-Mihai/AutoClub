@@ -1,6 +1,5 @@
 package com.catasoft.autoclub.ui.main.profileedit
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
@@ -10,13 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.R
+import com.catasoft.autoclub.StartActivity
 import com.catasoft.autoclub.databinding.FragmentProfileEditBinding
+import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.util.Constants.MAX_IMAGE_SIZE
 import com.catasoft.autoclub.util.Constants.USER_AVATAR_HEIGHT
 import com.catasoft.autoclub.util.Constants.USER_AVATAR_WIDTH
@@ -26,7 +25,6 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.lang.Exception
 
 
 @AndroidEntryPoint
@@ -137,6 +135,16 @@ class ProfileEditFragment : Fragment() {
         }
     }
 
+    private fun logOut(){
+        val intent = Intent(requireContext(), StartActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+
+        CurrentUser.invalidate()
+
+        requireActivity().finish()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -174,6 +182,10 @@ class ProfileEditFragment : Fragment() {
 
         binding.savePhotoBtn.setOnClickListener {
             viewModel.updatePhoto(lastPhoto)
+        }
+
+        binding.logoutBtn.setOnClickListener {
+            logOut()
         }
 
         viewModel.displayNameState.observe(viewLifecycleOwner, {

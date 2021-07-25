@@ -9,6 +9,7 @@ object Constants {
     const val USERS_NORMALIZED_NAME = "normalizedName"
     const val USERS_CARS_COUNT = "carsCount"
     const val USERS_MEETS_COUNT = "postsCount"
+    const val USERS_FACEBOOK_PROFILE = "facebookProfile"
     const val FOLLOWERS_COUNT = "followersCount"
 
     const val COLLECTION_CARS = "cars"

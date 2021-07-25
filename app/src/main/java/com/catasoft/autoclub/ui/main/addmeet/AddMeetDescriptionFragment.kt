@@ -1,17 +1,13 @@
 package com.catasoft.autoclub.ui.main.addmeet
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import com.catasoft.autoclub.databinding.FragmentAddMeetDescriptionBinding
-import com.catasoft.autoclub.databinding.FragmentAddMeetLocationBinding
-import okhttp3.internal.notifyAll
 import java.util.*
 
 class AddMeetDescriptionFragment : Fragment() {
@@ -31,9 +27,9 @@ class AddMeetDescriptionFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        binding.textInput.addTextChangedListener {
-            val text = it.toString().trim().capitalize(Locale.ROOT)
-            viewModel.liveMeet.value?.description = text
+        binding.textInput.doOnTextChanged { text, start, before, count ->
+            val finalText = text.toString().trim().capitalize(Locale.ROOT)
+            viewModel.liveMeet.value?.description = finalText
             viewModel.liveMeet.value = viewModel.liveMeet.value
         }
 

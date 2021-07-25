@@ -3,8 +3,6 @@ package com.catasoft.autoclub.ui.main.home
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.catasoft.autoclub.databinding.CarProfileCardBinding
-import com.catasoft.autoclub.model.car.CarProfileModel
 import com.catasoft.autoclub.ui.main.profilecars.CarsFragment
 import com.catasoft.autoclub.ui.main.profile.ProfileFragment
 import timber.log.Timber

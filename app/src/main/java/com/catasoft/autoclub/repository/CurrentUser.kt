@@ -23,6 +23,10 @@ object CurrentUser: ICurrentUser {
         initiate {  }
     }
 
+    fun invalidate() {
+        initiated = false
+    }
+
     fun initiate(callback: () -> Unit = {}){
         if (currentFirebaseUser != null && !initiated) {
 

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.catasoft.autoclub.R
@@ -45,18 +45,19 @@ class AddCarInfoFragment : Fragment() {
 //        }
 
 
-        binding.tfCarMake.editText?.addTextChangedListener {
-            viewModel.validateNewCarMake(it.toString())
+        binding.tfCarMake.editText?.doOnTextChanged { text, start, before, count ->
+            viewModel.validateNewCarMake(text.toString())
             binding.tfCarMake.resetFeedback()
         }
 
-        binding.tfCarModel.editText?.addTextChangedListener {
-            viewModel.validateNewCarModel(it.toString())
+
+        binding.tfCarModel.editText?.doOnTextChanged { text, start, before, count ->
+            viewModel.validateNewCarModel(text.toString())
             binding.tfCarModel.resetFeedback()
         }
 
-        binding.tfCarYear.editText?.addTextChangedListener {
-            viewModel.validateNewCarYear(it.toString())
+        binding.tfCarYear.editText?.doOnTextChanged { text, start, before, count ->
+            viewModel.validateNewCarYear(text.toString())
             binding.tfCarYear.resetFeedback()
         }
 

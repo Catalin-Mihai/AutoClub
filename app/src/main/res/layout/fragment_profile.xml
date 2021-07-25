@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.catasoft.autoclub.ui.main.profile.ProfileViewModel" />
@@ -13,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+f
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardStats"
             android:layout_width="0dp"
@@ -138,6 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:drawablePadding="5dp"
+                    android:visibility="@{viewModel.userLiveData.facebookProfile != null ? View.VISIBLE : View.GONE}"
                     android:text="@{viewModel.userLiveData.facebookProfile}"
                     android:textAppearance="?attr/textAppearanceBody1"
                     app:drawableStartCompat="@drawable/ic_facebook_24px" />

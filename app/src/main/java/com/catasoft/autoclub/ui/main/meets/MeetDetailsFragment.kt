@@ -3,18 +3,14 @@ package com.catasoft.autoclub.ui.main.meets
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentMeetDetailsBinding
 import com.catasoft.autoclub.model.meet.Meet
-import com.google.android.libraries.places.api.Places
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MeetDetailsFragment constructor(val meet: Meet): BottomSheetDialogFragment() {

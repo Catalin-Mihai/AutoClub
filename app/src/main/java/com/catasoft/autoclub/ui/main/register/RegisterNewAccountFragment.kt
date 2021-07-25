@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.StartActivity
 import com.catasoft.autoclub.databinding.FragmentRegisterNewAccountBinding
 import com.google.firebase.auth.FirebaseAuth

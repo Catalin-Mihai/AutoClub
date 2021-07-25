@@ -1,22 +1,15 @@
 package com.catasoft.autoclub.ui.main.register
 
 import android.graphics.Bitmap
-import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.catasoft.autoclub.R
-import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.model.user.UserRegisterModel
 import com.catasoft.autoclub.model.user.toUser
 import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.repository.remote.IUsersRepository
-import com.google.firebase.firestore.ktx.toObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel

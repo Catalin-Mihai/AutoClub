@@ -113,7 +113,7 @@
             android:layout_margin="16dp"
             app:borderWidth="0dp"
             app:tint="@color/white"
-            android:src="@drawable/ic_mode_edit_24px"
+            android:src="@drawable/ic_edit_user"
             tools:ignore="ContentDescription" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -3,14 +3,10 @@ package com.catasoft.autoclub.ui.main.profilesearch
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.fragment.app.findFragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.catasoft.autoclub.R
-import com.catasoft.autoclub.databinding.ActivityAddMeetBinding
 import com.catasoft.autoclub.databinding.ActivitySearchProfileDetailsBinding
 import com.catasoft.autoclub.ui.main.home.ARG_USER_UID
-import com.catasoft.autoclub.ui.main.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

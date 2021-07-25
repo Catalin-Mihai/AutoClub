@@ -1,7 +1,6 @@
 package com.catasoft.autoclub.ui.main.accountsign
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.catasoft.autoclub.R
 import dagger.hilt.android.AndroidEntryPoint

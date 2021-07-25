@@ -175,6 +175,17 @@
 
             </LinearLayout>
 
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logoutBtn"
+                android:text="Deconectare"
+                android:layout_marginTop="26dp"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:layout_gravity="center_vertical|center"
+                app:icon="@drawable/outline_logout_24"
+                app:iconGravity="textStart" />
+
 
         </LinearLayout>
 

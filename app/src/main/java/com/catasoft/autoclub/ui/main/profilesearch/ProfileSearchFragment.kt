@@ -2,16 +2,12 @@ package com.catasoft.autoclub.ui.main.profilesearch
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.graphics.drawable.toBitmap
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentProfileSearchBinding
@@ -68,9 +64,9 @@ class ProfileSearchFragment : BaseFragment(), UserSearchListAdapter.UserItemList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.textField.editText?.addTextChangedListener {
+        binding.textField.editText?.doOnTextChanged { text, start, before, count ->
             removeAdapter()
-            viewModel.pushInput(it.toString().toUpperCase(), getSearchMode())
+            viewModel.pushInput(text.toString().toUpperCase(), getSearchMode())
         }
 
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->

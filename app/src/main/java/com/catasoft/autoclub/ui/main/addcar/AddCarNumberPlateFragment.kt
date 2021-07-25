@@ -4,20 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentAddCarNumberPlateBinding
-import com.catasoft.autoclub.databinding.FragmentRegisterMycarBinding
-import com.catasoft.autoclub.model.user.UserRegisterModel
 import com.catasoft.autoclub.ui.BaseFragment
 import com.catasoft.autoclub.util.hideEndIcon
 import com.catasoft.autoclub.util.showSuccessEndIcon
-import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import java.util.*
@@ -61,9 +54,9 @@ class AddCarNumberPlateFragment : BaseFragment() {
                 it.hideEndIcon()
 
                 //listen for the user input
-                it.editText?.addTextChangedListener { editText ->
+                it.editText?.doOnTextChanged { text, start, before, count ->
                     //let only executes when editText is not null
-                    editText?.toString()?.let { input ->
+                    text?.toString()?.let { input ->
                         lastNumberPlateInput = formatInput(input)
                         viewModel.newCheckRequestFromView(lastNumberPlateInput)
                     }

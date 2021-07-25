@@ -1,9 +1,7 @@
 package com.catasoft.autoclub.ui.main.profilesearch
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.catasoft.autoclub.R

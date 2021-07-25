@@ -1,15 +1,11 @@
 package com.catasoft.autoclub.ui.main.addcar
 
 import android.graphics.Bitmap
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.model.car.CarCreationModel
 import com.catasoft.autoclub.model.car.toCarModel
-import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.repository.BaseRepository
 import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.repository.State

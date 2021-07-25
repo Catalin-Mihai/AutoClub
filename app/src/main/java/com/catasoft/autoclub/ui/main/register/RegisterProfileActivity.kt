@@ -1,7 +1,5 @@
 package com.catasoft.autoclub.ui.main.register
 
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.ActivityRegisterProfileBinding
-import com.catasoft.autoclub.ui.main.addmeet.*
 import com.catasoft.autoclub.ui.util.BottomButtonsListener
 import com.catasoft.autoclub.ui.util.BottomButtonsNavManager
 import com.catasoft.autoclub.ui.util.GenericPageCollectionAdapter

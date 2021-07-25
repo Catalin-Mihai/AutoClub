@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.catasoft.autoclub.databinding.FragmentAddCarSummaryBinding
 import com.catasoft.autoclub.ui.BaseFragment
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -14,7 +13,6 @@ import com.catasoft.autoclub.R
 import com.catasoft.autoclub.databinding.FragmentHomeBinding
 import com.catasoft.autoclub.repository.CurrentUser
 import com.catasoft.autoclub.ui.BaseFragment
-import com.catasoft.autoclub.util.getNavigationResultLiveData
 import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,8 +72,8 @@ class HomeFragment : BaseFragment(){
 //                pageCollectionAdapter.notifyDataSetChanged()
 //                pageCollectionAdapter.notifyItemRemoved(0)
                 when(position){
-                    PROFILE_TAB -> binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, R.drawable.ic_mode_edit_24px) })
-                    CARS_TAB -> binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, R.drawable.ic_add_24px) })
+                    PROFILE_TAB -> binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, R.drawable.ic_edit_user) })
+                    CARS_TAB -> binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, R.drawable.outline_add_24) })
                 }
             }
         })

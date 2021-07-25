@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.catasoft.autoclub.api.PlacesAPI
-import com.catasoft.autoclub.api.PlacesAPIService
 import com.catasoft.autoclub.databinding.ActivityMainBinding
 import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.AndroidEntryPoint

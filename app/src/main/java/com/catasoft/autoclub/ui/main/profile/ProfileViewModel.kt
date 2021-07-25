@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.catasoft.autoclub.model.user.User
 import com.catasoft.autoclub.repository.remote.IUsersRepository
-import com.catasoft.autoclub.repository.remote.UsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

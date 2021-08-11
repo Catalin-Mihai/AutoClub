@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is my Bachelor's thesis project. It represents a modern aproach to the the new Android development paradigms and practices. The goal of this project is to provide a fully functional and relevant application that make use of the new Android architecture.
+This is my Bachelor's thesis project. It represents a modern approach to the new Android development paradigms and practices. The goal of this project is to provide a fully functional and relevant application that makes use of the new Android architecture.
 
 Check out this demo: [youtube link](https://youtu.be/157cWJkG4JA)
 
